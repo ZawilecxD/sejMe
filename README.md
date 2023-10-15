@@ -4,10 +4,9 @@ Projekt aplikacji zawierającej informacje na temat sejmu, jego posłach, drukac
 Korzysta z https://api.sejm.gov.pl/sejm.html
 
 - Aplikacja PWA
-- Angular Universal
 - APP Shell dla szybszego First paint
 - NGRX do trzymania danych ?
-- Możliwe do włączeznia push notyfikację na danym urządzeniu (info trzymane w localstorage?)
+- Możliwe do włączeznia push notyfikacje na danym urządzeniu (info trzymane w localstorage?)
 - tailwind css
 
 Widoki:
