@@ -6,8 +6,8 @@ Korzysta z https://api.sejm.gov.pl/sejm.html
 - Aplikacja PWA
 - APP Shell dla szybszego First paint
 - NGRX do trzymania danych ?
+- tailwind css + daisyUI
 - Możliwe do włączeznia push notyfikacje na danym urządzeniu (info trzymane w localstorage?)
-- tailwind css
 
 Widoki:
 
@@ -26,3 +26,8 @@ Widoki:
    1. Szczegółowe filtrowanie
    2. Odpowiedzi na interpelacje
 8. Informacje
+
+Funkcjonalności:
+
+- push notyfikacje nowych ustaw ? (to by wymagało backendu do zbierania danych?)
+-
