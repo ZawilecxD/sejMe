@@ -25,15 +25,14 @@ export class ItemSelectComponent implements ControlValueAccessor {
   @Input()
   optionsDescription = '';
   @Input()
-  valueProperty?: string;
-  @Input()
   labelProperty?: string;
   @Input()
   items: any[] = [];
   @Input()
   classes = 'select-accent w-full max-w-xs';
   @Input()
-  labelExtractor: (v: any) => string = (v: any) => v;
+  compareWithFn?: (a: any, b: any) => boolean;
+  readonly defaultCompareWith = (a: unknown, b: unknown) => a == b;
 
   selectedItem?: any;
   disabled = false;
@@ -60,9 +59,5 @@ export class ItemSelectComponent implements ControlValueAccessor {
     this.selectedItem = item;
     this.onTouched();
     this.onChange(item);
-  }
-
-  getItemValue(item: any) {
-    return this.valueProperty ? item && item[this.valueProperty] : item;
   }
 }

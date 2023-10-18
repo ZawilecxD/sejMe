@@ -24,13 +24,10 @@ import {
 export class SidebarComponent implements OnInit {
   private store = inject(Store);
   terms$ = this.store.select(selectAllTerms);
-  // termsOptions$: Observable<ItemSelectOption[]> = this.terms$.pipe(
-  //   map((terms) => terms?.map(this.mapTermToSelectOption) || []),
-  //   startWith([])
-  // );
   status$ = this.store.select(selectTermsStatus);
   error$ = this.store.select(selectTermsError);
   selectedTerm: Term | null = null;
+  readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
 
   ngOnInit() {
     this.store.dispatch(loadTerms());
@@ -38,9 +35,5 @@ export class SidebarComponent implements OnInit {
 
   onTermSelect(term: Term) {
     this.selectedTerm = term;
-  }
-
-  termLabelExtractor(term: Term): string {
-    return `${term.from} - ${term.to || 'Aktualnie'}`;
   }
 }
