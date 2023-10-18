@@ -13,8 +13,8 @@ export class TermsEffects {
       ofType(TermsActions.loadTerms),
       exhaustMap(() =>
         this.termApiService.getList().pipe(
-          map((terms) => TermsActions.loadTermsSuccess({ terms })),
-          catchError((error) => of(TermsActions.loadTermsError({ error })))
+          map(terms => TermsActions.loadTermsSuccess({ terms })),
+          catchError(error => of(TermsActions.loadTermsError({ error })))
         )
       )
     );

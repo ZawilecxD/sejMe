@@ -18,7 +18,7 @@ export const initialState: TermsState = {
 
 const termsReducer = createReducer(
   initialState,
-  on(TermsActions.loadTerms, (state) => ({
+  on(TermsActions.loadTerms, state => ({
     ...state,
     status: 'loading' as CollectionStateStatus,
   })),

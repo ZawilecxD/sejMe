@@ -13,8 +13,8 @@ export class TermApiService {
 
   getList() {
     return this.http.get<Term[]>(`${this.baseUrl}/term`).pipe(
-      tap((terms) => {
-        terms?.forEach((t) => setTermLabel(t));
+      tap(terms => {
+        terms?.forEach(t => setTermLabel(t));
       })
     );
   }
@@ -22,6 +22,6 @@ export class TermApiService {
   getDetails(termNum: number) {
     return this.http
       .get<Term>(`${this.baseUrl}/term${termNum}`)
-      .pipe(tap((term) => setTermLabel(term)));
+      .pipe(tap(term => setTermLabel(term)));
   }
 }

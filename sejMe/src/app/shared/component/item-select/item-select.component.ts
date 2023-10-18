@@ -2,10 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  SimpleChanges,
   forwardRef,
 } from '@angular/core';
-import { ItemSelectOption } from '../../interface/ItemSelectOption';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({

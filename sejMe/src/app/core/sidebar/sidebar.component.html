@@ -1,2 +1,7 @@
-<sm-item-select [items]="(terms$ | async) || []" [ngModel]="selectedTerm" (ngModelChange)="onTermSelect($event)"
-    labelProperty="label" [compareWithFn]="compareTerms" [optionsDescription]="'Wybierz kadencje sejmu'" />
+<sm-item-select
+  [items]="(terms$ | async) || []"
+  [ngModel]="selectedTerm"
+  (ngModelChange)="onTermSelect($event)"
+  labelProperty="label"
+  [compareWithFn]="compareTerms"
+  [optionsDescription]="'Wybierz kadencje sejmu'" />
