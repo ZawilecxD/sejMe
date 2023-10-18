@@ -22,7 +22,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TermsListComponent implements OnInit {
-  private termApi = inject(TermApiService);
   private store = inject(Store);
   terms$ = this.store.select(selectAllTerms);
   status$ = this.store.select(selectTermsStatus);

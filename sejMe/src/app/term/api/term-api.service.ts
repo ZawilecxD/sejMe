@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BASE_API_URL } from 'src/app/app.module';
-import { Term } from '../model/Term';
+import { Term, setTermLabel } from '../model/Term';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,16 @@ export class TermApiService {
   private baseUrl = inject(BASE_API_URL);
 
   getList() {
-    return this.http.get<Term[]>(`${this.baseUrl}/term`);
+    return this.http.get<Term[]>(`${this.baseUrl}/term`).pipe(
+      tap((terms) => {
+        terms?.forEach((t) => setTermLabel(t));
+      })
+    );
   }
 
   getDetails(termNum: number) {
-    return this.http.get<Term>(`${this.baseUrl}/term${termNum}`);
+    return this.http
+      .get<Term>(`${this.baseUrl}/term${termNum}`)
+      .pipe(tap((term) => setTermLabel(term)));
   }
 }

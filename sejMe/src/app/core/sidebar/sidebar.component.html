@@ -1,0 +1,4 @@
+<sm-item-select [items]="(terms$ | async) || []" labelProperty="label" valueProperty="num"
+    [optionsDescription]="'Wybierz kadencje sejmu'" [ngModel]="selectedTerm" (ngModelChange)="onTermSelect($event)" />
+
+<p>Selected term = {{selectedTerm | json}}</p>

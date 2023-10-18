@@ -6,4 +6,11 @@ export interface Term {
   to?: Date;
   num: number;
   prints?: TermPrintsSummary;
+
+  // frontend generated
+  label?: string;
 }
+
+export const setTermLabel = (t: Term) => {
+  t.label = `${t.from} - ${t.to || 'Teraz'}`;
+};

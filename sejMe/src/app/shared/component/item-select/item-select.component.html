@@ -1,0 +1,6 @@
+<select class="select {{classes}}" [disabled]="disabled" [ngModel]="selectedItem" (ngModelChange)="selectValue($event)">
+    <option *ngIf="optionsDescription" disabled selected [ngValue]="null">{{optionsDescription}}</option>
+    <option *ngFor="let item of items" [ngValue]="item">
+        {{item | selectItemLabel:labelProperty}}
+    </option>
+</select>

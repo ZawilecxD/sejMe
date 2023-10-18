@@ -9,6 +9,7 @@ import { TermModule } from './term/term.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CoreModule } from './core/core.module';
 
 export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
 
@@ -18,6 +19,7 @@ export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    CoreModule,
     TermModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
