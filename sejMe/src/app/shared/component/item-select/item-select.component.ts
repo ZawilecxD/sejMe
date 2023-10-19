@@ -27,7 +27,7 @@ export class ItemSelectComponent implements ControlValueAccessor {
   @Input()
   items: any[] = [];
   @Input()
-  classes = 'select-accent w-full max-w-xs';
+  classes = 'select-accent';
   @Input()
   compareWithFn?: (a: any, b: any) => boolean;
   readonly defaultCompareWith = (a: unknown, b: unknown) => a == b;
