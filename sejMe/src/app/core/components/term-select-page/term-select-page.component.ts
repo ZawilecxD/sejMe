@@ -38,7 +38,7 @@ export class TermSelectPageComponent implements OnInit {
   }
 
   onTermSelect(term: Term) {
-    this.router.navigate([term.num]);
+    // this.router.navigate([term.num]);
     this.selectedTerm = term;
   }
 }

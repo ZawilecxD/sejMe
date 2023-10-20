@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TermRoutePageComponent } from './core/components/term-route-page/term-route-page.component';
 import { TermSelectPageComponent } from './core/components/term-select-page/term-select-page.component';
+import { resolveTermFromRoute } from './core/resolvers/term-from-route.resolver';
 
 const routes: Routes = [
-  { path: '', component: TermSelectPageComponent },
+  { path: '', component: TermSelectPageComponent, pathMatch: 'full' },
   {
-    path: ':term',
+    path: ':termNum',
     component: TermRoutePageComponent,
+    resolve: {
+      term: resolveTermFromRoute,
+    },
     children: [
       {
         path: 'member',
@@ -21,7 +25,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -15,6 +15,6 @@ export class TermRoutePageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
 
   ngOnInit() {
-    console.log(this.route);
+    this.route.data.subscribe(console.log);
   }
 }

@@ -14,6 +14,7 @@ export class TermApiService {
   fetchList() {
     return this.http.get<Term[]>(`${this.baseUrl}/term`).pipe(
       tap(terms => {
+        console.log('TERMS API', terms);
         terms?.forEach(t => setTermLabel(t));
       })
     );
