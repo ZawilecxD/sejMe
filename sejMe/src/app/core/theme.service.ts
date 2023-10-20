@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
+const SAVED_THEME_KEY = 'sm-saved-theme';
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   readonly availableThemes: AppTheme[] = [
@@ -42,16 +43,26 @@ export class ThemeService {
     private rendererFactory: RendererFactory2
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
-    this.setTheme(this.availableThemes[0]);
+    const savedTheme = localStorage.getItem(SAVED_THEME_KEY);
+    if (savedTheme && this.isAppThemeName(savedTheme)) {
+      this.setTheme(savedTheme);
+    } else {
+      this.setTheme(this.availableThemes[0]);
+    }
   }
 
   setTheme(theme: AppTheme) {
     this._currentTheme = theme;
+    localStorage.setItem(SAVED_THEME_KEY, theme);
     this.renderer.setAttribute(
       this.document.documentElement,
       'data-theme',
       theme
     );
+  }
+
+  isAppThemeName(name: string): name is AppTheme {
+    return this.availableThemes.includes(name as AppTheme);
   }
 
   get currentTheme() {

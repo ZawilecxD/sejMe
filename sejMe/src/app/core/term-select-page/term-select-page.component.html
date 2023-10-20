@@ -1,0 +1,10 @@
+<p>term-select-page works!</p>
+<sm-item-select
+  class="px-4 py-4"
+  classes="w-full"
+  [items]="(terms$ | async) || []"
+  [ngModel]="selectedTerm"
+  (ngModelChange)="onTermSelect($event)"
+  labelProperty="label"
+  [compareWithFn]="compareTerms"
+  [optionsDescription]="'Wybierz kadencje sejmu'" />

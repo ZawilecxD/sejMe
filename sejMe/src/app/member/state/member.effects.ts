@@ -1,20 +1,20 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { TermApiService } from '../api/term-api.service';
-import * as TermsActions from './terms.actions';
+import * as MemberActions from './member.actions';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { MemberApiService } from '../api/member-api.service';
 
 @Injectable()
 export class TermsEffects {
   actions = inject(Actions);
-  termApiService = inject(TermApiService);
-  loadTerms$ = createEffect(() => {
+  apiService = inject(MemberApiService);
+  loadMembersList$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(TermsActions.loadTerms),
+      ofType(MemberActions.loadMembersList),
       exhaustMap(() =>
-        this.termApiService.fetchList().pipe(
-          map(terms => TermsActions.loadTermsSuccess({ terms })),
-          catchError(error => of(TermsActions.loadTermsError({ error })))
+        this.apiService.fetchList().pipe(
+          map(members => MemberActions.loadMembersListSuccess({ members })),
+          catchError(error => of(MemberActions.loadMembersError({ error })))
         )
       )
     );
