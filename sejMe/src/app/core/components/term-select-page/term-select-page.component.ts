@@ -32,6 +32,8 @@ export class TermSelectPageComponent implements OnInit {
     // route resolver zeby zawsze fetchowalo liste termów przed załądowaniem
     // nastepnie route resolver musi wybierac na podstawie id z urla konkretny term a jesli go nie ma to prezkierowac
     // na ten widok wyboru terma
+    // resolver powinien moze ustawiac selectedTerm w STORE
+    // po zmianie poprzez sidebar powinno byc przekierowanie na strone główna dla terma ?
     this.store.dispatch(loadTerms());
   }
 

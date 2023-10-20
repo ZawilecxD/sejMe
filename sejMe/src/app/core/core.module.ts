@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { SidebarLinksComponent } from './sidebar/sidebar-links/sidebar-links.component';
 import { RouterModule } from '@angular/router';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
-import { TermSelectPageComponent } from './term-select-page/term-select-page.component';
-import { TermRoutePageComponent } from './term-route-page/term-route-page.component';
+import { TermSelectPageComponent } from './components/term-select-page/term-select-page.component';
+import { TermRoutePageComponent } from './components/term-route-page/term-route-page.component';
 
 const coreComponents = [SidebarComponent];
 
