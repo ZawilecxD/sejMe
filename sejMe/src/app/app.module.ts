@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Term } from './term/model/Term';
 
 export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
-export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
+// export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,11 +36,14 @@ export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
     },
-    {
-      provide: ACTIVE_TERM,
-      useFactory: (route: ActivatedRoute) => route.snapshot.data['term'],
-      deps: [ActivatedRoute],
-    },
+    // {
+    //   provide: ACTIVE_TERM,
+    //   useFactory: (route: ActivatedRoute) => {
+    //     console.log('ACTIVE TERM', route.snapshot.data);
+    //     return route.snapshot.data['term'];
+    //   },
+    //   deps: [ActivatedRoute],
+    // },
   ],
   bootstrap: [AppComponent],
 })

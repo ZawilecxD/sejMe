@@ -5,14 +5,14 @@ import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { MemberApiService } from '../api/member-api.service';
 
 @Injectable()
-export class TermsEffects {
+export class MembersEffects {
   actions = inject(Actions);
   apiService = inject(MemberApiService);
   loadMembersList$ = createEffect(() => {
     return this.actions.pipe(
       ofType(MemberActions.loadMembersList),
-      exhaustMap(() =>
-        this.apiService.fetchList().pipe(
+      exhaustMap(({ termNum }) =>
+        this.apiService.fetchList(termNum).pipe(
           map(members => MemberActions.loadMembersListSuccess({ members })),
           catchError(error => of(MemberActions.loadMembersListError({ error })))
         )

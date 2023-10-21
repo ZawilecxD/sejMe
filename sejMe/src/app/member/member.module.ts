@@ -9,6 +9,8 @@ import { MemberRowComponent } from './components/member-row/member-row.component
 import { MemberDetailsComponent } from './components/member-details/member-details.component';
 import * as fromMembers from './state/member.reducer';
 import { StoreModule } from '@ngrx/store';
+import { MembersEffects } from './state/member.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 const ROUTES: Routes = [
   {
@@ -38,6 +40,7 @@ const ROUTES: Routes = [
       fromMembers.MEMBERS_FEATURE_NAME,
       fromMembers.reducer
     ),
+    EffectsModule.forFeature([MembersEffects]),
     NgOptimizedImage,
   ],
 })

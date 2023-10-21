@@ -14,7 +14,10 @@ export const loadMemberError = createAction(
   props<{ error: string }>()
 );
 
-export const loadMembersList = createAction('[Member] Load Members List');
+export const loadMembersList = createAction(
+  '[Member] Load Members List',
+  props<{ termNum: number }>()
+);
 export const loadMembersListSuccess = createAction(
   '[Member] Load Members List Success',
   props<{ members: ParliamentMember[] }>()

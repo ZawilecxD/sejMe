@@ -8,25 +8,24 @@ import {
 } from '@angular/core';
 import { ParliamentMember } from '../../model/ParliamentMember';
 import { MemberApiService } from '../../api/member-api.service';
-import { Term } from 'src/app/term/model/Term';
-import { ACTIVE_TERM } from 'src/app/app.module';
 
 @Component({
-  selector: 'sm-member-row',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'tr[sm-member-row]',
   templateUrl: './member-row.component.html',
   styleUrls: ['./member-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberRowComponent implements OnChanges {
   private readonly memberApi = inject(MemberApiService);
-  private readonly activeTerm: Term = inject(ACTIVE_TERM);
   @Input({ required: true }) member!: ParliamentMember;
+  @Input({ required: true }) termNum!: number;
   miniPhotoUrl = '';
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['member'].currentValue) {
+    if (changes['member'].currentValue && this.termNum) {
       this.miniPhotoUrl = this.memberApi.buildMiniPhotoUrl(
-        this.activeTerm.num,
+        this.termNum,
         this.member.id
       );
     }

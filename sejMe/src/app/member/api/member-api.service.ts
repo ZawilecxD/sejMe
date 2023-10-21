@@ -21,11 +21,14 @@ export class MemberApiService {
     );
   }
 
+  // TODO: wyglada na to ze API sejmowe nie trzyma zdjec z porpzednich kadencji
+  // przyogotwac obrazek o braku zdjecia lub ikonke i dyrektywe podobna do
+  // https://mdmoin07.medium.com/image-fallback-for-broken-images-angular-aa3d5538ea0
   buildPhotoUrl(term: number, id: number) {
-    return `${this.apiPath}/${id}/photo`;
+    return this.httpUtils.buildApiUrl(term, `${this.apiPath}/${id}/photo`);
   }
 
   buildMiniPhotoUrl(term: number, id: number) {
-    return `${this.apiPath}/${id}/photo-mini`;
+    return this.httpUtils.buildApiUrl(term, `${this.apiPath}/${id}/photo-mini`);
   }
 }
