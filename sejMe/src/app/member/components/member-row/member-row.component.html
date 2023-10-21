@@ -1,0 +1,34 @@
+<tr>
+  <td>
+    <div class="flex items-center space-x-3">
+      <div class="avatar">
+        <div class="mask mask-squircle w-12 h-12">
+          <img ngSrc="{{ miniPhotoUrl }}" alt="Avatar posła" />
+        </div>
+      </div>
+    </div>
+  </td>
+  <td>{{ member.firstName }} {{ member.secondName }}</td>
+  <td>{{ member.lastName }}</td>
+  <td>
+    <span
+      class="badge badge-sm {{
+        member.active ? 'badge-success' : 'badge-error'
+      }}"
+      >{{ member.active ? 'Aktywny' : 'Nieaktywny' }}</span
+    >
+    <br />
+    <<ng-container *ngIf="!member.active">
+      {{ member.inactiveCause }}
+    </ng-container>
+  </td>
+
+  <td>{{ member.email }}</td>
+  <td>{{ member.birthDate }} - {{ member.birthLocation }}</td>
+  <td>{{ member.club }}</td>
+  <td>{{ member.waiverDesc }}</td>
+  <td>{{ member.districtName }} ({{ member.voivodeship }})</td>
+  <td>{{ member.profession }}</td>
+  <td>{{ member.educationLevel }}</td>
+  <td>{{ member.numberOfVotes }}</td>
+</tr>

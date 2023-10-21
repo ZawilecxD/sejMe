@@ -14,7 +14,7 @@ export class TermsEffects {
       exhaustMap(() =>
         this.apiService.fetchList().pipe(
           map(members => MemberActions.loadMembersListSuccess({ members })),
-          catchError(error => of(MemberActions.loadMembersError({ error })))
+          catchError(error => of(MemberActions.loadMembersListError({ error })))
         )
       )
     );

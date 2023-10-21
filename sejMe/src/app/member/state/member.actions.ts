@@ -19,7 +19,7 @@ export const loadMembersListSuccess = createAction(
   '[Member] Load Members List Success',
   props<{ members: ParliamentMember[] }>()
 );
-export const loadMembersError = createAction(
+export const loadMembersListError = createAction(
   '[Member] Load Members List Error',
   props<{ error: string }>()
 );

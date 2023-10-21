@@ -10,8 +10,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoreModule } from './core/core.module';
+import { ActivatedRoute } from '@angular/router';
+import { Term } from './term/model/Term';
 
 export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
+export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +35,11 @@ export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
     {
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
+    },
+    {
+      provide: ACTIVE_TERM,
+      useFactory: (route: ActivatedRoute) => route.snapshot.data['term'],
+      deps: [ActivatedRoute],
     },
   ],
   bootstrap: [AppComponent],
