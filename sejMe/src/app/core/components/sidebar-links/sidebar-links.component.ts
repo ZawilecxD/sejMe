@@ -8,15 +8,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class SidebarLinksComponent {
   readonly links: SidebarLink[] = [
-    { label: 'Posłowie', route: '/member' },
-    { label: 'Kluby', route: '/club' },
-    { label: 'Komisje', route: '/comittee' },
-    { label: 'Posiedzenia', route: '/proceeding' },
-    { label: 'Druki sejmowe', route: '/print' },
-    { label: 'Interpelacje', route: '/interpelation' },
-    { label: 'Procesy legislacyjne', route: '/legislation' },
-    { label: 'Transmisje wideo', route: '/video' },
-    { label: 'Zapytania', route: '/questions' },
+    { label: 'Posłowie', route: 'member' },
+    { label: 'Kluby', route: 'club' },
+    { label: 'Komisje', route: 'comittee' },
+    { label: 'Posiedzenia', route: 'proceeding' },
+    { label: 'Druki sejmowe', route: 'print' },
+    { label: 'Interpelacje', route: 'interpelation' },
+    { label: 'Procesy legislacyjne', route: 'legislation' },
+    { label: 'Transmisje wideo', route: 'video' },
+    { label: 'Zapytania', route: 'questions' },
   ];
 }
 

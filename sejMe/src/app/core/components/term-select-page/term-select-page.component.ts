@@ -25,7 +25,6 @@ export class TermSelectPageComponent implements OnInit {
   terms$ = this.store.select(selectAllTerms);
   status$ = this.store.select(selectTermsStatus);
   error$ = this.store.select(selectTermsError);
-  selectedTerm: Term | null = null;
   readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
 
   ngOnInit() {
@@ -38,7 +37,6 @@ export class TermSelectPageComponent implements OnInit {
   }
 
   onTermSelect(term: Term) {
-    // this.router.navigate([term.num]);
-    this.selectedTerm = term;
+    this.router.navigate([term.num]);
   }
 }
