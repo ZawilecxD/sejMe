@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { SidebarLinksComponent } from './components/sidebar-links/sidebar-links.component';
 import { RouterModule } from '@angular/router';
 import { ThemePickerComponent } from './theme-picker/theme-picker.component';
-import { TermSelectPageComponent } from './components/term-select-page/term-select-page.component';
 import { TermRoutePageComponent } from './components/term-route-page/term-route-page.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 const coreComponents = [SidebarComponent];
 
@@ -15,8 +15,8 @@ const coreComponents = [SidebarComponent];
     ...coreComponents,
     SidebarLinksComponent,
     ThemePickerComponent,
-    TermSelectPageComponent,
     TermRoutePageComponent,
+    HomePageComponent,
   ],
   exports: [...coreComponents],
   imports: [SharedModule, FormsModule, RouterModule],

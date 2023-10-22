@@ -1,24 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TermRoutePageComponent } from './core/components/term-route-page/term-route-page.component';
-import { TermSelectPageComponent } from './core/components/term-select-page/term-select-page.component';
-import { resolveTermFromRoute } from './core/resolvers/term-from-route.resolver';
+import { HomePageComponent } from './core/components/home-page/home-page.component';
+import { resolveTerms } from './core/resolvers/terms.resolver';
 
 const routes: Routes = [
-  { path: '', component: TermSelectPageComponent, pathMatch: 'full' },
   {
-    path: ':termNum',
+    path: '',
     component: TermRoutePageComponent,
     resolve: {
-      term: resolveTermFromRoute,
+      terms: resolveTerms,
     },
     children: [
+      {
+        path: '',
+        component: HomePageComponent,
+        pathMatch: 'full',
+      },
       {
         path: 'member',
         title: 'Posłowie',
         loadChildren: () =>
           import('./member/member.module').then(m => m.MemberModule),
       },
+      { path: '**', redirectTo: '' },
     ],
   },
   { path: '**', redirectTo: '' },

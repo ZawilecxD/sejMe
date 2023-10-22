@@ -1,26 +1,24 @@
-<div class="">
-  <table class="table table-xs table-pin-rows relative max-h-full w-full">
-    <thead class="">
-      <tr>
-        <th></th>
-        <th>Imie</th>
-        <th>Nazwisko</th>
-        <th>Status</th>
-        <th>Email</th>
-        <th>Data imiejsce narodzin</th>
-        <th>Klub</th>
-        <th>Region</th>
-        <th>Otrzymanych głosów</th>
-        <th>Zawód</th>
-        <th>Wykształcenie</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        sm-member-row
-        *ngFor="let member of (members$ | async) || []"
-        [member]="member"
-        [termNum]="activeTermNum$ | async"></tr>
-    </tbody>
-  </table>
-</div>
+<table class="table table-xs table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Imie</th>
+      <th>Nazwisko</th>
+      <th>Status</th>
+      <th>Email</th>
+      <th>Data imiejsce narodzin</th>
+      <th>Klub</th>
+      <th>Region</th>
+      <th>Otrzymanych głosów</th>
+      <th>Zawód</th>
+      <th>Wykształcenie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      sm-member-row
+      *ngFor="let member of (members$ | async) || []"
+      [member]="member"
+      [termNum]="activeTermNum$ | async"></tr>
+  </tbody>
+</table>

@@ -1,12 +1,14 @@
 <div class="drawer drawer-end">
   <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <label
-      smIcon="bars-3"
-      for="my-drawer-4"
-      class="cursor-pointer fixed top-8 right-8"></label>
+  <div
+    class="drawer-content w-full px-4 py-4 flex items-center justify-between">
+    <h2 class="text-primary">SejMe</h2>
+    <p *ngIf="activeTerm$ | async as activeTerm" class="font-bold">
+      Kadencja {{ activeTerm.from }} - {{ activeTerm.to || 'Teraz' }}
+    </p>
+    <label smIcon="bars-3" for="my-drawer-4" class="cursor-pointer"></label>
   </div>
-  <div class="drawer-side">
+  <div class="drawer-side z-50">
     <label
       for="my-drawer-4"
       aria-label="close sidebar"
@@ -16,7 +18,7 @@
         class="px-4 py-4"
         classes="w-full"
         [items]="(terms$ | async) || []"
-        [ngModel]="selectedTerm"
+        [ngModel]="null"
         (ngModelChange)="onTermSelect($event)"
         labelProperty="label"
         [compareWithFn]="compareTerms"

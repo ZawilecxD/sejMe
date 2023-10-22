@@ -4,6 +4,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
 import { ItemSelectOption } from 'src/app/shared/interface/ItemSelectOption';
@@ -22,18 +23,20 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
-  private store = inject(Store);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly activeRoute = inject(ActivatedRoute);
   terms$ = this.store.select(selectAllTerms);
   status$ = this.store.select(selectTermsStatus);
   error$ = this.store.select(selectTermsError);
-  selectedTerm: Term | null = null;
   readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
+  activeTerm$ = this.activeRoute.data.pipe(map(data => data['term']));
 
   ngOnInit() {
     this.store.dispatch(loadTerms());
   }
 
   onTermSelect(term: Term) {
-    this.selectedTerm = term;
+    this.router.navigate([`/${term.num}`]);
   }
 }

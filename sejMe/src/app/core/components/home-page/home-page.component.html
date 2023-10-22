@@ -1,0 +1,15 @@
+<h1 class="text-2xl">Witaj w SejMe</h1>
+<p class="my-8">
+  Aplikacja wykorzystuje
+  <a href="https://api.sejm.gov.pl/sejm.html">Sejm API</a> i ułatwia
+  przeglądanie publicznie dostępnych danych na temat posiedzeń sejmu.
+</p>
+
+<ng-container *ngIf="terms$ | async as terms">
+  <h2 class="text-xl mb-2">Dane dostępne są dla kadencji</h2>
+  <ul class="list-none">
+    <li *ngFor="let term of terms">
+      {{ term.from }} - {{ term.to || 'Teraz' }}
+    </li>
+  </ul>
+</ng-container>
