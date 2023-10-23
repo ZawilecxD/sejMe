@@ -3,9 +3,6 @@
   <div
     class="drawer-content w-full px-4 py-4 flex items-center justify-between">
     <h2 class="text-primary">SejMe</h2>
-    <p *ngIf="activeTerm$ | async as activeTerm" class="font-bold">
-      Kadencja {{ activeTerm.from }} - {{ activeTerm.to || 'Teraz' }}
-    </p>
     <label smIcon="bars-3" for="my-drawer-4" class="cursor-pointer"></label>
   </div>
   <div class="drawer-side z-50">
@@ -13,8 +10,9 @@
       for="my-drawer-4"
       aria-label="close sidebar"
       class="drawer-overlay"></label>
-    <div class="bg-black w-1/4 flex flex-col gap-4 z-50 h-screen">
-      <sm-item-select
+    <div
+      class="bg-accent-content min-w-[33%] flex flex-col gap-4 z-50 min-h-screen">
+      <!-- <sm-item-select
         class="px-4 py-4"
         classes="w-full"
         [items]="(terms$ | async) || []"
@@ -22,11 +20,11 @@
         (ngModelChange)="onTermSelect($event)"
         labelProperty="label"
         [compareWithFn]="compareTerms"
-        [optionsDescription]="'Wybierz kadencje sejmu'" />
+        [optionsDescription]="'Wybierz kadencje sejmu'" /> -->
 
       <sm-sidebar-links />
 
-      <sm-theme-picker />
+      <sm-theme-picker class="mt-auto" />
     </div>
   </div>
 </div>
