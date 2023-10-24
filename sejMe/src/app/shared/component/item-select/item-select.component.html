@@ -1,5 +1,9 @@
+<label *ngIf="label" class="label" for="{{ selectId }}">
+  <span class="label-text">{{ label }}</span>
+</label>
 <select
-  class="select {{ classes }}"
+  id="{{ selectId }}"
+  class="select select-bordered {{ classes }}"
   [disabled]="disabled"
   [ngModel]="selectedItem"
   (ngModelChange)="selectValue($event)"

@@ -1,12 +1,12 @@
 <td>
   <div class="flex items-center space-x-3">
-    <div class="avatar">
+    <div *ngIf="!showFallbackIcon; else userIcon" class="avatar">
       <div class="mask mask-squircle w-12 h-12">
         <img
           ngSrc="{{ miniPhotoUrl }}"
-          width="48"
-          height="48"
-          alt="Avatar posła" />
+          fill
+          alt="Avatar posła"
+          (error)="onImageLoadError()" />
       </div>
     </div>
   </div>
@@ -35,3 +35,7 @@
 <td>{{ member.numberOfVotes }}</td>
 <td>{{ member.profession }}</td>
 <td>{{ member.educationLevel }}</td>
+
+<ng-template #userIcon>
+  <span smIcon="user" class="w-12 h-12 flex items-center justify-center"></span>
+</ng-template>

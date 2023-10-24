@@ -7,11 +7,13 @@ import { ParliamentMember } from '../model/ParliamentMember';
 export const MEMBERS_FEATURE_NAME = 'members';
 
 export interface MemberState extends CollectionState {
-  members: Map<number, ParliamentMember>;
+  allMembers: Map<number, ParliamentMember>;
+  filteredMembers: ParliamentMember[];
 }
 
 export const initialState: MemberState = {
-  members: new Map(),
+  allMembers: new Map(),
+  filteredMembers: [],
   status: 'pending',
   error: null,
 };
@@ -27,7 +29,8 @@ const membersReducer = createReducer(
     members.forEach(m => membersMap.set(m.id, m));
     return {
       ...state,
-      members: membersMap,
+      allMembers: membersMap,
+      filteredMembers: members,
       error: null,
       status: 'success' as CollectionStateStatus,
     };

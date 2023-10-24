@@ -21,6 +21,7 @@ export class MemberRowComponent implements OnChanges {
   @Input({ required: true }) member!: ParliamentMember;
   @Input({ required: true }) termNum!: number;
   miniPhotoUrl = '';
+  showFallbackIcon = false;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['member'].currentValue && this.termNum) {
@@ -29,5 +30,9 @@ export class MemberRowComponent implements OnChanges {
         this.member.id
       );
     }
+  }
+
+  onImageLoadError() {
+    this.showFallbackIcon = true;
   }
 }

@@ -20,6 +20,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class ItemSelectComponent implements ControlValueAccessor {
+  private static uniqueId = 1;
+  @Input() label: string | null = null;
   @Input()
   optionsDescription = '';
   @Input()
@@ -31,11 +33,16 @@ export class ItemSelectComponent implements ControlValueAccessor {
   @Input()
   compareWithFn?: (a: any, b: any) => boolean;
   readonly defaultCompareWith = (a: unknown, b: unknown) => a == b;
+  readonly selectId: number;
 
   selectedItem?: any;
   disabled = false;
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
+
+  constructor() {
+    this.selectId = ItemSelectComponent.uniqueId++;
+  }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;

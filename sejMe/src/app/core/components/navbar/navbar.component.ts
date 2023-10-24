@@ -12,6 +12,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  @ViewChild('drawerOverlay') drawerOverlayEl!: ElementRef;
   mobileDrawerOpen = false;
 }

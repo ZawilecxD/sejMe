@@ -1,5 +1,16 @@
 <main class="px-4 py-4">
-  <section>Filters TODO</section>
+  <sm-item-select
+    class="block px-4 py-4"
+    classes="w-full"
+    label="Wybierz kadencje sejmu"
+    [items]="(terms$ | async) || []"
+    [ngModel]="selectedTerm"
+    (ngModelChange)="onTermSelect($event)"
+    labelProperty="label"
+    [compareWithFn]="compareTerms" />
 
-  <sm-members-table />
+  <hr class="my-4" />
+  <sm-members-filters />
+
+  <sm-members-table *ngIf="selectedTerm" [termNum]="selectedTerm.num" />
 </main>
