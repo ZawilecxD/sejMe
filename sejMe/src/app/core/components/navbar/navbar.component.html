@@ -32,6 +32,16 @@
       tabindex="0"
       (click)="mobileDrawerOpen = false"
       (keydown.enter)="mobileDrawerOpen = false"></span>
-    <ul sm-navbar-links class="menu p-4 w-80 min-h-full bg-base-200"></ul>
+
+    <div class="menu p-4 w-80 min-h-full bg-base-200">
+      <sm-item-select
+        class="block px-4 py-4"
+        classes="w-full"
+        label="Wybierz swój motyw"
+        [items]="themeService.availableThemes"
+        [ngModel]="themeService.currentTheme"
+        (ngModelChange)="themeService.setTheme($event)" />
+      <ul sm-navbar-links class=""></ul>
+    </div>
   </div>
 </div>
