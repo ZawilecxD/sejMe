@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'sm-navbar',
@@ -8,4 +11,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class NavbarComponent {
   mobileDrawerOpen = false;
+  private readonly router = inject(Router);
+
+  constructor() {
+    this.router.events
+      .pipe(
+        takeUntilDestroyed(),
+        filter(ev => ev instanceof NavigationEnd && this.mobileDrawerOpen)
+      )
+      .subscribe(() => {
+        this.mobileDrawerOpen = false;
+      });
+  }
 }
