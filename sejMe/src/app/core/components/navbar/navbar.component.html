@@ -7,8 +7,9 @@
   <div class="drawer-content flex flex-col">
     <!-- Navbar -->
     <div class="navbar bg-base-300">
-      <div class="md:container md:mx-auto">
-        <div class="flex-1 px-2 mx-2 text-3xl font-extrabold">SejMe</div>
+      <div
+        class="lg:container lg:mx-auto w-full flex justify-between items-center gap-4">
+        <div class="px-2 mx-2 text-3xl font-extrabold">SejMe</div>
         <div class="flex-none lg:hidden">
           <span
             smIcon="bars-3"
@@ -19,12 +20,13 @@
             (keydown.enter)="mobileDrawerOpen = true">
           </span>
         </div>
-        <div class="hidden lg:flex">
-          <ul
-            sm-navbar-links
-            class="menu menu-horizontal text-sm flex-1 overflow-x-scroll flex-nowrap"></ul>
-          <sm-theme-select class="select-xs max-w-[12rem]" />
-        </div>
+        <!-- <div class="hidden lg:flex"> -->
+        <ul
+          sm-navbar-links
+          class="menu menu-horizontal hidden lg:flex text-sm flex-grow overflow-x-auto flex-nowrap"></ul>
+        <sm-theme-select
+          class="hidden lg:flex items-center select-xs w-[10rem]" />
+        <!-- </div> -->
       </div>
     </div>
   </div>

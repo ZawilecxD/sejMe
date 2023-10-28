@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ThemeService } from '../utils/theme.service';
 
 @Component({
@@ -11,7 +6,6 @@ import { ThemeService } from '../utils/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <sm-item-select
-      class="block px-4 py-4"
       classes="w-full"
       [items]="themeService.availableThemes"
       [ngModel]="themeService.currentTheme"
