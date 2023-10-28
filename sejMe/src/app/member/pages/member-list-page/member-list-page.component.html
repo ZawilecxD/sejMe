@@ -12,5 +12,8 @@
   <hr class="my-4" />
   <sm-members-filters />
 
-  <sm-members-table *ngIf="selectedTerm" [termNum]="selectedTerm.num" />
+  <sm-members-table
+    *ngIf="selectedTerm"
+    class="overflow-x-auto block"
+    [termNum]="selectedTerm.num" />
 </main>
