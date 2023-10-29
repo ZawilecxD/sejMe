@@ -1,0 +1,68 @@
+<div class="form-control max-w-xs">
+  <label class="label" for="member-search"> Imię lub Nazwisko </label>
+  <input
+    id="member-search"
+    type="text"
+    placeholder="Imię lub naziwsko"
+    class="input input-bordered w-full max-w-xs"
+    [ngModel]="searchValue$ | async"
+    (ngModelChange)="updateMembersSearchValue($event)" />
+</div>
+
+<sm-item-select
+  *ngIf="availableBirthLocations$ | async as birthLocations"
+  label="Miejsce narodzin"
+  classes="min-w-[8rem]"
+  [items]="birthLocations"
+  [ngModel]="selectedBirthLocations$ | async"
+  (ngModelChange)="updateSelectedBirthLocations($event)" />
+
+<sm-item-select
+  *ngIf="availableClubs$ | async as clubs"
+  label="Klub"
+  classes="min-w-[8rem]"
+  [items]="clubs"
+  [multiple]="true"
+  [ngModel]="selectedClubs$ | async"
+  (ngModelChange)="updateSelectedClubs($event)" />
+
+<sm-item-select
+  *ngIf="availableDistricts$ | async as districts"
+  label="Region"
+  classes="min-w-[8rem]"
+  [items]="districts"
+  [multiple]="true"
+  [ngModel]="selectedDistrictsNames$ | async"
+  (ngModelChange)="updateSelectedDistrictsNames($event)" />
+
+<sm-item-select
+  *ngIf="availableEductionLevels$ | async as eduLevels"
+  label="Wykształcenie"
+  classes="min-w-[8rem]"
+  [items]="eduLevels"
+  [multiple]="true"
+  [ngModel]="selectedEducationLevels$ | async"
+  (ngModelChange)="updateSelectedEducationLevels($event)" />
+
+<sm-item-select
+  *ngIf="availableProfessions$ | async as professions"
+  label="Zawód"
+  classes="min-w-[8rem]"
+  [multiple]="true"
+  [items]="professions"
+  [ngModel]="selectedProfessions$ | async"
+  (ngModelChange)="updateSelectedProfessions($event)" />
+
+<sm-item-select
+  *ngIf="availableVoivodeships$ | async as voivodeships"
+  label="Województwo"
+  classes="min-w-[8rem]"
+  [multiple]="true"
+  [items]="voivodeships"
+  [ngModel]="selectedVoivodeships$ | async"
+  (ngModelChange)="updateselectedVoivodeships($event)" />
+
+<div class="flex items-center flex-1 gap-1">
+  <button class="btn btn-neutral" (click)="saveFilters()">Filtruj</button>
+  <button class="btn" (click)="clearFilters()">Usuń filtry</button>
+</div>

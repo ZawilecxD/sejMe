@@ -5,9 +5,10 @@ import {
   inject,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectAllMembersArray } from '../../state/member.selectors';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import {
+  selectAllMembersArray,
+  selectFilteredMembersArray,
+} from '../../state/member.selectors';
 
 @Component({
   selector: 'sm-members-table',
@@ -17,7 +18,6 @@ import { map } from 'rxjs';
 })
 export class MembersTableComponent {
   private readonly store = inject(Store);
-  private readonly activeRoute = inject(ActivatedRoute);
-  members$ = this.store.select(selectAllMembersArray);
+  members$ = this.store.select(selectFilteredMembersArray);
   @Input({ required: true }) termNum!: number;
 }

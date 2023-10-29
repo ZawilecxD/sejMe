@@ -1,53 +1,89 @@
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import {
+  selectAvailableBirthLocations,
+  selectAvailableClubs,
+  selectAvailableDistrictsNames,
+  selectAvailableEducationLevels,
+  selectAvailableProfessions,
+  selectAvailableVoivodeships,
+  selectMemberSearchValue,
+  selectSelectedBirthLocations,
+  selectSelectedClubs,
+  selectSelectedDistrictsNames,
+  selectSelectedEducationLevels,
+  selectSelectedProfessions,
+  selectSelectedVoivodeships,
+} from '../../state/filters/member-filters.selectors';
+import {
+  clearMembersFilters,
+  saveMembersFilters,
+  updateMembersSearchValue,
+  updateSelectedBirthLocations,
+  updateSelectedClubs,
+  updateSelectedDistrictsNames,
+  updateSelectedEducationLevels,
+  updateSelectedProfessions,
+  updateselectedVoivodeships,
+} from '../../state/filters/member-filters.actions';
 
 @Component({
   selector: 'sm-members-filters',
   templateUrl: './members-filters.component.html',
   styleUrls: ['./members-filters.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MembersFiltersComponent),
-      multi: true,
-    },
-  ],
 })
-export class MembersFiltersComponent implements ControlValueAccessor {
-  filterValue: MembersFilters = {
-    birthLocation: null,
-    club: null,
-    districtName: null,
-    educationLevel: null,
-    name: null,
-    profession: null,
-    status: null,
-    voivodeship: null,
-    term: null,
-  };
-  onChange: (value: MembersFilters) => void = () => {};
-  onTouched: () => void = () => {};
+export class MembersFiltersComponent {
+  private readonly store = inject(Store);
+  availableBirthLocations$ = this.store.select(selectAvailableBirthLocations);
+  availableClubs$ = this.store.select(selectAvailableClubs);
+  availableDistricts$ = this.store.select(selectAvailableDistrictsNames);
+  availableEductionLevels$ = this.store.select(selectAvailableEducationLevels);
+  availableProfessions$ = this.store.select(selectAvailableProfessions);
+  availableVoivodeships$ = this.store.select(selectAvailableVoivodeships);
 
-  writeValue(value: MembersFilters): void {
-    this.filterValue = { ...value };
+  searchValue$ = this.store.select(selectMemberSearchValue);
+  selectedBirthLocations$ = this.store.select(selectSelectedBirthLocations);
+  selectedClubs$ = this.store.select(selectSelectedClubs);
+  selectedDistrictsNames$ = this.store.select(selectSelectedDistrictsNames);
+  selectedEducationLevels$ = this.store.select(selectSelectedEducationLevels);
+  selectedProfessions$ = this.store.select(selectSelectedProfessions);
+  selectedVoivodeships$ = this.store.select(selectSelectedVoivodeships);
+
+  updateMembersSearchValue(searchValue: string) {
+    console.log('updateMembersSearchValue', searchValue);
+    this.store.dispatch(updateMembersSearchValue({ searchValue }));
   }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+
+  updateSelectedBirthLocations(birthLocations: string[] | null) {
+    this.store.dispatch(updateSelectedBirthLocations({ birthLocations }));
   }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+
+  updateSelectedClubs(clubs: string[] | null) {
+    this.store.dispatch(updateSelectedClubs({ clubs }));
+  }
+
+  updateSelectedDistrictsNames(districts: string[] | null) {
+    this.store.dispatch(updateSelectedDistrictsNames({ districts }));
+  }
+
+  updateSelectedEducationLevels(levels: string[] | null) {
+    this.store.dispatch(updateSelectedEducationLevels({ levels }));
+  }
+
+  updateSelectedProfessions(professions: string[] | null) {
+    this.store.dispatch(updateSelectedProfessions({ professions }));
+  }
+
+  updateselectedVoivodeships(voivodeships: string[] | null) {
+    this.store.dispatch(updateselectedVoivodeships({ voivodeships }));
+  }
+
+  saveFilters() {
+    this.store.dispatch(saveMembersFilters());
+  }
+
+  clearFilters() {
+    this.store.dispatch(clearMembersFilters());
   }
 }
-
-type MembersFilters = {
-  name?: string | null;
-  status?: boolean | null;
-  club?: string | null;
-  districtName?: string | null;
-  voivodeship?: string | null;
-  birthLocation?: string | null;
-  profession?: string | null;
-  educationLevel?: string | null;
-  term?: string | null;
-};

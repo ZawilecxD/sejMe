@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ParliamentMember } from '../model/ParliamentMember';
+import { MembersSelectedFilters } from '../model/MembersSelectedFilters';
 
 export const loadMember = createAction(
   '[Member] Load Member',
@@ -25,4 +26,9 @@ export const loadMembersListSuccess = createAction(
 export const loadMembersListError = createAction(
   '[Member] Load Members List Error',
   props<{ error: string }>()
+);
+
+export const filterMembersList = createAction(
+  '[Member] Filter Members List',
+  props<{ filters?: Partial<MembersSelectedFilters> }>()
 );

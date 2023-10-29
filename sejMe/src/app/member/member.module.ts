@@ -15,11 +15,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { MembersFiltersComponent } from './components/members-filters/members-filters.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { resolveMembersFiltersFromRoute } from './resolvers/members-filters-from-route.resolver';
+import { MembersFiltersEffects } from './state/filters/member-filters.effects';
 
 const ROUTES: Routes = [
   {
     path: '',
     component: MemberPageComponent,
+    resolve: {
+      membersFilters: resolveMembersFiltersFromRoute,
+    },
     children: [
       { path: '', component: MemberListPageComponent },
       { path: ':id', component: MemberDetailsPageComponent },
@@ -47,14 +52,11 @@ const ROUTES: Routes = [
       fromMembers.reducer
     ),
     StoreModule.forFeature(
-      fromMembers.MEMBERS_FEATURE_NAME,
-      fromMembers.reducer
-    ),
-    StoreModule.forFeature(
       fromMembersFilters.MEMBERS_FILTERS_FEATURE_NAME,
       fromMembersFilters.reducer
     ),
     EffectsModule.forFeature([MembersEffects]),
+    EffectsModule.forFeature([MembersFiltersEffects]),
     NgOptimizedImage,
   ],
 })

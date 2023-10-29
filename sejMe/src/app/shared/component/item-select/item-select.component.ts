@@ -22,12 +22,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class ItemSelectComponent implements ControlValueAccessor {
   private static uniqueId = 1;
   @Input() label: string | null = null;
+  @Input() multiple = false;
   @Input()
   optionsDescription = '';
   @Input()
   labelProperty?: string;
   @Input()
-  items: any[] = [];
+  items: any[] | null = [];
   @Input()
   classes = 'select-accent';
   @Input()

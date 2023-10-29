@@ -9,18 +9,9 @@ import {
   extractUniqueEducationLevels,
   extractUniqueProfessions,
 } from './member-filters.utils';
+import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
 
 export const MEMBERS_FILTERS_FEATURE_NAME = 'membersFilters';
-
-export interface MembersSelectedFilters {
-  searchValue: string | null;
-  selectedClubs: string[] | null;
-  selectedDistrictsNames: string[] | null;
-  selectedBirthLocations: string[] | null;
-  selectedProfessions: string[] | null;
-  selectedEducationLevels: string[] | null;
-  selectedVoivodeships: string[] | null;
-}
 
 export interface MembersFiltersState extends MembersSelectedFilters {
   availableClubs: Set<string>;
@@ -31,7 +22,7 @@ export interface MembersFiltersState extends MembersSelectedFilters {
   readonly availableVoivodeships: string[];
 }
 
-export const initialState: MembersFiltersState = {
+const initialState: MembersFiltersState = {
   availableClubs: new Set(),
   availableDistrictsNames: new Set(),
   availableBirthLocations: new Set(),
@@ -51,25 +42,81 @@ export const initialState: MembersFiltersState = {
 const membersFiltersReducer = createReducer(
   initialState,
   on(MemberActions.loadMembersListSuccess, (state, { members }) => {
+    const availableClubs = extractUniqueClubsNames(members);
+    const availableDistrictsNames = extractUniqueDistrictsNames(members);
+    const availableBirthLocations = extractUniqueBirthLocations(members);
+    const availableProfessions = extractUniqueProfessions(members);
+    const availableEducationLevels = extractUniqueEducationLevels(members);
     return {
       ...state,
-      availableClubs: extractUniqueClubsNames(members),
-      availableDistrictsNames: extractUniqueDistrictsNames(members),
-      availableBirthLocations: extractUniqueBirthLocations(members),
-      availableProfessions: extractUniqueProfessions(members),
-      availableEducationLevels: extractUniqueEducationLevels(members),
-      searchValue: null,
-      selectedBirthLocations: null,
-      selectedClubs: null,
-      selectedDistrictsNames: null,
-      selectedEducationLevels: null,
-      selectedProfessions: null,
-      selectedVoivodeships: null,
+      availableClubs,
+      availableDistrictsNames,
+      availableBirthLocations,
+      availableProfessions,
+      availableEducationLevels,
+      selectedBirthLocations:
+        state.selectedBirthLocations?.filter(bl =>
+          availableBirthLocations.has(bl)
+        ) || null,
+      selectedClubs:
+        state.selectedClubs?.filter(cl => availableClubs.has(cl)) || null,
+      selectedDistrictsNames:
+        state.selectedDistrictsNames?.filter(dn =>
+          availableDistrictsNames.has(dn)
+        ) || null,
+      selectedEducationLevels:
+        state.selectedEducationLevels?.filter(el =>
+          availableEducationLevels.has(el)
+        ) || null,
+      selectedProfessions:
+        state.selectedProfessions?.filter(p => availableProfessions.has(p)) ||
+        null,
     };
   }),
-  on(MembersFiltersActions.setMembersFilters, (state, { filters }) => {
+  on(MembersFiltersActions.initializeMembersFilters, (state, filters) => {
+    console.log('MembersFiltersActions.initializeMembersFilters', filters);
     return { ...state, ...filters };
   }),
+  on(
+    MembersFiltersActions.updateMembersSearchValue,
+    (state, { searchValue }) => {
+      return { ...state, searchValue };
+    }
+  ),
+  on(
+    MembersFiltersActions.updateSelectedBirthLocations,
+    (state, { birthLocations }) => {
+      return { ...state, selectedBirthLocations: birthLocations };
+    }
+  ),
+  on(MembersFiltersActions.updateSelectedClubs, (state, { clubs }) => {
+    console.log({ clubs });
+    return { ...state, selectedClubs: clubs };
+  }),
+  on(
+    MembersFiltersActions.updateSelectedDistrictsNames,
+    (state, { districts }) => {
+      return { ...state, selectedDistrictsNames: districts };
+    }
+  ),
+  on(
+    MembersFiltersActions.updateSelectedEducationLevels,
+    (state, { levels }) => {
+      return { ...state, selectedEducationLevels: levels };
+    }
+  ),
+  on(
+    MembersFiltersActions.updateSelectedProfessions,
+    (state, { professions }) => {
+      return { ...state, selectedProfessions: professions };
+    }
+  ),
+  on(
+    MembersFiltersActions.updateselectedVoivodeships,
+    (state, { voivodeships }) => {
+      return { ...state, selectedVoivodeships: voivodeships };
+    }
+  ),
   on(MembersFiltersActions.clearMembersFilters, state => {
     return {
       ...state,

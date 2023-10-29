@@ -3,6 +3,7 @@ import { CollectionState } from 'src/app/shared/interface/CollectionState';
 import * as MemberActions from './member.actions';
 import { CollectionStateStatus } from 'src/app/shared/type/CollectionStateStatus';
 import { ParliamentMember } from '../model/ParliamentMember';
+import { filterMembers } from './filters/member-filters.utils';
 
 export const MEMBERS_FEATURE_NAME = 'members';
 
@@ -39,7 +40,17 @@ const membersReducer = createReducer(
     ...state,
     error,
     status: 'error' as CollectionStateStatus,
-  }))
+  })),
+  on(MemberActions.filterMembersList, (state, { filters }) => {
+    const filteredMembers = filterMembers(
+      Array.from(state.allMembers.values()),
+      filters
+    );
+    return {
+      ...state,
+      filteredMembers,
+    };
+  })
 );
 
 export function reducer(state: MemberState | undefined, action: Action) {

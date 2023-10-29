@@ -1,9 +1,48 @@
 import { createAction, props } from '@ngrx/store';
-import { MembersSelectedFilters } from './member-filters.reducer';
+import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
 
-export const setMembersFilters = createAction(
+export const initializeMembersFilters = createAction(
   '[MembersFilters] Set members filters',
-  props<{ filters: MembersSelectedFilters }>()
+  props<Partial<MembersSelectedFilters>>()
+);
+
+export const updateMembersSearchValue = createAction(
+  '[MembersFilters] Update search value',
+  props<{ searchValue: string | null }>()
+);
+
+export const updateSelectedBirthLocations = createAction(
+  '[MembersFilters] Update selected birth locations',
+  props<{ birthLocations: string[] | null }>()
+);
+
+export const updateSelectedClubs = createAction(
+  '[MembersFilters] Update selected clubs',
+  props<{ clubs: string[] | null }>()
+);
+
+export const updateSelectedDistrictsNames = createAction(
+  '[MembersFilters] Update selected districts names',
+  props<{ districts: string[] | null }>()
+);
+
+export const updateSelectedEducationLevels = createAction(
+  '[MembersFilters] Update selected education levels',
+  props<{ levels: string[] | null }>()
+);
+
+export const updateSelectedProfessions = createAction(
+  '[MembersFilters] Update selected professions',
+  props<{ professions: string[] | null }>()
+);
+
+export const updateselectedVoivodeships = createAction(
+  '[MembersFilters] Update selected voivodeships',
+  props<{ voivodeships: string[] | null }>()
+);
+
+export const saveMembersFilters = createAction(
+  '[MembersFilters] Save members filters'
 );
 
 export const clearMembersFilters = createAction(

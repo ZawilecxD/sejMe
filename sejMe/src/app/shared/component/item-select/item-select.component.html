@@ -3,6 +3,7 @@
 </label>
 <select
   id="{{ selectId }}"
+  [multiple]="multiple"
   class="select select-bordered {{ classes }}"
   [disabled]="disabled"
   [ngModel]="selectedItem"
@@ -11,7 +12,7 @@
   <option *ngIf="optionsDescription" disabled selected [ngValue]="null">
     {{ optionsDescription }}
   </option>
-  <option *ngFor="let item of items" [ngValue]="item">
+  <option *ngFor="let item of items || []" [ngValue]="item">
     {{ item | selectItemLabel: labelProperty }}
   </option>
 </select>

@@ -1,10 +1,26 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from 'src/app/shared/interface/AppState';
 import { MembersFiltersState } from './member-filters.reducer';
+import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
 
 export const selectMembers = (state: AppState) => state.membersFilters;
 
-export const selectSearchValue = createSelector(
+export const selectSelectedMembersFilters = createSelector(
+  selectMembers,
+  (state: MembersFiltersState) => {
+    return {
+      searchValue: state.searchValue,
+      selectedBirthLocations: state.selectedBirthLocations,
+      selectedClubs: state.selectedClubs,
+      selectedDistrictsNames: state.selectedDistrictsNames,
+      selectedEducationLevels: state.selectedEducationLevels,
+      selectedProfessions: state.selectedProfessions,
+      selectedVoivodeships: state.selectedVoivodeships,
+    } as MembersSelectedFilters;
+  }
+);
+
+export const selectMemberSearchValue = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
     return state.searchValue;
@@ -21,42 +37,42 @@ export const selectSelectedBirthLocations = createSelector(
 export const selectAvailableBirthLocations = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableBirthLocations;
+    return Array.from(state.availableBirthLocations);
   }
 );
 
 export const selectAvailableClubs = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableClubs;
+    return Array.from(state.availableClubs);
   }
 );
 
 export const selectAvailableDistrictsNames = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableDistrictsNames;
+    return Array.from(state.availableDistrictsNames);
   }
 );
 
 export const selectAvailableEducationLevels = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableEducationLevels;
+    return Array.from(state.availableEducationLevels);
   }
 );
 
 export const selectAvailableProfessions = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableProfessions;
+    return Array.from(state.availableProfessions);
   }
 );
 
 export const selectAvailableVoivodeships = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    return state.availableVoivodeships;
+    return Array.from(state.availableVoivodeships);
   }
 );
 

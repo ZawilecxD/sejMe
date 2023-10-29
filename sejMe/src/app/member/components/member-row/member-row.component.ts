@@ -24,7 +24,7 @@ export class MemberRowComponent implements OnChanges {
   showFallbackIcon = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['member'].currentValue && this.termNum) {
+    if (changes['member']?.currentValue && this.termNum) {
       this.miniPhotoUrl = this.memberApi.buildMiniPhotoUrl(
         this.termNum,
         this.member.id
