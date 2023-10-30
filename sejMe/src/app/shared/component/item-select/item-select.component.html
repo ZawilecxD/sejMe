@@ -2,8 +2,8 @@
   <span class="label-text">{{ label }}</span>
 </label>
 <select
+  #selectElement
   id="{{ selectId }}"
-  [multiple]="multiple"
   class="select select-bordered {{ classes }}"
   [disabled]="disabled"
   [ngModel]="selectedItem"

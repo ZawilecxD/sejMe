@@ -10,10 +10,12 @@ import {
   extractUniqueProfessions,
 } from './member-filters.utils';
 import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
+import { Term } from 'src/app/term/model/Term';
 
 export const MEMBERS_FILTERS_FEATURE_NAME = 'membersFilters';
 
 export interface MembersFiltersState extends MembersSelectedFilters {
+  selectedTerm: Term | null;
   availableClubs: Set<string>;
   availableDistrictsNames: Set<string>;
   availableBirthLocations: Set<string>;
@@ -29,6 +31,8 @@ const initialState: MembersFiltersState = {
   availableProfessions: new Set(),
   availableEducationLevels: new Set(),
   availableVoivodeships: ALL_VOIVODESHIPS,
+
+  selectedTerm: null,
 
   searchValue: null,
   selectedClubs: null,
@@ -76,6 +80,9 @@ const membersFiltersReducer = createReducer(
   on(MembersFiltersActions.initializeMembersFilters, (state, filters) => {
     console.log('MembersFiltersActions.initializeMembersFilters', filters);
     return { ...state, ...filters };
+  }),
+  on(MembersFiltersActions.updateSelectedTerm, (state, { term }) => {
+    return { ...state, selectedTerm: term };
   }),
   on(
     MembersFiltersActions.updateMembersSearchValue,

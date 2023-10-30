@@ -1,7 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+  ViewChild,
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -19,8 +24,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class ItemSelectComponent implements ControlValueAccessor {
+export class ItemSelectComponent implements ControlValueAccessor, OnChanges {
   private static uniqueId = 1;
+  @ViewChild('selectElement', { static: true })
+  selectElement!: ElementRef<HTMLSelectElement>;
   @Input() label: string | null = null;
   @Input() multiple = false;
   @Input()
@@ -41,8 +48,25 @@ export class ItemSelectComponent implements ControlValueAccessor {
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.selectId = ItemSelectComponent.uniqueId++;
+  }
+
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    const multipleChanged = simpleChanges['multiple'];
+    console.log({ multipleChanged, selectElement: this.selectElement });
+    if (multipleChanged) {
+      multipleChanged.currentValue
+        ? this.renderer.setAttribute(
+            this.selectElement.nativeElement,
+            'multiple',
+            'true'
+          )
+        : this.renderer.removeAttribute(
+            this.selectElement.nativeElement,
+            'multiple'
+          );
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -54,6 +78,7 @@ export class ItemSelectComponent implements ControlValueAccessor {
   }
 
   writeValue(item: any): void {
+    console.log('selectValue', { selectedItem: item });
     this.selectedItem = item;
   }
 
@@ -63,6 +88,7 @@ export class ItemSelectComponent implements ControlValueAccessor {
 
   selectValue(item: any) {
     this.selectedItem = item;
+    console.log('selectValue', { selectedItem: this.selectedItem });
     this.onTouched();
     this.onChange(item);
   }

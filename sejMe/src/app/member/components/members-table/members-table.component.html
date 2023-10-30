@@ -19,6 +19,6 @@
       sm-member-row
       *ngFor="let member of (members$ | async) || []"
       [member]="member"
-      [termNum]="termNum"></tr>
+      [termNum]="selectedTermNum$ | async"></tr>
   </tbody>
 </table>

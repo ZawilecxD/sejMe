@@ -1,38 +1,45 @@
 import { inject } from '@angular/core';
-import { ResolveFn } from '@angular/router';
+import { Params, ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { initializeMembersFilters } from '../state/filters/member-filters.actions';
+import {
+  initializeMembersFilters,
+  updateSelectedTerm,
+} from '../state/filters/member-filters.actions';
 import {
   MembersSelectedFilters,
   selectedFiltersFromRouteParams,
 } from '../model/MembersSelectedFilters';
+import { Term } from 'src/app/term/model/Term';
+import { selectAllTerms } from 'src/app/term/state/terms.selectors';
+import { first, map } from 'rxjs';
 
 export const resolveMembersFiltersFromRoute: ResolveFn<
   Partial<MembersSelectedFilters>
 > = route => {
   const store = inject(Store);
-  console.log(route.queryParamMap);
-  // const birthLocations = route.queryParamMap.get('birthLocation');
-  // const clubs = route.queryParamMap.get('club');
-  // const districtNames = route.queryParamMap.get('district');
-  // const educationLevels = route.queryParamMap.get('educationLevel');
-  // const professions = route.queryParamMap.get('professions');
-  // const voivodeships = route.queryParamMap.get('voivodeship');
-  // const term = route.queryParamMap.get('term'); //TODO
-  // const searchValue = route.queryParamMap.get('search');
   const filters = selectedFiltersFromRouteParams(route.queryParams);
-  //  {
-  //   selectedBirthLocations: birthLocations ? birthLocations.split(',') : null,
-  //   selectedClubs: clubs ? clubs.split(',') : null,
-  //   selectedDistrictsNames: districtNames ? districtNames.split(',') : null,
-  //   selectedEducationLevels: educationLevels
-  //     ? educationLevels.split(',')
-  //     : null,
-  //   selectedProfessions: professions ? professions.split(',') : null,
-  //   selectedVoivodeships: voivodeships ? voivodeships.split(',') : null,
-  //   searchValue,
-  // };
-  console.log('filters from route', filters);
-  store.dispatch(initializeMembersFilters(filters));
+  return store.select(selectAllTerms).pipe(
+    first(),
+    map(allTerms => {
+      store.dispatch(initializeMembersFilters(filters));
+      store.dispatch(
+        updateSelectedTerm({
+          term: getTermFromRouteOrNewest(allTerms, route.queryParams),
+        })
+      );
+
+      return filters;
+    })
+  );
   return filters;
 };
+
+function getTermFromRouteOrNewest(allTerms: Term[], queryParams: Params) {
+  const termNumFromRoute = queryParams['term'];
+  const termFromRoute = termNumFromRoute
+    ? allTerms.find(t => t.num === +termNumFromRoute)
+    : null;
+  const newestTerm = allTerms.length ? allTerms[allTerms.length - 1] : null;
+  console.log({ termNumFromRoute, termFromRoute, newestTerm, allTerms });
+  return termFromRoute || newestTerm;
+}

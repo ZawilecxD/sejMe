@@ -19,7 +19,7 @@ import { MemberApiService } from '../../api/member-api.service';
 export class MemberRowComponent implements OnChanges {
   private readonly memberApi = inject(MemberApiService);
   @Input({ required: true }) member!: ParliamentMember;
-  @Input({ required: true }) termNum!: number;
+  @Input({ required: true }) termNum!: number | null;
   miniPhotoUrl = '';
   showFallbackIcon = false;
 

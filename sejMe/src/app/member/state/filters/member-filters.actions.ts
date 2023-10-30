@@ -1,9 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
+import { Term } from 'src/app/term/model/Term';
 
 export const initializeMembersFilters = createAction(
   '[MembersFilters] Set members filters',
   props<Partial<MembersSelectedFilters>>()
+);
+
+export const updateSelectedTerm = createAction(
+  '[MembersFilters] Update selected term',
+  props<{ term: Term | null }>()
 );
 
 export const updateMembersSearchValue = createAction(

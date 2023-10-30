@@ -1,14 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  selectAllMembersArray,
-  selectFilteredMembersArray,
-} from '../../state/member.selectors';
+import { selectFilteredMembersArray } from '../../state/member.selectors';
+import { selectSelectedTermNum } from '../../state/filters/member-filters.selectors';
 
 @Component({
   selector: 'sm-members-table',
@@ -19,5 +12,5 @@ import {
 export class MembersTableComponent {
   private readonly store = inject(Store);
   members$ = this.store.select(selectFilteredMembersArray);
-  @Input({ required: true }) termNum!: number;
+  selectedTermNum$ = this.store.select(selectSelectedTermNum);
 }
