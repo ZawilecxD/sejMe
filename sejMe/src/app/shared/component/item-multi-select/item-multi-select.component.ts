@@ -3,31 +3,30 @@ import {
   Component,
   ElementRef,
   Input,
-  Renderer2,
+  OnChanges,
   ViewChild,
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'sm-item-select',
-  templateUrl: './item-select.component.html',
-  styleUrls: ['./item-select.component.scss'],
+  selector: 'sm-item-multi-select',
+  templateUrl: './item-multi-select.component.html',
+  styleUrls: ['./item-multi-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ItemSelectComponent),
+      useExisting: forwardRef(() => ItemMultiSelectComponent),
       multi: true,
     },
   ],
 })
-export class ItemSelectComponent implements ControlValueAccessor {
+export class ItemMultiSelectComponent implements ControlValueAccessor {
   private static uniqueId = 1;
   @ViewChild('selectElement', { static: true })
   selectElement!: ElementRef<HTMLSelectElement>;
   @Input() label: string | null = null;
-  @Input() multiple = false;
   @Input()
   optionsDescription = '';
   @Input()
@@ -41,13 +40,13 @@ export class ItemSelectComponent implements ControlValueAccessor {
   readonly defaultCompareWith = (a: unknown, b: unknown) => a == b;
   readonly selectId: number;
 
-  selectedItem?: any;
+  selectedItems?: any[];
   disabled = false;
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
-  constructor(private renderer: Renderer2) {
-    this.selectId = ItemSelectComponent.uniqueId++;
+  constructor() {
+    this.selectId = ItemMultiSelectComponent.uniqueId++;
   }
 
   registerOnChange(fn: any): void {
@@ -58,19 +57,19 @@ export class ItemSelectComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  writeValue(item: any): void {
-    console.log('writeValue', { item });
-    this.selectedItem = item;
+  writeValue(items: any[]): void {
+    console.log('[multi] writeValue', { items });
+    this.selectedItems = items;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  selectValue(item: any) {
-    console.log('selectValue', { item });
-    this.selectedItem = item;
+  selectValues(items: any[]) {
+    console.log('[multi] selectValue', { items });
+    this.selectedItems = items;
     this.onTouched();
-    this.onChange(item);
+    this.onChange(items.length ? items : null);
   }
 }
