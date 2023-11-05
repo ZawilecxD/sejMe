@@ -23,7 +23,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./member/member.module').then(m => m.MemberModule),
       },
-      { path: '**', redirectTo: '' },
     ],
   },
   { path: '**', redirectTo: '' },

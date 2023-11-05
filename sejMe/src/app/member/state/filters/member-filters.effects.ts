@@ -10,6 +10,7 @@ import {
   selectSelectedTerm,
 } from './member-filters.selectors';
 import { routeParamsFromSelectedFilters } from '../../model/MembersFiltersRouteParams';
+import { initializeSelectedTern } from './member-filters.actions';
 
 @Injectable()
 export class MembersFiltersEffects {
@@ -27,6 +28,18 @@ export class MembersFiltersEffects {
     );
   });
 
+  selectedTermInitialize$ = createEffect(() => {
+    return this.actions.pipe(
+      ofType(MembersFiltersActions.initializeSelectedTern),
+      exhaustMap(({ term }) => {
+        if (term) {
+          return of(MembersActions.loadMembersList({ termNum: term.num }));
+        }
+        return EMPTY;
+      })
+    );
+  });
+
   filterMembersOnLoadSuccess$ = createEffect(() => {
     return this.actions.pipe(
       ofType(MembersActions.loadMembersListSuccess),
@@ -36,6 +49,7 @@ export class MembersFiltersEffects {
       })
     );
   });
+
   termFilterUpdate$ = createEffect(() => {
     return this.actions.pipe(
       ofType(MembersFiltersActions.updateSelectedTerm),

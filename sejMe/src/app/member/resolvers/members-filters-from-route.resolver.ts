@@ -3,7 +3,7 @@ import { Params, ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   initializeMembersFilters,
-  updateSelectedTerm,
+  initializeSelectedTern,
 } from '../state/filters/member-filters.actions';
 import {
   MembersSelectedFilters,
@@ -23,7 +23,7 @@ export const resolveMembersFiltersFromRoute: ResolveFn<
     map(allTerms => {
       store.dispatch(initializeMembersFilters(filters));
       store.dispatch(
-        updateSelectedTerm({
+        initializeSelectedTern({
           term: getTermFromRouteOrNewest(allTerms, route.queryParams),
         })
       );

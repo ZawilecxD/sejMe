@@ -3,8 +3,13 @@ import { MembersSelectedFilters } from '../../model/MembersSelectedFilters';
 import { Term } from 'src/app/term/model/Term';
 
 export const initializeMembersFilters = createAction(
-  '[MembersFilters] Set members filters',
+  '[MembersFilters] Initialize members filters',
   props<Partial<MembersSelectedFilters>>()
+);
+
+export const initializeSelectedTern = createAction(
+  '[MembersFilters] Initialize selected term',
+  props<{ term: Term | null }>()
 );
 
 export const updateSelectedTerm = createAction(

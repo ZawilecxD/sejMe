@@ -78,8 +78,10 @@ const membersFiltersReducer = createReducer(
     };
   }),
   on(MembersFiltersActions.initializeMembersFilters, (state, filters) => {
-    console.log('MembersFiltersActions.initializeMembersFilters', filters);
     return { ...state, ...filters };
+  }),
+  on(MembersFiltersActions.initializeSelectedTern, (state, { term }) => {
+    return { ...state, selectedTerm: term };
   }),
   on(MembersFiltersActions.updateSelectedTerm, (state, { term }) => {
     return { ...state, selectedTerm: term };
