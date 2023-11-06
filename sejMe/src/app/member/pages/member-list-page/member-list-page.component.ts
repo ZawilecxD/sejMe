@@ -17,7 +17,6 @@ export class MemberListPageComponent {
   readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
 
   onTermSelect(term: Term) {
-    console.log(term);
     this.store.dispatch(updateSelectedTerm({ term }));
   }
 }

@@ -99,7 +99,6 @@ const membersFiltersReducer = createReducer(
     }
   ),
   on(MembersFiltersActions.updateSelectedClubs, (state, { clubs }) => {
-    console.log({ clubs });
     return { ...state, selectedClubs: clubs };
   }),
   on(

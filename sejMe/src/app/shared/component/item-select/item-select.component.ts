@@ -59,7 +59,6 @@ export class ItemSelectComponent implements ControlValueAccessor {
   }
 
   writeValue(item: any): void {
-    console.log('writeValue', { item });
     this.selectedItem = item;
   }
 
@@ -68,7 +67,6 @@ export class ItemSelectComponent implements ControlValueAccessor {
   }
 
   selectValue(item: any) {
-    console.log('selectValue', { item });
     this.selectedItem = item;
     this.onTouched();
     this.onChange(item);

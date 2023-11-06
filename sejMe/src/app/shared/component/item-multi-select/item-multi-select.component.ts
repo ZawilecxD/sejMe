@@ -58,7 +58,6 @@ export class ItemMultiSelectComponent implements ControlValueAccessor {
   }
 
   writeValue(items: any[]): void {
-    console.log('[multi] writeValue', { items });
     this.selectedItems = items;
   }
 
@@ -67,7 +66,6 @@ export class ItemMultiSelectComponent implements ControlValueAccessor {
   }
 
   selectValues(items: any[]) {
-    console.log('[multi] selectValue', { items });
     this.selectedItems = items;
     this.onTouched();
     this.onChange(items.length ? items : null);

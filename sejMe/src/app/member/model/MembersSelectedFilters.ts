@@ -13,7 +13,6 @@ export interface MembersSelectedFilters {
 export function selectedFiltersFromRouteParams(
   params: Params
 ): Partial<MembersSelectedFilters> {
-  console.log({ params });
   return {
     searchValue: params['search'],
     selectedBirthLocations: params['birth']?.split(','),

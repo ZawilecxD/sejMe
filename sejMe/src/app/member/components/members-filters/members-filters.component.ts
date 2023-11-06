@@ -51,7 +51,6 @@ export class MembersFiltersComponent {
   selectedVoivodeships$ = this.store.select(selectSelectedVoivodeships);
 
   updateMembersSearchValue(searchValue: string) {
-    console.log('updateMembersSearchValue', searchValue);
     this.store.dispatch(updateMembersSearchValue({ searchValue }));
   }
 

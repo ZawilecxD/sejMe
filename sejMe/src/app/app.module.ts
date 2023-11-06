@@ -36,14 +36,6 @@ export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
     },
-    // {
-    //   provide: ACTIVE_TERM,
-    //   useFactory: (route: ActivatedRoute) => {
-    //     console.log('ACTIVE TERM', route.snapshot.data);
-    //     return route.snapshot.data['term'];
-    //   },
-    //   deps: [ActivatedRoute],
-    // },
   ],
   bootstrap: [AppComponent],
 })

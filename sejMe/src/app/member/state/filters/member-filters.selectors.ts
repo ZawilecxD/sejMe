@@ -8,7 +8,6 @@ export const selectMembers = (state: AppState) => state.membersFilters;
 export const selectSelectedMembersFilters = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    console.log({ state });
     return {
       searchValue: state.searchValue,
       selectedBirthLocations: state.selectedBirthLocations,
@@ -94,7 +93,6 @@ export const selectAvailableVoivodeships = createSelector(
 export const selectSelectedClubs = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
-    console.log('selectSelectedClubs', state.selectedClubs);
     return state.selectedClubs;
   }
 );
