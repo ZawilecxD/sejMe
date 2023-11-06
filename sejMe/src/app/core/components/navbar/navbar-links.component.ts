@@ -19,7 +19,7 @@ export class NavbarLinksComponent {
   readonly links: NavbarLink[] = [
     { label: 'Posłowie', route: 'member' },
     { label: 'Kluby', route: 'club' },
-    { label: 'Komisje', route: 'comittee' },
+    { label: 'Komisje', route: 'committee' },
     { label: 'Posiedzenia', route: 'proceeding' },
     { label: 'Druki sejmowe', route: 'print' },
     { label: 'Interpelacje', route: 'interpelation' },

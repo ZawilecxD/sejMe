@@ -23,6 +23,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./member/member.module').then(m => m.MemberModule),
       },
+      {
+        path: 'committee',
+        title: 'Komisje',
+        loadChildren: () =>
+          import('./committee/committee.module').then(m => m.CommitteeModule),
+      },
     ],
   },
   { path: '**', redirectTo: '' },
