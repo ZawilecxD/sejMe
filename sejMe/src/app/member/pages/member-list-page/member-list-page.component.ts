@@ -12,11 +12,11 @@ import { selectSelectedTerm } from '../../state/filters/member-filters.selectors
 })
 export class MemberListPageComponent {
   private readonly store = inject(Store);
-  readonly terms$ = this.store.select(selectAllTerms);
-  readonly selectedTerm$ = this.store.select(selectSelectedTerm);
-  readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
+  // readonly terms$ = this.store.select(selectAllTerms);
+  // readonly selectedTerm$ = this.store.select(selectSelectedTerm);
+  // readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
 
-  onTermSelect(term: Term) {
-    this.store.dispatch(updateSelectedTerm({ term }));
-  }
+  // onTermSelect(term: Term) {
+  //   this.store.dispatch(updateSelectedTerm({ term }));
+  // }
 }

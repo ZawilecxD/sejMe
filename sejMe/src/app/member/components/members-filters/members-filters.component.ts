@@ -13,6 +13,7 @@ import {
   selectSelectedDistrictsNames,
   selectSelectedEducationLevels,
   selectSelectedProfessions,
+  selectSelectedTerm,
   selectSelectedVoivodeships,
 } from '../../state/filters/member-filters.selectors';
 import {
@@ -24,8 +25,11 @@ import {
   updateSelectedDistrictsNames,
   updateSelectedEducationLevels,
   updateSelectedProfessions,
+  updateSelectedTerm,
   updateselectedVoivodeships,
 } from '../../state/filters/member-filters.actions';
+import { Term } from 'src/app/term/model/Term';
+import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 
 @Component({
   selector: 'sm-members-filters',
@@ -35,6 +39,13 @@ import {
 })
 export class MembersFiltersComponent {
   private readonly store = inject(Store);
+  readonly terms$ = this.store.select(selectAllTerms);
+  readonly selectedTerm$ = this.store.select(selectSelectedTerm);
+  readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
+
+  onTermSelect(term: Term) {
+    this.store.dispatch(updateSelectedTerm({ term }));
+  }
   availableBirthLocations$ = this.store.select(selectAvailableBirthLocations);
   availableClubs$ = this.store.select(selectAvailableClubs);
   availableDistricts$ = this.store.select(selectAvailableDistrictsNames);
@@ -49,6 +60,7 @@ export class MembersFiltersComponent {
   selectedEducationLevels$ = this.store.select(selectSelectedEducationLevels);
   selectedProfessions$ = this.store.select(selectSelectedProfessions);
   selectedVoivodeships$ = this.store.select(selectSelectedVoivodeships);
+  shoWAdditionalFilters = false;
 
   updateMembersSearchValue(searchValue: string) {
     this.store.dispatch(updateMembersSearchValue({ searchValue }));
