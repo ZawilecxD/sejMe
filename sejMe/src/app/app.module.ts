@@ -1,4 +1,4 @@
-import { InjectionToken, NgModule } from '@angular/core';
+import { InjectionToken, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoreModule } from './core/core.module';
 import { ActivatedRoute } from '@angular/router';
 import { Term } from './term/model/Term';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
 // export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
@@ -29,6 +30,12 @@ export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     }),
   ],
   providers: [

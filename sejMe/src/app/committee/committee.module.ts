@@ -5,7 +5,8 @@ import { CommitteeDetailsComponent } from './components/committee-details/commit
 import { CommitteeListComponent } from './components/committee-list/committee-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-
+import * as fromCommittees from './state/committee.reducer';
+import { StoreModule } from '@ngrx/store';
 const ROUTES: Routes = [
   {
     path: '',
@@ -26,6 +27,13 @@ const ROUTES: Routes = [
     CommitteeDetailsComponent,
     CommitteeListComponent,
   ],
-  imports: [SharedModule, RouterModule.forChild(ROUTES)],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(ROUTES),
+    StoreModule.forFeature(
+      fromCommittees.COMMITTEE_FEATURE_NAME,
+      fromCommittees.reducer
+    ),
+  ],
 })
 export class CommitteeModule {}
