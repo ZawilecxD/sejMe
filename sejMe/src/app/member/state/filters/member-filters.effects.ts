@@ -7,10 +7,9 @@ import * as MembersActions from '../member.actions';
 import { Store } from '@ngrx/store';
 import {
   selectSelectedMembersFilters,
-  selectSelectedTerm,
+  selectMembersSelectedTerm,
 } from './member-filters.selectors';
 import { routeParamsFromSelectedFilters } from '../../model/MembersFiltersRouteParams';
-import { initializeSelectedTern } from './member-filters.actions';
 
 @Injectable()
 export class MembersFiltersEffects {
@@ -83,7 +82,7 @@ export class MembersFiltersEffects {
   filtersCleared$ = createEffect(() => {
     return this.actions.pipe(
       ofType(MembersFiltersActions.clearMembersFilters),
-      withLatestFrom(this.store.select(selectSelectedTerm)),
+      withLatestFrom(this.store.select(selectMembersSelectedTerm)),
       exhaustMap(([_, term]) => {
         this.router.navigate([], {
           relativeTo: this.activatedRoute,

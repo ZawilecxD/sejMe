@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectFilteredMembersArray } from '../../state/member.selectors';
-import { selectSelectedTermNum } from '../../state/filters/member-filters.selectors';
+import { selectMembersSelectedTermNum } from '../../state/filters/member-filters.selectors';
 
 @Component({
   selector: 'sm-members-table',
@@ -12,5 +12,5 @@ import { selectSelectedTermNum } from '../../state/filters/member-filters.select
 export class MembersTableComponent {
   private readonly store = inject(Store);
   members$ = this.store.select(selectFilteredMembersArray);
-  selectedTermNum$ = this.store.select(selectSelectedTermNum);
+  selectedTermNum$ = this.store.select(selectMembersSelectedTermNum);
 }

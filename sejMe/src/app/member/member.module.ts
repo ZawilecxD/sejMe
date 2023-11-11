@@ -54,8 +54,7 @@ const ROUTES: Routes = [
       fromMembersFilters.MEMBERS_FILTERS_FEATURE_NAME,
       fromMembersFilters.reducer
     ),
-    EffectsModule.forFeature([MembersEffects]),
-    EffectsModule.forFeature([MembersFiltersEffects]),
+    EffectsModule.forFeature([MembersEffects, MembersFiltersEffects]),
     NgOptimizedImage,
   ],
 })

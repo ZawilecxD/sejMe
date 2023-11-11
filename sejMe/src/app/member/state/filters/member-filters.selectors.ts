@@ -20,14 +20,14 @@ export const selectSelectedMembersFilters = createSelector(
   }
 );
 
-export const selectSelectedTerm = createSelector(
+export const selectMembersSelectedTerm = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
     return state.selectedTerm;
   }
 );
 
-export const selectSelectedTermNum = createSelector(
+export const selectMembersSelectedTermNum = createSelector(
   selectMembers,
   (state: MembersFiltersState) => {
     return state.selectedTerm?.num || null;

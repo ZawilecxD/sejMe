@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Term } from 'src/app/term/model/Term';
 import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 import { updateSelectedTerm } from '../../state/filters/member-filters.actions';
-import { selectSelectedTerm } from '../../state/filters/member-filters.selectors';
+import { selectMembersSelectedTerm } from '../../state/filters/member-filters.selectors';
 
 @Component({
   templateUrl: './member-list-page.component.html',

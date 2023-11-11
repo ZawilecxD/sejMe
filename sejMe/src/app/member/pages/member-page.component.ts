@@ -1,7 +1,7 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectSelectedTerm } from '../state/filters/member-filters.selectors';
+import { selectMembersSelectedTerm } from '../state/filters/member-filters.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -16,7 +16,7 @@ export class MemberPageComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select(selectSelectedTerm)
+      .select(selectMembersSelectedTerm)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(selectedTerm => {
         if (selectedTerm) {

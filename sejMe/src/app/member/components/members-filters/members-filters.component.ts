@@ -13,7 +13,7 @@ import {
   selectSelectedDistrictsNames,
   selectSelectedEducationLevels,
   selectSelectedProfessions,
-  selectSelectedTerm,
+  selectMembersSelectedTerm,
   selectSelectedVoivodeships,
 } from '../../state/filters/member-filters.selectors';
 import {
@@ -28,7 +28,7 @@ import {
   updateSelectedTerm,
   updateselectedVoivodeships,
 } from '../../state/filters/member-filters.actions';
-import { Term } from 'src/app/term/model/Term';
+import { Term, compareTermsByNumber } from 'src/app/term/model/Term';
 import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 
 @Component({
@@ -40,8 +40,8 @@ import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 export class MembersFiltersComponent {
   private readonly store = inject(Store);
   readonly terms$ = this.store.select(selectAllTerms);
-  readonly selectedTerm$ = this.store.select(selectSelectedTerm);
-  readonly compareTerms = (a: Term, b: Term) => a?.num === b?.num;
+  readonly selectedTerm$ = this.store.select(selectMembersSelectedTerm);
+  readonly compareTerms = compareTermsByNumber;
 
   onTermSelect(term: Term) {
     this.store.dispatch(updateSelectedTerm({ term }));
