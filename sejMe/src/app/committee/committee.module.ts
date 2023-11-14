@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { CommitteePageComponent } from './pages/committee-page.component';
 import { CommitteeDetailsComponent } from './components/committee-details/committee-details.component';
-import { CommitteeListComponent } from './components/committee-list/committee-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import * as fromCommittees from './state/committee.reducer';
@@ -12,15 +11,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommitteeEffects } from './state/committee.effects';
 import { CommitteeListPageComponent } from './pages/committee-list-page/committee-list-page.component';
 import { CommitteeFiltersComponent } from './components/committee-filters/committee-filters.component';
+import { FormsModule } from '@angular/forms';
+import { CommitteeTableComponent } from './components/committee-table/committee-table.component';
+import { CommitteeRowComponent } from './components/committee-row/committee-row.component';
+import { resolveCommitteeFiltersFromRoute } from './resolvers/committee-filters-from-route.resolver';
+import { CommitteeFiltersEffects } from './state/filters/committee-filters.effects';
 const ROUTES: Routes = [
   {
     path: '',
     component: CommitteePageComponent,
     resolve: {
-      // membersFilters: resolveMembersFiltersFromRoute,
+      committeeFilters: resolveCommitteeFiltersFromRoute,
     },
     children: [
-      { path: '', component: CommitteeListComponent },
+      { path: '', component: CommitteeListPageComponent },
       { path: ':id', component: CommitteeDetailsComponent },
     ],
   },
@@ -30,12 +34,14 @@ const ROUTES: Routes = [
   declarations: [
     CommitteePageComponent,
     CommitteeDetailsComponent,
-    CommitteeListComponent,
+    CommitteeTableComponent,
     CommitteeListPageComponent,
     CommitteeFiltersComponent,
+    CommitteeRowComponent,
   ],
   imports: [
     SharedModule,
+    FormsModule,
     RouterModule.forChild(ROUTES),
     StoreModule.forFeature(
       fromCommittees.COMMITTEE_FEATURE_NAME,
@@ -45,7 +51,7 @@ const ROUTES: Routes = [
       fromCommitteesFilters.COMMITTEES_FILTERS_FEATURE_NAME,
       fromCommitteesFilters.reducer
     ),
-    EffectsModule.forFeature([CommitteeEffects]),
+    EffectsModule.forFeature([CommitteeEffects, CommitteeFiltersEffects]),
   ],
 })
 export class CommitteeModule {}

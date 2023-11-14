@@ -1,0 +1,14 @@
+<td>{{ committee.code }}</td>
+<td>
+  <div class="flex flex-col gap-2">
+    <span>{{ committee.name }}</span>
+  </div>
+</td>
+<td>{{ committee.type }}</td>
+<td>{{ committee.appointmentDate }}</td>
+<td>{{ committee.compositionDate }}</td>
+<td>{{ committee.scope }}</td>
+<td>
+  {{ committee.members.length }}
+  <button title="TODO pokazanie listy memberów w modalu">Pokaż</button>
+</td>

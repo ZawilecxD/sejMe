@@ -10,5 +10,5 @@ export interface Committee {
   appointmentDate: Date;
   compositionDate: Date;
   scope: string;
-  members: CommitteeMember;
+  members: CommitteeMember[];
 }

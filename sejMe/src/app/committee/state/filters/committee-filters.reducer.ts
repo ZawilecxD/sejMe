@@ -19,14 +19,29 @@ const committeesFiltersReducer = createReducer(
   on(CommitteeFiltersActions.initializeCommittesFilters, (state, filters) => {
     return { ...state, ...filters };
   }),
-  on(CommitteeFiltersActions.initializeSelectedTern, (state, { term }) => {
-    return { ...state, selectedTerm: term };
-  }),
+  on(
+    CommitteeFiltersActions.initializeCommitteeSelectedTern,
+    (state, { term }) => {
+      return { ...state, selectedTerm: term };
+    }
+  ),
   on(CommitteeFiltersActions.updateSelectedTerm, (state, { term }) => {
     return { ...state, selectedTerm: term };
   }),
-  on(CommitteeFiltersActions.updateSearchValue, (state, { searchValue }) => {
-    return { ...state, searchValue };
+  on(
+    CommitteeFiltersActions.updateCommitteeSearchValue,
+    (state, { searchValue }) => {
+      return { ...state, searchValue };
+    }
+  ),
+  on(
+    CommitteeFiltersActions.updateCommitteeSelectedTypes,
+    (state, { selectedTypes }) => {
+      return { ...state, selectedTypes };
+    }
+  ),
+  on(CommitteeFiltersActions.clearCommitteeFilters, () => {
+    return initialState;
   })
 );
 

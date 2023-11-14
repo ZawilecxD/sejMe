@@ -1,0 +1,20 @@
+<table class="table table-xs table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th>Kod</th>
+      <th>Nazwa</th>
+      <th>Typ</th>
+      <th>Data desygnowania</th>
+      <th>Data utworzenia</th>
+      <th>Zakres</th>
+      <th>Członkowie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      sm-committee-row
+      *ngFor="let committee of (committees$ | async) || []"
+      [committee]="committee"
+      [termNum]="selectedTermNum$ | async"></tr>
+  </tbody>
+</table>

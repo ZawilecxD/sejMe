@@ -32,3 +32,13 @@ export const selectCommitteeSelectedTypes = createSelector(
     return state.selectedTypes;
   }
 );
+
+export const selectSelectedCommitteeFilters = createSelector(
+  selectCommitteeFilters,
+  (state: CommitteesFiltersState) => {
+    return {
+      searchValue: state.searchValue,
+      selectedTypes: state.selectedTypes,
+    };
+  }
+);

@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  selectAllCommittees,
   selectCommitteeSelectedTermNum,
+  selectFilteredCommittees,
 } from '../../state/committee.selectors';
 
 @Component({
-  selector: 'sm-committee-list',
-  templateUrl: './committee-list.component.html',
-  styleUrls: ['./committee-list.component.scss'],
+  selector: 'sm-committee-table',
+  templateUrl: './committee-table.component.html',
+  styleUrls: ['./committee-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommitteeListComponent {
+export class CommitteeTableComponent {
   private store = inject(Store);
-  allCommittees$ = this.store.select(selectAllCommittees);
+  committees$ = this.store.select(selectFilteredCommittees);
   selectedTermNum$ = this.store.select(selectCommitteeSelectedTermNum);
 }
