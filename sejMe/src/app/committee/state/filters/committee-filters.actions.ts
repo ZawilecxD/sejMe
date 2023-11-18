@@ -8,7 +8,7 @@ export const initializeCommittesFilters = createAction(
   props<Partial<CommitteeSelectedFilters>>()
 );
 
-export const initializeCommitteeSelectedTern = createAction(
+export const initializeCommitteeSelectedTerm = createAction(
   '[CommitteesFilters] Initialize selected term',
   props<{ term: Term | null }>()
 );
@@ -28,10 +28,10 @@ export const updateCommitteeSearchValue = createAction(
   props<{ searchValue: string | null }>()
 );
 
-export const updateCommitteeSelectedTypes = createAction(
-  '[CommitteesFilters] Update selected types',
-  props<{ selectedTypes: CommitteeType[] }>()
-);
+// export const updateCommitteeSelectedTypes = createAction(
+//   '[CommitteesFilters] Update selected types',
+//   props<{ selectedTypes: CommitteeType[] }>()
+// );
 
 export const saveCommitteeFilters = createAction(
   '[CommitteesFilters] Save committee filters'

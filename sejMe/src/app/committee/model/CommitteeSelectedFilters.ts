@@ -3,7 +3,7 @@ import { CommitteeType } from './CommitteeType';
 
 export interface CommitteeSelectedFilters {
   searchValue: string | null;
-  selectedTypes: CommitteeType[];
+  // selectedTypes: CommitteeType[];
 }
 
 export function selectedFiltersFromRouteParams(
@@ -11,6 +11,6 @@ export function selectedFiltersFromRouteParams(
 ): Partial<CommitteeSelectedFilters> {
   return {
     searchValue: params['search'],
-    selectedTypes: params['type']?.split(','),
+    // selectedTypes: params['type']?.split(','),
   };
 }

@@ -20,12 +20,12 @@
       (ngModelChange)="updateSearchValue($event)" />
   </div>
 
-  <sm-item-multi-select
+  <!-- <sm-item-multi-select
     label="Typy komisiji"
     classes="min-w-[8rem]"
     [items]="avaialableTypes"
     [ngModel]="selectedTypes$ | async"
-    (ngModelChange)="updateSelectedTypes($event)" />
+    (ngModelChange)="updateSelectedTypes($event)" /> -->
 
   <div class="flex items-end flex-1 gap-1">
     <button class="btn btn-neutral" (click)="saveFilters()">Filtruj</button>

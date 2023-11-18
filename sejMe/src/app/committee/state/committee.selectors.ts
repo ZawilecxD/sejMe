@@ -24,27 +24,3 @@ export const selectError = createSelector(
   selectCommitteeState,
   (state: CommitteeState) => state.error
 );
-
-export const selectSearchValue = createSelector(
-  selectCommitteeState,
-  (state: CommitteeState) => state.searchValue
-);
-
-export const selectSelectedTypes = createSelector(
-  selectCommitteeState,
-  (state: CommitteeState) => state.selectedTypes
-);
-
-export const selectCommitteeSelectedTerm = createSelector(
-  selectCommitteeState,
-  (state: CommitteeState) => {
-    return state.selectedTerm || null;
-  }
-);
-
-export const selectCommitteeSelectedTermNum = createSelector(
-  selectCommitteeState,
-  (state: CommitteeState) => {
-    return state.selectedTerm?.num || null;
-  }
-);

@@ -5,10 +5,10 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { selectCommitteeSelectedTermNum } from '../state/committee.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { selectCommitteeSelectedTermNum } from '../state/filters/committee-filters.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,6 +25,7 @@ export class CommitteePageComponent implements OnInit {
       .select(selectCommitteeSelectedTermNum)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(termNum => {
+        console.log('navigate', termNum);
         if (termNum) {
           this.router.navigate([], {
             relativeTo: this.activeRoute,

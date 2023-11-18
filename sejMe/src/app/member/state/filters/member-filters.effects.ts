@@ -29,7 +29,7 @@ export class MembersFiltersEffects {
 
   selectedTermInitialize$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(MembersFiltersActions.initializeSelectedTern),
+      ofType(MembersFiltersActions.initializeSelectedTerm),
       exhaustMap(({ term }) => {
         if (term) {
           return of(MembersActions.loadMembersList({ termNum: term.num }));

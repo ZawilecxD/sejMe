@@ -26,19 +26,19 @@ export const selectCommitteeSelectedTermNum = createSelector(
   }
 );
 
-export const selectCommitteeSelectedTypes = createSelector(
-  selectCommitteeFilters,
-  (state: CommitteesFiltersState) => {
-    return state.selectedTypes;
-  }
-);
+// export const selectCommitteeSelectedTypes = createSelector(
+//   selectCommitteeFilters,
+//   (state: CommitteesFiltersState) => {
+//     return state.selectedTypes;
+//   }
+// );
 
 export const selectSelectedCommitteeFilters = createSelector(
   selectCommitteeFilters,
   (state: CommitteesFiltersState) => {
     return {
       searchValue: state.searchValue,
-      selectedTypes: state.selectedTypes,
+      // selectedTypes: state.selectedTypes,
     };
   }
 );

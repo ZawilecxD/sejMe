@@ -11,7 +11,7 @@ export interface CommitteesFiltersState extends CommitteeSelectedFilters {
 const initialState: CommitteesFiltersState = {
   selectedTerm: null,
   searchValue: null,
-  selectedTypes: [],
+  // selectedTypes: [],
 };
 
 const committeesFiltersReducer = createReducer(
@@ -20,8 +20,9 @@ const committeesFiltersReducer = createReducer(
     return { ...state, ...filters };
   }),
   on(
-    CommitteeFiltersActions.initializeCommitteeSelectedTern,
+    CommitteeFiltersActions.initializeCommitteeSelectedTerm,
     (state, { term }) => {
+      console.log('initializeCommitteeSelectedTerm', term);
       return { ...state, selectedTerm: term };
     }
   ),
@@ -34,12 +35,12 @@ const committeesFiltersReducer = createReducer(
       return { ...state, searchValue };
     }
   ),
-  on(
-    CommitteeFiltersActions.updateCommitteeSelectedTypes,
-    (state, { selectedTypes }) => {
-      return { ...state, selectedTypes };
-    }
-  ),
+  // on(
+  //   CommitteeFiltersActions.updateCommitteeSelectedTypes,
+  //   (state, { selectedTypes }) => {
+  //     return { ...state, selectedTypes };
+  //   }
+  // ),
   on(CommitteeFiltersActions.clearCommitteeFilters, () => {
     return initialState;
   })

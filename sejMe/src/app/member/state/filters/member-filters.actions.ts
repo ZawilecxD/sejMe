@@ -7,7 +7,7 @@ export const initializeMembersFilters = createAction(
   props<Partial<MembersSelectedFilters>>()
 );
 
-export const initializeSelectedTern = createAction(
+export const initializeSelectedTerm = createAction(
   '[MembersFilters] Initialize selected term',
   props<{ term: Term | null }>()
 );

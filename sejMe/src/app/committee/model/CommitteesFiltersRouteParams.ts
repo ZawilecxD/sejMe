@@ -2,7 +2,7 @@ import { CommitteeSelectedFilters } from './CommitteeSelectedFilters';
 
 export interface CommitteesFiltersRouteParams {
   search?: string;
-  type: string;
+  // type: string;
 }
 
 export function routeParamsFromSelectedFilters(
@@ -10,6 +10,6 @@ export function routeParamsFromSelectedFilters(
 ): CommitteesFiltersRouteParams {
   return {
     search: filters.searchValue || undefined,
-    type: filters.selectedTypes?.join(','),
+    // type: filters.selectedTypes?.join(','),
   };
 }

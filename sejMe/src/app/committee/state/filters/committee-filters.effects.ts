@@ -5,9 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as CommitteeFiltersActions from './committee-filters.actions';
 import * as CommitteeActions from '../committee.actions';
-import { selectSelectedCommitteeFilters } from './committee-filters.selectors';
+import {
+  selectCommitteeSelectedTerm,
+  selectSelectedCommitteeFilters,
+} from './committee-filters.selectors';
 import { routeParamsFromSelectedFilters } from '../../model/CommitteesFiltersRouteParams';
-import { selectCommitteeSelectedTerm } from '../committee.selectors';
 
 @Injectable()
 export class CommitteeFiltersEffects {
@@ -27,7 +29,7 @@ export class CommitteeFiltersEffects {
 
   selectedTermInitialize$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(CommitteeFiltersActions.initializeCommitteeSelectedTern),
+      ofType(CommitteeFiltersActions.initializeCommitteeSelectedTerm),
       exhaustMap(({ term }) => {
         if (term) {
           return of(CommitteeActions.loadCommitteesList({ termNum: term.num }));

@@ -9,7 +9,7 @@ import {
   selectedFiltersFromRouteParams,
 } from '../model/CommitteeSelectedFilters';
 import {
-  initializeCommitteeSelectedTern,
+  initializeCommitteeSelectedTerm,
   initializeCommittesFilters,
 } from '../state/filters/committee-filters.actions';
 
@@ -23,7 +23,7 @@ export const resolveCommitteeFiltersFromRoute: ResolveFn<
     map(allTerms => {
       store.dispatch(initializeCommittesFilters(filters));
       store.dispatch(
-        initializeCommitteeSelectedTern({
+        initializeCommitteeSelectedTerm({
           term: getTermFromRouteOrNewest(allTerms, route.queryParams),
         })
       );

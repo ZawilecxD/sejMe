@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  selectCommitteeSelectedTermNum,
-  selectFilteredCommittees,
-} from '../../state/committee.selectors';
+import { selectFilteredCommittees } from '../../state/committee.selectors';
+import { selectCommitteeSelectedTermNum } from '../../state/filters/committee-filters.selectors';
 
 @Component({
   selector: 'sm-committee-table',

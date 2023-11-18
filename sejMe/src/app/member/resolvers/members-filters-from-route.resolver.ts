@@ -3,7 +3,7 @@ import { ResolveFn } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   initializeMembersFilters,
-  initializeSelectedTern,
+  initializeSelectedTerm,
 } from '../state/filters/member-filters.actions';
 import {
   MembersSelectedFilters,
@@ -22,12 +22,12 @@ export const resolveMembersFiltersFromRoute: ResolveFn<
   return store.select(selectAllTerms).pipe(
     first(),
     withLatestFrom(store.select(selectSelectedMembersFilters)),
-    map(([allTerms, selectedFilters]) => {
+    map(([allTerms]) => {
       // TODO: powinien sprawdzic czy filtry nie sa zapisane w store ?? jesli sa (czyli juz byly inicjalizowane) to ustawiamy je do urla z route?
       // To chyba wtedy tez nie nadaje sie do resolvera....
       store.dispatch(initializeMembersFilters(filters));
       store.dispatch(
-        initializeSelectedTern({
+        initializeSelectedTerm({
           term: getTermFromRouteOrNewest(allTerms, route.queryParams),
         })
       );
