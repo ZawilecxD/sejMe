@@ -17,7 +17,12 @@ export const loadClubsFailure = createAction(
   props<{ error: string | null }>()
 );
 
-export const selectClubsTerm = createAction(
-  '[Club] Select term for clubs',
+export const updateClubsSelectedTerm = createAction(
+  '[Club] Update clubs selected term',
+  props<{ term: Term | null }>()
+);
+
+export const initializeClubsSelectedTerm = createAction(
+  '[Club] Initialize clubs selected term',
   props<{ term: Term | null }>()
 );

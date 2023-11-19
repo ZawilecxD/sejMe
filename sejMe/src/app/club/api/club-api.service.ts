@@ -21,7 +21,7 @@ export class ClubApiService {
     );
   }
 
-  buildLogoUrl(term: number, id: number) {
+  buildLogoUrl(term: number, id: string) {
     return this.httpUtils.buildApiUrl(term, `${this.apiPath}/${id}/logo`);
   }
 }

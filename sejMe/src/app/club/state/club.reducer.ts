@@ -5,6 +5,8 @@ import { Club } from '../model/Club';
 import { CollectionStateStatus } from 'src/app/shared/type/CollectionStateStatus';
 import { Term } from 'src/app/term/model/Term';
 
+export const CLUBS_FEATURE_NAME = 'clubs';
+
 export interface ClubState extends CollectionState {
   allClubs: Map<string, Club>;
   selectedTerm: Term | null;
@@ -23,17 +25,23 @@ export const clubReducer = createReducer(
     ...state,
     status: 'loading' as CollectionStateStatus,
   })),
-  on(ClubActions.loadClubsSuccess, (state, { clubs }) => ({
-    ...state,
-    status: 'succeeded' as CollectionStateStatus,
-    clubs,
-  })),
+  on(ClubActions.loadClubsSuccess, (state, { clubs }) => {
+    return {
+      ...state,
+      status: 'success' as CollectionStateStatus,
+      allClubs: new Map(clubs.map(club => [club.id, club])),
+    };
+  }),
   on(ClubActions.loadClubsFailure, (state, { error }) => ({
     ...state,
-    status: 'failed' as CollectionStateStatus,
+    status: 'error' as CollectionStateStatus,
     error,
   })),
-  on(ClubActions.selectClubsTerm, (state, { term }) => ({
+  on(ClubActions.updateClubsSelectedTerm, (state, { term }) => ({
+    ...state,
+    selectedTerm: term,
+  })),
+  on(ClubActions.initializeClubsSelectedTerm, (state, { term }) => ({
     ...state,
     selectedTerm: term,
   }))

@@ -1,23 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  filter,
-  map,
-  mergeMap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, exhaustMap, map, mergeMap } from 'rxjs/operators';
 import * as ClubActions from './club.actions';
 import { of } from 'rxjs/internal/observable/of';
 import { ClubApiService } from '../api/club-api.service';
-import { selectClubSelectedTerm } from './club.selectors';
-import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class ClubEffects {
-  private store = inject(Store);
+  private router = inject(Router);
   private actions$ = inject(Actions);
   private clubApi = inject(ClubApiService);
+  private activatedRoute = inject(ActivatedRoute);
+
   loadClubs$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClubActions.loadClubs),
@@ -29,4 +25,33 @@ export class ClubEffects {
       })
     )
   );
+
+  termFilterUpdate$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ClubActions.updateClubsSelectedTerm),
+      exhaustMap(({ term }) => {
+        if (term) {
+          this.router.navigate([], {
+            relativeTo: this.activatedRoute,
+            queryParams: { term: term.num },
+            queryParamsHandling: 'merge',
+          });
+          return of(ClubActions.loadClubs({ termNum: term.num }));
+        }
+        return EMPTY;
+      })
+    );
+  });
+
+  selectedTermInitialize$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ClubActions.initializeClubsSelectedTerm),
+      exhaustMap(({ term }) => {
+        if (term) {
+          return of(ClubActions.loadClubs({ termNum: term.num }));
+        }
+        return EMPTY;
+      })
+    );
+  });
 }

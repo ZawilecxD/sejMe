@@ -1,0 +1,9 @@
+<div class="flex gap-3">
+  <sm-item-select
+    label="Wybierz kadencje sejmu"
+    [items]="(terms$ | async) || []"
+    [ngModel]="selectedTerm$ | async"
+    (ngModelChange)="onTermSelect($event)"
+    labelProperty="label"
+    [compareWithFn]="compareTerms" />
+</div>
