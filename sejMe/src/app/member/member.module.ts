@@ -27,7 +27,7 @@ const ROUTES: Routes = [
     },
     children: [
       { path: '', component: MemberListPageComponent },
-      { path: ':id', component: MemberDetailsPageComponent },
+      // { path: ':id', component: MemberDetailsPageComponent },
     ],
   },
 ];
