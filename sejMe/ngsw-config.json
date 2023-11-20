@@ -26,5 +26,34 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "Terms list",
+      "urls": ["**/term"],
+      "cacheConfig": {
+        "maxAge": "7d",
+        "timeout": "30s",
+        "maxSize": 50
+      }
+    },
+    {
+      "name": "Members photos",
+      "urls": ["**/MP/**/photo-mini"],
+      "cacheConfig": {
+        "maxAge": "30d",
+        "timeout": "30s",
+        "maxSize": 200
+      }
+    },
+    {
+      "name": "Members list",
+      "urls": ["**/MP"],
+      "cacheConfig": {
+        "maxAge": "7d",
+        "timeout": "30s",
+        "maxSize": 50
+      }
+    }
   ]
 }
