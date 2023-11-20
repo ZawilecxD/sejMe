@@ -1,0 +1,18 @@
+<table class="table table-xs table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th>Imię i Nazwisko</th>
+      <th>Funkcja</th>
+      <th>Klub</th>
+      <th>Wygaśnięcie mandatu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of members">
+      <td>{{ member.lastFirstName }}</td>
+      <td>{{ member.function }}</td>
+      <td>{{ member.club }}</td>
+      <td>{{ member.mandateExpired }}</td>
+    </tr>
+  </tbody>
+</table>

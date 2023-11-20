@@ -9,6 +9,21 @@
 <td>{{ committee.compositionDate }}</td>
 <td>{{ committee.scope }}</td>
 <td>
-  {{ committee.members.length }}
-  <button title="TODO pokazanie listy memberów w modalu">Pokaż</button>
+  <button class="btn btn-neutral" (click)="membersModal.showModal()">
+    Pokaż ({{ committee.members.length }})
+  </button>
 </td>
+
+<dialog #membersModal class="modal">
+  <div class="modal-box flex flex-col w-11/12 max-w-5xl overflow-hidden">
+    <h3 class="font-bold text-lg modal-top">
+      Członkowie {{ committee.nameGenitive }}
+    </h3>
+    <div class="overflow-scroll">
+      <sm-committee-members [members]="committee.members" />
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>Zamknij</button>
+  </form>
+</dialog>

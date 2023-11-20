@@ -16,6 +16,7 @@ import { CommitteeTableComponent } from './components/committee-table/committee-
 import { CommitteeRowComponent } from './components/committee-row/committee-row.component';
 import { resolveCommitteeFiltersFromRoute } from './resolvers/committee-filters-from-route.resolver';
 import { CommitteeFiltersEffects } from './state/filters/committee-filters.effects';
+import { CommitteeMembersComponent } from './components/committee-members/committee-members.component';
 const ROUTES: Routes = [
   {
     path: '',
@@ -38,6 +39,7 @@ const ROUTES: Routes = [
     CommitteeListPageComponent,
     CommitteeFiltersComponent,
     CommitteeRowComponent,
+    CommitteeMembersComponent,
   ],
   imports: [
     SharedModule,

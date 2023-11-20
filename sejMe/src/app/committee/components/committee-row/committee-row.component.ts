@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { Committee } from '../../model/Committee';
 
 @Component({
@@ -11,4 +16,5 @@ import { Committee } from '../../model/Committee';
 export class CommitteeRowComponent {
   @Input({ required: true }) committee!: Committee;
   @Input({ required: true }) termNum!: number | null;
+  @ViewChild('membersModal') membersModal!: HTMLDialogElement;
 }
