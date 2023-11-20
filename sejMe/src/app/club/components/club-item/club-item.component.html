@@ -1,48 +1,25 @@
-<div class="card card-compact w-96 bg-base-100 shadow-xl">
-  <div class="card-body">
-    <div class="flex items-center gap-2">
-      <div
-        class="bg-white relative aspect-square w-16 rounded-lg overflow-hidden">
+<td>
+  <div class="flex items-center space-x-3">
+    <div *ngIf="!showFallbackIcon; else clubIcon" class="avatar">
+      <div class="mask w-12 h-12 bg-white px-2 py-2">
         <img
-          *ngIf="clubLogoUrl"
+          *ngIf="logoUrl"
           alt="Logo klubu"
-          [ngSrc]="clubLogoUrl"
+          [ngSrc]="logoUrl"
           fill
-          class="px-2 py-2" />
+          (error)="onImageLoadError()" />
       </div>
-      <h2 class="card-title flex-1">{{ club.name }}</h2>
-    </div>
-    <dl class="divide-y">
-      <div
-        *ngIf="club.phone"
-        class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6">Telefon</dt>
-        <dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-          {{ club.phone }}
-        </dd>
-      </div>
-      <div
-        *ngIf="club.email"
-        class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6">Email</dt>
-        <dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-          {{ club.email }}
-        </dd>
-      </div>
-      <div
-        *ngIf="club.fax"
-        class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt class="text-sm font-medium leading-6">Fax</dt>
-        <dd class="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-          {{ club.fax }}
-        </dd>
-      </div>
-    </dl>
-
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">
-        Członkowie ({{ club.membersCount }})
-      </button>
     </div>
   </div>
-</div>
+</td>
+<td>{{ club.name }}</td>
+<td>{{ club.phone }}</td>
+<td>{{ club.email }}</td>
+<td>{{ club.fax }}</td>
+<td>{{ club.membersCount }}</td>
+
+<ng-template #clubIcon>
+  <span
+    smIcon="users"
+    class="w-12 h-12 flex items-center justify-center"></span>
+</ng-template>

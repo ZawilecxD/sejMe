@@ -1,6 +1,19 @@
-<div class="flex flex-wrap gap-2">
-  <sm-club-item
-    *ngFor="let club of (allClubs$ | async) || []"
-    [club]="club"
-    [termNum]="termNum$ | async" />
-</div>
+<table class="table table-xs table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Nazwa</th>
+      <th>Telefon</th>
+      <th>Email</th>
+      <th>Fax</th>
+      <th>Członkowie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      sm-club-item
+      *ngFor="let club of (allClubs$ | async) || []"
+      [club]="club"
+      [termNum]="termNum$ | async"></tr>
+  </tbody>
+</table>
