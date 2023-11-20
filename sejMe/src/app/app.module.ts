@@ -10,12 +10,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoreModule } from './core/core.module';
-import { ActivatedRoute } from '@angular/router';
-import { Term } from './term/model/Term';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
-// export const ACTIVE_TERM = new InjectionToken<Term>('Active term');
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +32,7 @@ export const BASE_API_URL = new InjectionToken<string>('BASE_API_URL');
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [

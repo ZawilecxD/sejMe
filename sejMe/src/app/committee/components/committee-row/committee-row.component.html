@@ -4,7 +4,6 @@
     <span>{{ committee.name }}</span>
   </div>
 </td>
-<td>{{ committee.type }}</td>
 <td>{{ committee.appointmentDate }}</td>
 <td>{{ committee.compositionDate }}</td>
 <td>{{ committee.scope }}</td>
@@ -19,7 +18,7 @@
     <h3 class="font-bold text-lg modal-top">
       Członkowie {{ committee.nameGenitive }}
     </h3>
-    <div class="overflow-scroll">
+    <div class="overflow-y-scroll">
       <sm-committee-members [members]="committee.members" />
     </div>
   </div>
