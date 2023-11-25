@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CommitteeSelectedFilters } from '../../model/CommitteeSelectedFilters';
 import { Term } from 'src/app/term/model/Term';
-import { CommitteeType } from '../../model/CommitteeType';
 
 export const initializeCommittesFilters = createAction(
   '[CommitteesFilters] Initialize committees filters',

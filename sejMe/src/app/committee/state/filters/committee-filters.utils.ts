@@ -20,10 +20,5 @@ export function filterCommittees(
   //     c => filters.selectedTypes?.includes(c.type)
   //   );
   // }
-  console.log({
-    filters,
-    all: allCommittees.length,
-    filtered: filteredCommittees.length,
-  });
   return filteredCommittees;
 }

@@ -2,19 +2,18 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
-  OnInit,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectCommitteeSelectedTermNum } from '../state/filters/committee-filters.selectors';
+import { selectProceedingsSelectedTermNum } from '../state/filters/proceedings-filters.selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<router-outlet></router-outlet>`,
 })
-export class CommitteePageComponent implements OnInit {
+export class ProceedingPageComponent {
   private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly activeRoute = inject(ActivatedRoute);
@@ -22,7 +21,7 @@ export class CommitteePageComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .select(selectCommitteeSelectedTermNum)
+      .select(selectProceedingsSelectedTermNum)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(termNum => {
         if (termNum) {
