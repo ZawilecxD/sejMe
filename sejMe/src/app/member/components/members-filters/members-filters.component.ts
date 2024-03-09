@@ -42,25 +42,43 @@ export class MembersFiltersComponent {
   readonly terms$ = this.store.select(selectAllTerms);
   readonly selectedTerm$ = this.store.select(selectMembersSelectedTerm);
   readonly compareTerms = compareTermsByNumber;
+  readonly availableBirthLocations$ = this.store.select(
+    selectAvailableBirthLocations
+  );
+  readonly availableClubs$ = this.store.select(selectAvailableClubs);
+  readonly availableDistricts$ = this.store.select(
+    selectAvailableDistrictsNames
+  );
+  readonly availableEductionLevels$ = this.store.select(
+    selectAvailableEducationLevels
+  );
+  readonly availableProfessions$ = this.store.select(
+    selectAvailableProfessions
+  );
+  readonly availableVoivodeships$ = this.store.select(
+    selectAvailableVoivodeships
+  );
+
+  readonly searchValue$ = this.store.select(selectMemberSearchValue);
+  readonly selectedBirthLocations$ = this.store.select(
+    selectSelectedBirthLocations
+  );
+  readonly selectedClubs$ = this.store.select(selectSelectedClubs);
+  readonly selectedDistrictsNames$ = this.store.select(
+    selectSelectedDistrictsNames
+  );
+  readonly selectedEducationLevels$ = this.store.select(
+    selectSelectedEducationLevels
+  );
+  readonly selectedProfessions$ = this.store.select(selectSelectedProfessions);
+  readonly selectedVoivodeships$ = this.store.select(
+    selectSelectedVoivodeships
+  );
+  shoWAdditionalFilters = false;
 
   onTermSelect(term: Term) {
     this.store.dispatch(updateSelectedTerm({ term }));
   }
-  availableBirthLocations$ = this.store.select(selectAvailableBirthLocations);
-  availableClubs$ = this.store.select(selectAvailableClubs);
-  availableDistricts$ = this.store.select(selectAvailableDistrictsNames);
-  availableEductionLevels$ = this.store.select(selectAvailableEducationLevels);
-  availableProfessions$ = this.store.select(selectAvailableProfessions);
-  availableVoivodeships$ = this.store.select(selectAvailableVoivodeships);
-
-  searchValue$ = this.store.select(selectMemberSearchValue);
-  selectedBirthLocations$ = this.store.select(selectSelectedBirthLocations);
-  selectedClubs$ = this.store.select(selectSelectedClubs);
-  selectedDistrictsNames$ = this.store.select(selectSelectedDistrictsNames);
-  selectedEducationLevels$ = this.store.select(selectSelectedEducationLevels);
-  selectedProfessions$ = this.store.select(selectSelectedProfessions);
-  selectedVoivodeships$ = this.store.select(selectSelectedVoivodeships);
-  shoWAdditionalFilters = false;
 
   updateMembersSearchValue(searchValue: string) {
     this.store.dispatch(updateMembersSearchValue({ searchValue }));

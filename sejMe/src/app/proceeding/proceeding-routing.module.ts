@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProceedingPageComponent } from './page/proceeding-page/proceeding-page.component';
 import { ProceedingsListPageComponent } from './page/proceedings-list-page/proceedings-list-page.component';
+import { ProceedingPageComponent } from './page/proceeding-page.component';
 
 const ROUTES: Routes = [
   {
