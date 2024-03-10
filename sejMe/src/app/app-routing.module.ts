@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { TermRoutePageComponent } from './core/components/term-route-page/term-route-page.component';
 import { HomePageComponent } from './core/components/home-page/home-page.component';
 import { resolveTerms } from './core/resolvers/terms.resolver';
+import { ParliamentHallComponent } from './parliament-hall/parliament-hall.component';
+import { ParliamentHallModule } from './parliament-hall/parliament-hall.module';
 
 const routes: Routes = [
   {
@@ -43,6 +45,11 @@ const routes: Routes = [
             m => m.ProceedingsModule
           ),
       },
+      {
+        path: 'parliament-hall',
+        title: 'Sala plenarna',
+        component: ParliamentHallComponent,
+      },
     ],
   },
   { path: '**', redirectTo: '' },
@@ -51,6 +58,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' }),
+    ParliamentHallModule,
   ],
   exports: [RouterModule],
 })

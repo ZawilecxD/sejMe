@@ -1,0 +1,10 @@
+<svg #svgCanvas width="100%">
+  <circle
+    *ngFor="let circle of circles; let i = index"
+    [attr.cx]="circle.cx"
+    [attr.cy]="circle.cy"
+    [attr.r]="circle.radius"
+    fill="blue"
+    style="cursor: pointer"
+    (click)="onCircleClick(i)"></circle>
+</svg>
