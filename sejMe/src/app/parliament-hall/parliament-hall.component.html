@@ -1,10 +1,22 @@
-<svg #svgCanvas width="100%">
-  <circle
-    *ngFor="let circle of circles; let i = index"
-    [attr.cx]="circle.cx"
-    [attr.cy]="circle.cy"
-    [attr.r]="circle.radius"
-    fill="blue"
-    style="cursor: pointer"
-    (click)="onCircleClick(i)"></circle>
+<svg #svgCanvas width="100%" height="100%">
+  <g
+    *ngFor="let seat of seats; let i = index"
+    class="cursor-pointer"
+    (click)="onSeatClick(seat)">
+    <circle
+      [attr.cx]="seat.cx"
+      [attr.cy]="seat.cy"
+      [attr.r]="seat.radius"
+      [id]="seat.seat"
+      fill="yellow" />
+    <text
+      [attr.x]="seat.cx"
+      [attr.y]="seat.cy"
+      text-anchor="middle"
+      alignment-baseline="central"
+      font-size="10"
+      fill="black">
+      {{ seat.seat }}
+    </text>
+  </g>
 </svg>

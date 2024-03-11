@@ -1,4 +1,4 @@
-export const PARLIAMENT_SEATS = {
+export const PARLIAMENT_SEATS_LAYOUT = {
   leftSideBenches: [
     [34, 35, 36],
     [37, 38, 39],

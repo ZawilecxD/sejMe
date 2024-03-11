@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { ParliamentHallComponent } from './parliament-hall.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [],
+  imports: [CommonModule],
   exports: [],
   declarations: [ParliamentHallComponent],
   providers: [],
