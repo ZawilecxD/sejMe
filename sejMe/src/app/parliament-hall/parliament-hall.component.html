@@ -1,7 +1,8 @@
 <svg #svgCanvas width="100%" height="100%">
   <g
     *ngFor="let seat of seats; let i = index"
-    class="cursor-pointer"
+    [style.animation-delay.ms]="5 * i"
+    class="cursor-pointer fade-in parliament-seat"
     (click)="onSeatClick(seat)">
     <circle
       [attr.cx]="seat.cx"
