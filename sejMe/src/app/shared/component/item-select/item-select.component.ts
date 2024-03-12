@@ -7,9 +7,16 @@ import {
   ViewChild,
   forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { SelectItemLabelPipe } from './select-item-label.pipe';
 
 @Component({
+  imports: [SelectItemLabelPipe, FormsModule],
+  standalone: true,
   selector: 'sm-item-select',
   templateUrl: './item-select.component.html',
   styleUrls: ['./item-select.component.scss'],
@@ -38,7 +45,7 @@ export class ItemSelectComponent implements ControlValueAccessor {
   classes = 'select-accent';
   @Input()
   compareWithFn?: (a: any, b: any) => boolean;
-  readonly defaultCompareWith = (a: unknown, b: unknown) => a == b;
+  readonly defaultCompareWith = (a: any, b: any) => a == b;
   readonly selectId: number;
 
   selectedItem?: any;

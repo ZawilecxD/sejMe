@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { BASE_API_URL } from 'src/app/app.module';
+import { BASE_API_URL } from 'src/app/app.tokens';
 
 @Injectable({ providedIn: 'root' })
 export class HttpUtilsService {

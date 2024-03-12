@@ -30,8 +30,19 @@ import {
 } from '../../state/filters/member-filters.actions';
 import { Term, compareTermsByNumber } from 'src/app/term/model/Term';
 import { selectAllTerms } from 'src/app/term/state/terms.selectors';
+import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-select.component';
+import { ItemMultiSelectComponent } from 'src/app/shared/component/item-multi-select/item-multi-select.component';
+import { FormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [
+    ItemSelectComponent,
+    ItemMultiSelectComponent,
+    FormsModule,
+    AsyncPipe,
+  ],
   selector: 'sm-members-filters',
   templateUrl: './members-filters.component.html',
   styleUrls: ['./members-filters.component.scss'],

@@ -8,8 +8,11 @@ import {
 } from '@angular/core';
 import { ParliamentMember } from '../../model/ParliamentMember';
 import { MemberApiService } from '../../api/member-api.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
+  imports: [NgOptimizedImage],
+  standalone: true,
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'tr[sm-member-row]',
   templateUrl: './member-row.component.html',

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BASE_API_URL } from 'src/app/app.module';
 import { Term, setTermLabel } from '../model/Term';
 import { tap } from 'rxjs';
+import { BASE_API_URL } from 'src/app/app.tokens';
 
 @Injectable({
   providedIn: 'root',

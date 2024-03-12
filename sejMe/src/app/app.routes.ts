@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { TermRoutePageComponent } from './core/components/term-route-page/term-route-page.component';
 import { HomePageComponent } from './core/components/home-page/home-page.component';
 import { resolveTerms } from './core/resolvers/terms.resolver';
 import { ParliamentHallComponent } from './parliament-hall/parliament-hall.component';
-import { ParliamentHallModule } from './parliament-hall/parliament-hall.module';
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     component: TermRoutePageComponent,
@@ -23,26 +21,26 @@ const routes: Routes = [
         path: 'member',
         title: 'Posłowie',
         loadChildren: () =>
-          import('./member/member.module').then(m => m.MemberModule),
+          import('./member/member.routes').then(m => m.MEMBER_ROUTES),
       },
       {
         path: 'committee',
         title: 'Komisje',
         loadChildren: () =>
-          import('./committee/committee.module').then(m => m.CommitteeModule),
+          import('./committee/committee.routes').then(m => m.COMMITTEE_ROUTES),
       },
       {
         path: 'club',
         title: 'Kluby',
         loadChildren: () =>
-          import('./club/club.module').then(m => m.ClubModule),
+          import('./club/club.routes').then(m => m.CLUBS_ROUTES),
       },
       {
         path: 'proceeding',
         title: 'Posiedzenia',
         loadChildren: () =>
-          import('./proceeding/proceeding.module').then(
-            m => m.ProceedingsModule
+          import('./proceeding/proceeding.routes').then(
+            m => m.PROCEEDINGS_ROUTES
           ),
       },
       {
@@ -54,12 +52,3 @@ const routes: Routes = [
   },
   { path: '**', redirectTo: '' },
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' }),
-    ParliamentHallModule,
-  ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

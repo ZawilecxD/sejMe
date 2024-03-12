@@ -3,13 +3,19 @@ import {
   Component,
   ElementRef,
   Input,
-  OnChanges,
   ViewChild,
   forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { SelectItemLabelPipe } from '../item-select/select-item-label.pipe';
 
 @Component({
+  imports: [SelectItemLabelPipe, FormsModule],
+  standalone: true,
   selector: 'sm-item-multi-select',
   templateUrl: './item-multi-select.component.html',
   styleUrls: ['./item-multi-select.component.scss'],

@@ -3,8 +3,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { ThemeService } from '../../utils/theme.service';
+import { ThemeSelectComponent } from '../../theme-select/theme-select.component';
 
 @Component({
+  imports: [ThemeSelectComponent],
+  standalone: true,
   selector: 'sm-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],

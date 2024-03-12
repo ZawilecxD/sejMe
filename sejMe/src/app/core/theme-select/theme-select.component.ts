@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ThemeService } from '../utils/theme.service';
+import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-select.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
+  imports: [ItemSelectComponent, FormsModule],
+  standalone: true,
   selector: 'sm-theme-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

@@ -1,10 +1,12 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectMembersSelectedTerm } from '../state/filters/member-filters.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
+  imports: [RouterOutlet],
+  standalone: true,
   selector: 'sm-member-page',
   template: `<router-outlet></router-outlet> `,
 })

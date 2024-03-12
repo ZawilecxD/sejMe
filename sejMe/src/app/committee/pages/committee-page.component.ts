@@ -6,11 +6,13 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCommitteeSelectedTermNum } from '../state/filters/committee-filters.selectors';
 
 @Component({
+  imports: [RouterModule],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<router-outlet></router-outlet>`,
 })

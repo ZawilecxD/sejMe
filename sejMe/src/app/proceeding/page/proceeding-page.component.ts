@@ -5,12 +5,14 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectProceedingsSelectedTermNum } from '../state/filters/proceedings-filters.selectors';
 
 @Component({
+  imports: [RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   template: `<router-outlet></router-outlet>`,
 })
 export class ProceedingPageComponent {
