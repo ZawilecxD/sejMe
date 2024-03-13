@@ -4,8 +4,6 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { TermApiService } from '../../api/term-api.service';
-import { EMPTY, Observable } from 'rxjs';
 import { Term } from '../../model/Term';
 import { Store } from '@ngrx/store';
 import { loadTerms } from '../../state/terms.actions';
@@ -14,8 +12,11 @@ import {
   selectTermsError,
   selectTermsStatus,
 } from '../../state/terms.selectors';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [AsyncPipe],
   selector: 'sm-terms-list',
   templateUrl: './terms-list.component.html',
   styleUrls: ['./terms-list.component.scss'],
