@@ -5,11 +5,11 @@
   przeglądanie publicznie dostępnych danych na temat posiedzeń sejmu.
 </p>
 
-<ng-container *ngIf="terms$ | async as terms">
+@if (terms$ | async; as terms) {
   <h2 class="text-xl mb-2">Dane dostępne są dla kadencji</h2>
   <ul class="list-none">
-    <li *ngFor="let term of terms">
-      {{ term.from }} - {{ term.to || 'Teraz' }}
-    </li>
+    @for (term of terms; track term.num) {
+      <li>{{ term.from }} - {{ term.to || 'Teraz' }}</li>
+    }
   </ul>
-</ng-container>
+}

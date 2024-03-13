@@ -4,9 +4,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { ThemeService } from '../../utils/theme.service';
 import { ThemeSelectComponent } from '../../theme-select/theme-select.component';
+import { NavbarLinksComponent } from './navbar-links.component';
 
 @Component({
-  imports: [ThemeSelectComponent],
+  imports: [ThemeSelectComponent, NavbarLinksComponent],
   standalone: true,
   selector: 'sm-navbar',
   templateUrl: './navbar.component.html',

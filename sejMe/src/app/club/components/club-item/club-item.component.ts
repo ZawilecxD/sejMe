@@ -8,8 +8,11 @@ import {
 } from '@angular/core';
 import { Club } from '../../model/Club';
 import { ClubApiService } from '../../api/club-api.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [NgOptimizedImage],
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'tr[sm-club-item]',
   templateUrl: './club-item.component.html',

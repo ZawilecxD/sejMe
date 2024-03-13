@@ -9,7 +9,8 @@
         "@schematics/angular:component": {
           "style": "scss",
           "changeDetection": "OnPush",
-          "prefix": "sm"
+          "prefix": "sm",
+          "standalone": true
         }
       },
       "root": "",

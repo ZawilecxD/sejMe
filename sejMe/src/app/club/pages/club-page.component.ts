@@ -5,12 +5,14 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectClubSelectedTerm } from '../state/club.selectors';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
+  standalone: true,
+  imports: [RouterOutlet],
   selector: '@sm-club-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<router-outlet></router-outlet>`,

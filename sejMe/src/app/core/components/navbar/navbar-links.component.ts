@@ -1,18 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
+  standalone: true,
+  imports: [RouterLink],
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ul[sm-navbar-links]',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <li *ngFor="let link of links">
-      <a
-        [routerLink]="link.route"
-        routerLinkActive="active"
-        class="w-full block btn btn-ghost rounded-none normal-case flex content-center">
-        {{ link.label }}
-      </a>
-    </li>
+    @for (link of links; track link.route) {
+      <li>
+        <a
+          [routerLink]="link.route"
+          routerLinkActive="active"
+          class="w-full btn btn-ghost rounded-none normal-case flex content-center">
+          {{ link.label }}
+        </a>
+      </li>
+    }
   `,
 })
 export class NavbarLinksComponent {

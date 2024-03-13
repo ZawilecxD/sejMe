@@ -10,10 +10,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr
-      sm-committee-row
-      *ngFor="let committee of (committees$ | async) || []"
-      [committee]="committee"
-      [termNum]="selectedTermNum$ | async"></tr>
+    @for (committee of committees$ | async; track committee.code) {
+      <tr
+        sm-committee-row
+        [committee]="committee"
+        [termNum]="selectedTermNum$ | async"></tr>
+    }
   </tbody>
 </table>

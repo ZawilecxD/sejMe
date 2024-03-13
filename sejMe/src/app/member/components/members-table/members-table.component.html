@@ -15,10 +15,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr
-      sm-member-row
-      *ngFor="let member of (members$ | async) || []"
-      [member]="member"
-      [termNum]="selectedTermNum$ | async"></tr>
+    @for (member of members$ | async; track member.id) {
+      <tr
+        sm-member-row
+        [member]="member"
+        [termNum]="selectedTermNum$ | async"></tr>
+    }
   </tbody>
 </table>

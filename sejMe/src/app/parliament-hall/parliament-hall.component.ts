@@ -8,6 +8,7 @@ import {
 import { PARLIAMENT_SEATS_LAYOUT } from './model/parliament-seats';
 
 @Component({
+  standalone: true,
   selector: 'sm-parliament-hall',
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],

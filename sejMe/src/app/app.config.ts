@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { APP_ROUTES } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { BASE_API_URL } from './app.tokens';
+import { TERM_PROVIDERS } from './term/term.providers';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -33,5 +34,8 @@ export const APP_CONFIG: ApplicationConfig = {
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
     },
+
+    // custom providers
+    ...TERM_PROVIDERS,
   ],
 };

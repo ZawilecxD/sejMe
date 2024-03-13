@@ -1,15 +1,22 @@
 <td>
   <div class="flex items-center space-x-3">
-    <div *ngIf="!showFallbackIcon; else clubIcon" class="avatar">
-      <div class="mask w-12 h-12 bg-white px-2 py-2">
-        <img
-          *ngIf="logoUrl"
-          alt="Logo klubu"
-          [ngSrc]="logoUrl"
-          fill
-          (error)="onImageLoadError()" />
+    @if (!showFallbackIcon) {
+      <div class="avatar">
+        <div class="mask w-12 h-12 bg-white px-2 py-2">
+          @if (logoUrl) {
+            <img
+              alt="Logo klubu"
+              [ngSrc]="logoUrl"
+              fill
+              (error)="onImageLoadError()" />
+          }
+        </div>
       </div>
-    </div>
+    } @else {
+      <span
+        smIcon="users"
+        class="w-12 h-12 flex items-center justify-center"></span>
+    }
   </div>
 </td>
 <td>{{ club.name }}</td>
@@ -17,9 +24,3 @@
 <td>{{ club.email }}</td>
 <td>{{ club.fax }}</td>
 <td>{{ club.membersCount }}</td>
-
-<ng-template #clubIcon>
-  <span
-    smIcon="users"
-    class="w-12 h-12 flex items-center justify-center"></span>
-</ng-template>

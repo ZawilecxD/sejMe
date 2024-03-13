@@ -8,11 +8,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let member of members">
-      <td>{{ member.lastFirstName }}</td>
-      <td>{{ member.function }}</td>
-      <td>{{ member.club }}</td>
-      <td>{{ member.mandateExpired }}</td>
-    </tr>
+    @for (member of members; track member.id) {
+      <tr>
+        <td>{{ member.lastFirstName }}</td>
+        <td>{{ member.function }}</td>
+        <td>{{ member.club }}</td>
+        <td>{{ member.mandateExpired }}</td>
+      </tr>
+    }
   </tbody>
 </table>

@@ -12,8 +12,13 @@ import {
   updateCommitteeSearchValue,
   updateCommitteeSelectedTerm,
 } from '../../state/filters/committee-filters.actions';
+import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-select.component';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
+  standalone: true,
+  imports: [ItemSelectComponent, AsyncPipe, FormsModule],
   selector: 'sm-committee-filters',
   templateUrl: './committee-filters.component.html',
   styleUrls: ['./committee-filters.component.scss'],

@@ -10,10 +10,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr
-      sm-club-item
-      *ngFor="let club of (allClubs$ | async) || []"
-      [club]="club"
-      [termNum]="termNum$ | async"></tr>
+    @for (club of allClubs$ | async; track club.id) {
+      <tr sm-club-item [club]="club" [termNum]="termNum$ | async"></tr>
+    }
   </tbody>
 </table>

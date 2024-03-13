@@ -1,6 +1,8 @@
-<label *ngIf="label" class="label" for="{{ selectId }}">
-  <span class="label-text">{{ label }}</span>
-</label>
+@if (label) {
+  <label class="label" for="{{ selectId }}">
+    <span class="label-text">{{ label }}</span>
+  </label>
+}
 <select
   #selectElement
   multiple

@@ -1,28 +1,30 @@
 <h2>Kadencje sejmu</h2>
-<ng-container *ngIf="status$ | async as status">
-  <ng-container [ngSwitch]="status">
-    <ng-container *ngSwitchCase="'success'">
+@if (status$ | async; as status) {
+  @switch (status) {
+    @case ('success') {
       <ul>
-        <li *ngFor="let term of terms$ | async">
-          <button class="btn" (click)="showDetails(term)">
-            <b>{{ term.num }}.</b>
-            {{ term.from }} - {{ term.to || 'Aktualnie' }}
-          </button>
-        </li>
+        @for (term of terms$ | async; track term.num) {
+          <li>
+            <button class="btn" (click)="showDetails(term)">
+              <b>{{ term.num }}.</b>
+              {{ term.from }} - {{ term.to || 'Aktualnie' }}
+            </button>
+          </li>
+        }
       </ul>
-    </ng-container>
-    <ng-container *ngSwitchCase="'error'">
+    }
+    @case ('error') {
       <div class="alert alert-error">
         <span>Nie udało się załadować listy kadencji sejmu</span>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchDefault>
+    }
+    @default {
       <span class="loading loading-spinner loading-lg"></span>
-    </ng-container>
-  </ng-container>
-</ng-container>
+    }
+  }
+}
 
-<ng-container *ngIf="selectedTerm">
+@if (selectedTerm) {
   <h3>Szczegóły kadencji nr {{ selectedTerm.num }}</h3>
   {{ selectedTerm | json }}
-</ng-container>
+}

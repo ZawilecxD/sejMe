@@ -5,8 +5,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Committee } from '../../model/Committee';
+import { CommitteeMembersComponent } from '../committee-members/committee-members.component';
 
 @Component({
+  standalone: true,
+  imports: [CommitteeMembersComponent],
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'tr[sm-committee-row]',
   templateUrl: './committee-row.component.html',

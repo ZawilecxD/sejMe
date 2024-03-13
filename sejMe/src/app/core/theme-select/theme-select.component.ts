@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ThemeService } from '../utils/theme.service';
-import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-select.component';
 import { FormsModule } from '@angular/forms';
+import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-select.component';
 
 @Component({
   imports: [ItemSelectComponent, FormsModule],

@@ -4,8 +4,12 @@ import {
   selectAllClubs,
   selectClubSelectedTermNum,
 } from '../../state/club.selectors';
+import { AsyncPipe } from '@angular/common';
+import { ClubItemComponent } from '../club-item/club-item.component';
 
 @Component({
+  standalone: true,
+  imports: [AsyncPipe, ClubItemComponent],
   selector: 'sm-club-list',
   templateUrl: './club-list.component.html',
   styleUrls: ['./club-list.component.scss'],

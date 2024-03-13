@@ -30,57 +30,62 @@
   </button>
 </div>
 
-<div *ngIf="shoWAdditionalFilters">
-  <div class="flex gap-3 flex-wrap">
-    <sm-item-multi-select
-      *ngIf="availableBirthLocations$ | async as birthLocations"
-      label="Miejsce narodzin"
-      classes="min-w-[8rem]"
-      [items]="birthLocations"
-      [ngModel]="selectedBirthLocations$ | async"
-      (ngModelChange)="updateSelectedBirthLocations($event)" />
+@if (shoWAdditionalFilters) {
+  <div>
+    <div class="flex gap-3 flex-wrap">
+      @if (availableBirthLocations$ | async; as birthLocations) {
+        <sm-item-multi-select
+          label="Miejsce narodzin"
+          classes="min-w-[8rem]"
+          [items]="birthLocations"
+          [ngModel]="selectedBirthLocations$ | async"
+          (ngModelChange)="updateSelectedBirthLocations($event)" />
+      }
 
-    <sm-item-multi-select
-      *ngIf="availableClubs$ | async as clubs"
-      label="Klub"
-      classes="min-w-[8rem]"
-      [items]="clubs"
-      [ngModel]="selectedClubs$ | async"
-      (ngModelChange)="updateSelectedClubs($event)" />
+      @if (availableClubs$ | async; as clubs) {
+        <sm-item-multi-select
+          label="Klub"
+          classes="min-w-[8rem]"
+          [items]="clubs"
+          [ngModel]="selectedClubs$ | async"
+          (ngModelChange)="updateSelectedClubs($event)" />
+      }
 
-    <sm-item-multi-select
-      *ngIf="availableDistricts$ | async as districts"
-      label="Region"
-      classes="min-w-[8rem]"
-      [items]="districts"
-      [ngModel]="selectedDistrictsNames$ | async"
-      (ngModelChange)="updateSelectedDistrictsNames($event)" />
-
-    <sm-item-multi-select
-      *ngIf="availableEductionLevels$ | async as eduLevels"
-      label="Wykształcenie"
-      classes="min-w-[8rem]"
-      [items]="eduLevels"
-      [ngModel]="selectedEducationLevels$ | async"
-      (ngModelChange)="updateSelectedEducationLevels($event)" />
-
-    <sm-item-multi-select
-      *ngIf="availableProfessions$ | async as professions"
-      label="Zawód"
-      classes="min-w-[8rem]"
-      [items]="professions"
-      [ngModel]="selectedProfessions$ | async"
-      (ngModelChange)="updateSelectedProfessions($event)" />
-
-    <sm-item-multi-select
-      *ngIf="availableVoivodeships$ | async as voivodeships"
-      label="Województwo"
-      classes="min-w-[8rem]"
-      [items]="voivodeships"
-      [ngModel]="selectedVoivodeships$ | async"
-      (ngModelChange)="updateselectedVoivodeships($event)" />
+      @if (availableDistricts$ | async; as districts) {
+        <sm-item-multi-select
+          label="Region"
+          classes="min-w-[8rem]"
+          [items]="districts"
+          [ngModel]="selectedDistrictsNames$ | async"
+          (ngModelChange)="updateSelectedDistrictsNames($event)" />
+      }
+      @if (availableEductionLevels$ | async; as eduLevels) {
+        <sm-item-multi-select
+          label="Wykształcenie"
+          classes="min-w-[8rem]"
+          [items]="eduLevels"
+          [ngModel]="selectedEducationLevels$ | async"
+          (ngModelChange)="updateSelectedEducationLevels($event)" />
+      }
+      @if (availableProfessions$ | async; as professions) {
+        <sm-item-multi-select
+          label="Zawód"
+          classes="min-w-[8rem]"
+          [items]="professions"
+          [ngModel]="selectedProfessions$ | async"
+          (ngModelChange)="updateSelectedProfessions($event)" />
+      }
+      @if (availableVoivodeships$ | async; as voivodeships) {
+        <sm-item-multi-select
+          label="Województwo"
+          classes="min-w-[8rem]"
+          [items]="voivodeships"
+          [ngModel]="selectedVoivodeships$ | async"
+          (ngModelChange)="updateselectedVoivodeships($event)" />
+      }
+    </div>
   </div>
-</div>
+}
 
 <div
   class="flex items-end flex-1 gap-1"

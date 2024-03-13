@@ -1,23 +1,24 @@
 <svg #svgCanvas width="100%" height="100%">
-  <g
-    *ngFor="let seat of seats; let i = index"
-    [style.animation-delay.ms]="5 * i"
-    class="cursor-pointer fade-in parliament-seat"
-    (click)="onSeatClick(seat)">
-    <circle
-      [attr.cx]="seat.cx"
-      [attr.cy]="seat.cy"
-      [attr.r]="seat.radius"
-      [id]="seat.seat"
-      fill="yellow" />
-    <text
-      [attr.x]="seat.cx"
-      [attr.y]="seat.cy"
-      text-anchor="middle"
-      alignment-baseline="central"
-      font-size="10"
-      fill="black">
-      {{ seat.seat }}
-    </text>
-  </g>
+  @for (seat of seats; track seat; let i = $index) {
+    <g
+      [style.animation-delay.ms]="5 * i"
+      class="cursor-pointer fade-in parliament-seat"
+      (click)="onSeatClick(seat)">
+      <circle
+        [attr.cx]="seat.cx"
+        [attr.cy]="seat.cy"
+        [attr.r]="seat.radius"
+        [id]="seat.seat"
+        fill="yellow" />
+      <text
+        [attr.x]="seat.cx"
+        [attr.y]="seat.cy"
+        text-anchor="middle"
+        alignment-baseline="central"
+        font-size="10"
+        fill="black">
+        {{ seat.seat }}
+      </text>
+    </g>
+  }
 </svg>
