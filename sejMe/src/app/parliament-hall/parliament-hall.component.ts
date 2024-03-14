@@ -5,10 +5,13 @@ import {
   HostBinding,
   ViewChild,
 } from '@angular/core';
-import { PARLIAMENT_SEATS_LAYOUT } from './model/parliament-seats';
+import { PARLIAMENT_SEATS_LAYOUT } from './model/parliament-seats-layout';
+import { ParliamentSeat } from './model/parliament-seat';
+import { ParliamentSeatComponent } from './components/parliament-seat/parliament-seat.component';
 
 @Component({
   standalone: true,
+  imports: [ParliamentSeatComponent],
   selector: 'sm-parliament-hall',
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],
@@ -20,7 +23,7 @@ export class ParliamentHallComponent implements AfterViewInit {
     return this.canvasElRef.nativeElement;
   }
   readonly circleRadius = 10;
-  seats: any[] = [];
+  seats: ParliamentSeat[] = [];
 
   ngAfterViewInit() {
     const radius = 150; // Radius of the half circle
@@ -34,13 +37,16 @@ export class ParliamentHallComponent implements AfterViewInit {
   generateCircles(centerX: number, centerY: number, radius: number) {
     for (const semicircle of PARLIAMENT_SEATS_LAYOUT.semiCircles) {
       const angleStep = Math.PI / (semicircle.length - 1);
-      semicircle.forEach((seat, index) => {
+      semicircle.forEach((seatNumber: number, index: number) => {
         const angle = Math.PI - index * angleStep;
 
         const cx = centerX + radius * Math.cos(angle);
         const cy = centerY - radius * Math.sin(angle);
 
-        this.seats.push({ cx, cy, radius: this.circleRadius, seat });
+        this.seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
+          seatNumber,
+        });
       });
       radius += 30;
     }
@@ -52,7 +58,10 @@ export class ParliamentHallComponent implements AfterViewInit {
       for (let i = 0; i < bench.length; i++) {
         const cx = centerX - radius;
         const cy = centerY + (i % 3) * 30;
-        this.seats.push({ cx, cy, radius: this.circleRadius, seat: bench[i] });
+        this.seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
+          seatNumber: bench[i],
+        });
       }
       radius += 30;
     }
@@ -65,13 +74,16 @@ export class ParliamentHallComponent implements AfterViewInit {
       for (let i = 0; i < bench.length; i++) {
         const cx = centerX + radius;
         const cy = centerY + (i % 3) * 30;
-        this.seats.push({ cx, cy, radius: this.circleRadius, seat: bench[i] });
+        this.seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
+          seatNumber: bench[i],
+        });
       }
       radius += 30;
     }
   }
 
-  onSeatClick(seat: any) {
+  onSeatClick(seat: ParliamentSeat) {
     console.log('Seat clicked', seat);
   }
 }

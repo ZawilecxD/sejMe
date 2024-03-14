@@ -1,3 +1,9 @@
 {
-  "vs-code-prettier-eslint.prettierLast": true
+  "vs-code-prettier-eslint.prettierLast": true,
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "style": "scss",
+      "externalTemplate": true
+    }
+  }
 }

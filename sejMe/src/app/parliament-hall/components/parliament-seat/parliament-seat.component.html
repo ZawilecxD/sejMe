@@ -1,0 +1,17 @@
+@if (svgCircle) {
+  <svg:circle
+    [attr.cx]="svgCircle.cx"
+    [attr.cy]="svgCircle.cy"
+    [attr.r]="svgCircle.radius"
+    fill="yellow" />
+
+  <svg:text
+    [attr.x]="svgCircle.cx"
+    [attr.y]="svgCircle.cy"
+    text-anchor="middle"
+    alignment-baseline="central"
+    font-size="10"
+    fill="black">
+    {{ seat().seatNumber }}
+  </svg:text>
+}
