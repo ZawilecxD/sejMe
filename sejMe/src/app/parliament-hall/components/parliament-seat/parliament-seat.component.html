@@ -3,7 +3,9 @@
     [attr.cx]="svgCircle.cx"
     [attr.cy]="svgCircle.cy"
     [attr.r]="svgCircle.radius"
-    fill="yellow" />
+    [stroke]="circleStrokeColor()"
+    [stroke-width]="circleStrokeWidth()"
+    fill="transparent" />
 
   <svg:text
     [attr.x]="svgCircle.cx"

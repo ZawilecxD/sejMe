@@ -1,20 +1,47 @@
-<svg #svgCanvas width="100%" height="100%">
+<svg
+  #svgCanvas
+  width="100%"
+  height="100%"
+  tabindex="0"
+  (focus)="focusFirstSeat()">
   @for (seat of leftSideSeats; track seat; let i = $index) {
     <g
+      class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
+      [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      class="cursor-pointer fade-in" />
+      (seatFocused)="handleSeatFocus($event)" />
   }
   @for (seat of semicircleSeats; track seat; let i = $index) {
     <g
+      class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
+      [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      class="cursor-pointer fade-in" />
+      (seatFocused)="handleSeatFocus($event)" />
   }
   @for (seat of rightSideSeats; track seat; let i = $index) {
     <g
+      class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
+      [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      class="cursor-pointer fade-in" />
+      (seatFocused)="handleSeatFocus($event)" />
+  }
+  @if (activeSeat) {
+    <g>
+      <text x="50%" y="95%" text-anchor="middle" fill="white">
+        {{ activeSeat.seatNumber }}
+      </text>
+      <text x="50%" y="98%" text-anchor="middle" fill="white">
+        Member {{ activeSeat.member }}
+      </text>
+    </g>
+  } @else {
+    <g>
+      <text x="50%" y="98%" text-anchor="middle" fill="white">
+        Wybierz miejsce
+      </text>
+    </g>
   }
 </svg>

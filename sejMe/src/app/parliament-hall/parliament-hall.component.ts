@@ -26,20 +26,39 @@ export class ParliamentHallComponent implements AfterViewInit {
   semicircleSeats: ParliamentSeat[] = [];
   leftSideSeats: ParliamentSeat[] = [];
   rightSideSeats: ParliamentSeat[] = [];
+  activeSeat: ParliamentSeat | null = null;
+
+  get allSeats(): ParliamentSeat[] {
+    return [
+      ...this.leftSideSeats,
+      ...this.semicircleSeats,
+      ...this.rightSideSeats,
+    ];
+  }
 
   async ngAfterViewInit() {
     const radius = 150; // Radius of the half circle
     const centerX = this.svgCanvas.clientWidth / 2; // half of 600
     const centerY = this.svgCanvas.clientHeight - 100;
 
-    await Promise.all([
-      this.generateLeftSideBench(centerX, centerY, radius),
-      this.generateCircles(centerX, centerY, radius),
-      this.generateRightSideBench(centerX, centerY, radius),
-    ]);
+    this.generateLeftSideBench(centerX, centerY, radius);
+    this.generateCircles(centerX, centerY, radius);
+    this.generateRightSideBench(centerX, centerY, radius);
   }
 
-  generateCircles(centerX: number, centerY: number, radius: number) {
+  focusFirstSeat() {
+    const firstSeatNumber = this.allSeats[0].seatNumber;
+    const firstSeatElement = this.svgCanvas.querySelector(
+      `g[tabindex="${firstSeatNumber}"]`
+    ) as SVGElement;
+    firstSeatElement?.focus();
+  }
+
+  handleSeatFocus(seat: ParliamentSeat) {
+    this.activeSeat = seat;
+  }
+
+  private generateCircles(centerX: number, centerY: number, radius: number) {
     for (const semicircle of PARLIAMENT_SEATS_LAYOUT.semiCircles) {
       const angleStep = Math.PI / (semicircle.length - 1);
       semicircle.forEach((seatNumber: number, index: number) => {
@@ -58,7 +77,11 @@ export class ParliamentHallComponent implements AfterViewInit {
     }
   }
 
-  generateLeftSideBench(centerX: number, centerY: number, radius: number) {
+  private generateLeftSideBench(
+    centerX: number,
+    centerY: number,
+    radius: number
+  ) {
     centerY = centerY + 30;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.leftSideBenches) {
       for (let i = 0; i < bench.length; i++) {
@@ -74,7 +97,11 @@ export class ParliamentHallComponent implements AfterViewInit {
     }
   }
 
-  generateRightSideBench(centerX: number, centerY: number, radius: number) {
+  private generateRightSideBench(
+    centerX: number,
+    centerY: number,
+    radius: number
+  ) {
     centerY = centerY + 30;
     radius += 30;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.rightSideBenches) {

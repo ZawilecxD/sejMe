@@ -1,3 +1,8 @@
 :host {
   display: block;
+  border-radius: 100%;
+
+  &:focus {
+    outline: none;
+  }
 }
