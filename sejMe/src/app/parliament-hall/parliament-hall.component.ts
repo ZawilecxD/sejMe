@@ -22,7 +22,7 @@ export class ParliamentHallComponent implements AfterViewInit {
   get svgCanvas() {
     return this.canvasElRef.nativeElement;
   }
-  readonly circleRadius = 10;
+  readonly circleMargin = 5;
   semicircleSeats: ParliamentSeat[] = [];
   leftSideSeats: ParliamentSeat[] = [];
   rightSideSeats: ParliamentSeat[] = [];
@@ -37,84 +37,93 @@ export class ParliamentHallComponent implements AfterViewInit {
   }
 
   async ngAfterViewInit() {
-    const radius = 150; // Radius of the half circle
+    const circleRadius = this.svgCanvas.clientWidth / 100;
+    const rowRadius = 20 * circleRadius; // Radius of the first half circle
     const centerX = this.svgCanvas.clientWidth / 2; // half of 600
-    const centerY = this.svgCanvas.clientHeight - 100;
-
-    this.generateLeftSideBench(centerX, centerY, radius);
-    this.generateCircles(centerX, centerY, radius);
-    this.generateRightSideBench(centerX, centerY, radius);
-  }
-
-  focusFirstSeat() {
-    const firstSeatNumber = this.allSeats[0].seatNumber;
-    const firstSeatElement = this.svgCanvas.querySelector(
-      `g[tabindex="${firstSeatNumber}"]`
-    ) as SVGElement;
-    firstSeatElement?.focus();
+    const centerY = this.svgCanvas.clientHeight - 8 * circleRadius;
+    this.generateLeftSideBench(
+      centerX,
+      this.svgCanvas.clientHeight - 8 * circleRadius - this.circleMargin,
+      rowRadius,
+      circleRadius
+    );
+    this.generateCircles(
+      centerX,
+      this.svgCanvas.clientHeight - 9 * circleRadius - this.circleMargin,
+      rowRadius,
+      circleRadius
+    );
+    this.generateRightSideBench(centerX, centerY, rowRadius, circleRadius);
   }
 
   handleSeatFocus(seat: ParliamentSeat) {
     this.activeSeat = seat;
   }
 
-  private generateCircles(centerX: number, centerY: number, radius: number) {
+  private generateCircles(
+    centerX: number,
+    centerY: number,
+    rowRadius: number,
+    circleRadius: number
+  ) {
     for (const semicircle of PARLIAMENT_SEATS_LAYOUT.semiCircles) {
       const angleStep = Math.PI / (semicircle.length - 1);
       semicircle.forEach((seatNumber: number, index: number) => {
         const angle = Math.PI - index * angleStep;
 
-        const cx = centerX + radius * Math.cos(angle);
-        const cy = centerY - radius * Math.sin(angle);
+        const cx = centerX + rowRadius * Math.cos(angle);
+        const cy = centerY - rowRadius * Math.sin(angle);
 
         this.semicircleSeats.push({
-          svgCircle: { cx, cy, radius: this.circleRadius },
+          svgCircle: { cx, cy, radius: circleRadius },
           seatNumber,
           member: null, //TODO: add member
         });
       });
-      radius += 30;
+      rowRadius += circleRadius * 2 + this.circleMargin;
     }
   }
 
   private generateLeftSideBench(
     centerX: number,
     centerY: number,
-    radius: number
+    rowRadius: number,
+    circleRadius: number
   ) {
-    centerY = centerY + 30;
+    centerY = centerY + circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.leftSideBenches) {
       for (let i = 0; i < bench.length; i++) {
-        const cx = centerX - radius;
-        const cy = centerY + (i % 3) * 30;
+        const cx = centerX - rowRadius;
+        const cy = centerY + (i % 3) * circleRadius * 2;
         this.leftSideSeats.push({
-          svgCircle: { cx, cy, radius: this.circleRadius },
+          svgCircle: { cx, cy, radius: circleRadius },
           seatNumber: bench[i],
           member: null, //TODO: add member
         });
       }
-      radius += 30;
+      rowRadius += circleRadius * 2 + this.circleMargin;
     }
   }
 
   private generateRightSideBench(
     centerX: number,
     centerY: number,
-    radius: number
+    rowRadius: number,
+    circleRadius: number
   ) {
-    centerY = centerY + 30;
-    radius += 30;
+    centerY = centerY + circleRadius * 2;
+    rowRadius += circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.rightSideBenches) {
       for (let i = 0; i < bench.length; i++) {
-        const cx = centerX + radius;
-        const cy = centerY + (i % 3) * 30;
+        const cx = centerX + rowRadius;
+        const cy = centerY + (i % 3) * circleRadius * 2;
         this.rightSideSeats.push({
-          svgCircle: { cx, cy, radius: this.circleRadius },
+          svgCircle: { cx, cy, radius: circleRadius },
           seatNumber: bench[i],
           member: null, //TODO: add member
         });
       }
-      radius += 30;
+      rowRadius += circleRadius * 2 + this.circleMargin;
     }
   }
 

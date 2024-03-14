@@ -1,5 +1,5 @@
 :host {
-  @apply aspect-video overflow-auto;
+  @apply h-screen w-screen min-h-[768px] min-w-[1024px] overflow-auto;
 }
 
 @keyframes fadeIn {

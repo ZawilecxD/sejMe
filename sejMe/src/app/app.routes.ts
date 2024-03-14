@@ -43,12 +43,15 @@ export const APP_ROUTES: Routes = [
             m => m.PROCEEDINGS_ROUTES
           ),
       },
-      {
-        path: 'parliament-hall',
-        title: 'Sala plenarna',
-        component: ParliamentHallComponent,
-      },
     ],
+  },
+  {
+    path: 'parliament-hall',
+    title: 'Sala plenarna',
+    resolve: {
+      terms: resolveTerms,
+    },
+    component: ParliamentHallComponent,
   },
   { path: '**', redirectTo: '' },
 ];

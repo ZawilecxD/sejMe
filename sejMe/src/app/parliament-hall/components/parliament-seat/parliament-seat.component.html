@@ -3,17 +3,17 @@
     [attr.cx]="svgCircle.cx"
     [attr.cy]="svgCircle.cy"
     [attr.r]="svgCircle.radius"
-    [stroke]="circleStrokeColor()"
-    [stroke-width]="circleStrokeWidth()"
+    class="{{ isActive() ? 'stroke-primary' : 'stroke-current' }} {{
+      isActive() ? 'stroke-2' : 'stroke-[0.5px]'
+    }}"
     fill="transparent" />
 
   <svg:text
     [attr.x]="svgCircle.cx"
     [attr.y]="svgCircle.cy"
+    class="text-xs font-bold {{ isActive() ? 'fill-primary' : 'fill-current' }}"
     text-anchor="middle"
-    alignment-baseline="central"
-    font-size="10"
-    fill="black">
+    alignment-baseline="central">
     {{ seat().seatNumber }}
   </svg:text>
 }
