@@ -1,3 +1,5 @@
+import { ParliamentMember } from 'src/app/member/model/ParliamentMember';
+
 export type ParliamentSeat = {
   svgCircle: {
     cx: number;
@@ -5,4 +7,5 @@ export type ParliamentSeat = {
     radius: number;
   };
   seatNumber: number;
+  member: ParliamentMember | null;
 };
