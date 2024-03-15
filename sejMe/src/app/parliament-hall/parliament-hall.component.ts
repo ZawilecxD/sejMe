@@ -14,6 +14,7 @@ import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectAllMembersArray } from '../member/state/member.selectors';
 import { withLatestFrom } from 'rxjs';
+import { ParliamentMember } from '../member/model/ParliamentMember';
 
 @Component({
   standalone: true,
@@ -51,10 +52,9 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
       .pipe(withLatestFrom(this.members$))
       .subscribe(([seatingsData, members]) => {
         this.allSeats.forEach(seat => {
-          const memberLastName = seatingsData.seats[seat.seatNumber];
-          if (memberLastName) {
-            seat.member =
-              members.find(m => m.lastName === memberLastName) || null;
+          const memberName = seatingsData.seats[seat.seatNumber];
+          if (memberName) {
+            seat.member = this.getMemberByName(members, memberName);
           }
         });
         console.log(this.allSeats);
@@ -83,6 +83,20 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
 
   handleSeatFocus(seat: ParliamentSeat) {
     this.activeSeat = seat;
+  }
+
+  /**
+   *
+   * @param name - can be in form 'Lastname' (e.g. 'Kowalski') or 'X. Lastname' - X is first letter of name (e.g. 'T. Kowalski')
+   */
+  private getMemberByName(members: ParliamentMember[], name: string) {
+    return (
+      members.find(member => {
+        const lastName = member.lastName;
+        const firstLetter = member.firstName[0];
+        return lastName === name || `${firstLetter}. ${lastName}` === name;
+      }) || null
+    );
   }
 
   private generateCircles(
