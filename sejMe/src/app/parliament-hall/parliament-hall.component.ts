@@ -54,7 +54,7 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
         this.allSeats.forEach(seat => {
           const memberName = seatingsData.seats[seat.seatNumber];
           if (memberName) {
-            seat.member = this.getMemberByName(members, memberName);
+            seat.member = this.getMemberByFirstLastName(members, memberName);
           }
         });
         console.log(this.allSeats);
@@ -89,12 +89,10 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
    *
    * @param name - can be in form 'Lastname' (e.g. 'Kowalski') or 'X. Lastname' - X is first letter of name (e.g. 'T. Kowalski')
    */
-  private getMemberByName(members: ParliamentMember[], name: string) {
+  private getMemberByFirstLastName(members: ParliamentMember[], name: string) {
     return (
       members.find(member => {
-        const lastName = member.lastName;
-        const firstLetter = member.firstName[0];
-        return lastName === name || `${firstLetter}. ${lastName}` === name;
+        return name.trim() === member.firstLastName.trim();
       }) || null
     );
   }
