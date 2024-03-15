@@ -1,0 +1,4 @@
+1. Take .pdf file from https://orka.sejm.gov.pl/posiedzenie.nsf/0/371B27E487B077CAC1258AB00027586D/$file/stan_26.01.2024.pdf
+2. Convert it to pdf on https://convertio.co/pl
+3. Open result html page apply script - read-seatings.js on this page.
+4. Copy created json of all seats (seat number -> name) to a new file with name like "2024-03-11.json" were you specify the parliament seating date.
