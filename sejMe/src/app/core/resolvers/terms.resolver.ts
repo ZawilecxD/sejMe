@@ -7,7 +7,7 @@ import { Term } from 'src/app/term/model/Term';
 import { setTerms } from 'src/app/term/state/terms.actions';
 import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 
-export const resolveTerms: ResolveFn<Term[]> = route => {
+export const resolveTerms: ResolveFn<Term[]> = () => {
   const store = inject(Store);
   const termsApi = inject(TermApiService);
   return store.select(selectAllTerms).pipe(

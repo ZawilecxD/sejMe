@@ -30,7 +30,7 @@
         {{ activeSeat.seatNumber }}
       </text>
       <text x="50%" y="98%" text-anchor="middle" fill="white">
-        Member {{ activeSeat.member }}
+        {{ activeSeat.member?.firstLastName }}
       </text>
     </g>
   } @else {

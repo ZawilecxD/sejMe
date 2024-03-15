@@ -2,13 +2,17 @@ import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideEffects } from '@ngrx/effects';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { APP_ROUTES } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { BASE_API_URL } from './app.tokens';
 import { TERM_PROVIDERS } from './term/term.providers';
+import { MembersFiltersEffects } from './member/state/filters/member-filters.effects';
+import { MembersEffects } from './member/state/member.effects';
+import * as fromMembers from './member/state/member.reducer';
+import * as fromMembersFilters from './member/state/filters/member-filters.reducer';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -18,6 +22,12 @@ export const APP_CONFIG: ApplicationConfig = {
     ),
     provideStore({}),
     provideEffects({}),
+    provideState(fromMembers.MEMBERS_FEATURE_NAME, fromMembers.reducer),
+    provideState(
+      fromMembersFilters.MEMBERS_FILTERS_FEATURE_NAME,
+      fromMembersFilters.reducer
+    ),
+    provideEffects([MembersEffects, MembersFiltersEffects]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production,

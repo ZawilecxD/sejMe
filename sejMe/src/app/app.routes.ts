@@ -3,6 +3,7 @@ import { TermRoutePageComponent } from './core/components/term-route-page/term-r
 import { HomePageComponent } from './core/components/home-page/home-page.component';
 import { resolveTerms } from './core/resolvers/terms.resolver';
 import { ParliamentHallComponent } from './parliament-hall/parliament-hall.component';
+import { resolveMembersList } from './member/resolvers/members-list.resolver';
 
 export const APP_ROUTES: Routes = [
   {
@@ -43,15 +44,16 @@ export const APP_ROUTES: Routes = [
             m => m.PROCEEDINGS_ROUTES
           ),
       },
+      {
+        path: 'parliament-hall',
+        title: 'Sala plenarna',
+        resolve: {
+          members: resolveMembersList,
+        },
+        component: ParliamentHallComponent,
+      },
     ],
   },
-  {
-    path: 'parliament-hall',
-    title: 'Sala plenarna',
-    resolve: {
-      terms: resolveTerms,
-    },
-    component: ParliamentHallComponent,
-  },
+
   { path: '**', redirectTo: '' },
 ];

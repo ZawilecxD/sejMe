@@ -4,10 +4,16 @@ import {
   ElementRef,
   HostBinding,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { PARLIAMENT_SEATS_LAYOUT } from './model/parliament-seats-layout';
 import { ParliamentSeat } from './model/parliament-seat';
 import { ParliamentSeatComponent } from './components/parliament-seat/parliament-seat.component';
+import { ParliamentSeatService } from './service/parliament-seatings.service';
+import { OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectAllMembersArray } from '../member/state/member.selectors';
+import { withLatestFrom } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -16,13 +22,16 @@ import { ParliamentSeatComponent } from './components/parliament-seat/parliament
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],
 })
-export class ParliamentHallComponent implements AfterViewInit {
+export class ParliamentHallComponent implements OnInit, AfterViewInit {
   @HostBinding('class') hostClasses = 'block';
   @ViewChild('svgCanvas') canvasElRef!: ElementRef<SVGElement>;
   get svgCanvas() {
     return this.canvasElRef.nativeElement;
   }
+  private readonly store = inject(Store);
   readonly circleMargin = 5;
+  readonly parliamentSeatService = inject(ParliamentSeatService);
+  readonly members$ = this.store.select(selectAllMembersArray);
   semicircleSeats: ParliamentSeat[] = [];
   leftSideSeats: ParliamentSeat[] = [];
   rightSideSeats: ParliamentSeat[] = [];
@@ -36,7 +45,23 @@ export class ParliamentHallComponent implements AfterViewInit {
     ];
   }
 
-  async ngAfterViewInit() {
+  ngOnInit() {
+    this.parliamentSeatService
+      .getLastSeatingData()
+      .pipe(withLatestFrom(this.members$))
+      .subscribe(([seatingsData, members]) => {
+        this.allSeats.forEach(seat => {
+          const memberLastName = seatingsData.seats[seat.seatNumber];
+          if (memberLastName) {
+            seat.member =
+              members.find(m => m.lastName === memberLastName) || null;
+          }
+        });
+        console.log(this.allSeats);
+      });
+  }
+
+  ngAfterViewInit() {
     const circleRadius = this.svgCanvas.clientWidth / 100;
     const rowRadius = 20 * circleRadius; // Radius of the first half circle
     const centerX = this.svgCanvas.clientWidth / 2; // half of 600
