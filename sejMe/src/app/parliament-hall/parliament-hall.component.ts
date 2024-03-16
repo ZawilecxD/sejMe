@@ -33,6 +33,7 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
   readonly circleMargin = 5;
   readonly parliamentSeatService = inject(ParliamentSeatService);
   readonly members$ = this.store.select(selectAllMembersArray);
+  svgCanvasHeightPx = 400;
   semicircleSeats: ParliamentSeat[] = [];
   leftSideSeats: ParliamentSeat[] = [];
   rightSideSeats: ParliamentSeat[] = [];
@@ -57,24 +58,26 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
             seat.member = this.getMemberByFirstLastName(members, memberName);
           }
         });
-        console.log(this.allSeats);
       });
   }
 
   ngAfterViewInit() {
+    const width = this.svgCanvas.clientWidth;
     const circleRadius = this.svgCanvas.clientWidth / 100;
+    this.svgCanvasHeightPx = circleRadius * 60;
+    const height = this.svgCanvasHeightPx;
     const rowRadius = 20 * circleRadius; // Radius of the first half circle
-    const centerX = this.svgCanvas.clientWidth / 2; // half of 600
-    const centerY = this.svgCanvas.clientHeight - 8 * circleRadius;
+    const centerX = width / 2; // half of 600
+    const centerY = height - 8 * circleRadius;
     this.generateLeftSideBench(
       centerX,
-      this.svgCanvas.clientHeight - 8 * circleRadius - this.circleMargin,
+      height - 8 * circleRadius - this.circleMargin,
       rowRadius,
       circleRadius
     );
     this.generateCircles(
       centerX,
-      this.svgCanvas.clientHeight - 9 * circleRadius - this.circleMargin,
+      height - 9 * circleRadius - this.circleMargin,
       rowRadius,
       circleRadius
     );

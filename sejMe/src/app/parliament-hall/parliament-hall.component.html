@@ -1,4 +1,8 @@
-<svg #svgCanvas width="100%" height="100%" class="border-2">
+<svg
+  #svgCanvas
+  width="100%"
+  [attr.height]="svgCanvasHeightPx + 'px'"
+  class="border-2">
   <!-- TODO FocusKeyManager https://material.angular.io/cdk/a11y/overview -->
   @for (seat of leftSideSeats; track seat; let i = $index) {
     <g

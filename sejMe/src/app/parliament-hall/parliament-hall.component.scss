@@ -1,5 +1,5 @@
 :host {
-  @apply h-screen w-screen min-h-[768px] min-w-[1024px] overflow-auto;
+  @apply h-screen overflow-auto; // min-h-[768px] min-w-[1024px]  w-screen
 }
 
 @keyframes fadeIn {
