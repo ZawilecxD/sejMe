@@ -1,0 +1,23 @@
+@if (member) {
+  <svg:defs>
+    <svg:clipPath id="clip">
+      <svg:rect [attr.width]="photoSizePx" [attr.height]="photoSizePx" rx="8" />
+    </svg:clipPath>
+  </svg:defs>
+  <svg:image
+    [attr.height]="photoSizePx"
+    [attr.width]="photoSizePx"
+    [attr.href]="miniPhotoUrl"
+    [attr.clip-path]="'url(#clip)'"
+    [attr.transform]="
+      'translate(-' + photoSizePx / 2 + ', -' + photoSizePx + ')'
+    " />
+  <svg:text text-anchor="middle" class="fill-current" [attr.y]="20">
+    {{ member.firstLastName }}
+  </svg:text>
+  <svg:text text-anchor="middle" class="fill-current" [attr.y]="40">
+    {{ member.club }}
+  </svg:text>
+} @else {
+  <svg:text text-anchor="middle" class="fill-current">Miejsce puste</svg:text>
+}

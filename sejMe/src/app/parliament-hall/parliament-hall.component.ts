@@ -15,10 +15,13 @@ import { Store } from '@ngrx/store';
 import { selectAllMembersArray } from '../member/state/member.selectors';
 import { withLatestFrom } from 'rxjs';
 import { ParliamentMember } from '../member/model/ParliamentMember';
+import { selectMembersSelectedTermNum } from '../member/state/filters/member-filters.selectors';
+import { ParliamentMemberInfoComponent } from './components/parliament-member-info/parliament-member-info.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [ParliamentSeatComponent],
+  imports: [ParliamentSeatComponent, ParliamentMemberInfoComponent, AsyncPipe],
   selector: 'sm-parliament-hall',
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],
@@ -37,6 +40,7 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
   readonly circleMargin = 10;
   readonly parliamentSeatService = inject(ParliamentSeatService);
   readonly members$ = this.store.select(selectAllMembersArray);
+  readonly selectedTermNum$ = this.store.select(selectMembersSelectedTermNum);
   svgCanvasHeightPx = 400;
   semicircleSeats: ParliamentSeat[] = [];
   leftSideSeats: ParliamentSeat[] = [];
@@ -69,8 +73,13 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
     this.generateHallSvg();
   }
 
-  handleSeatFocus(seat: ParliamentSeat) {
+  setActiveSeat(seat: ParliamentSeat) {
+    console.log('setActiveSeat', seat);
     this.activeSeat = seat;
+  }
+
+  clearActiveSeat() {
+    this.activeSeat = null;
   }
 
   private generateHallSvg() {
@@ -141,7 +150,6 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
       const cx = centerX - rowRadius;
       for (let i = 0; i < bench.length; i++) {
         const cy = centerY + (i % 3) * (circleRadius * 2 + this.circleMargin);
-        console.log(cy);
         this.leftSideSeats.push({
           svgCircle: { cx, cy, radius: circleRadius },
           seatNumber: bench[i],
@@ -171,9 +179,5 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
       }
       rowRadius += circleRadius * 2 + this.circleMargin;
     }
-  }
-
-  onSeatClick(seat: ParliamentSeat) {
-    console.log('Seat clicked', seat);
   }
 }

@@ -10,7 +10,7 @@
       [sm-parliament-seat]="seat"
       [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      (seatFocused)="handleSeatFocus($event)" />
+      (mouseenter)="setActiveSeat(seat)" />
   }
   @for (seat of semicircleSeats; track seat; let i = $index) {
     <g
@@ -18,7 +18,7 @@
       [sm-parliament-seat]="seat"
       [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      (seatFocused)="handleSeatFocus($event)" />
+      (mouseenter)="setActiveSeat(seat)" />
   }
   @for (seat of rightSideSeats; track seat; let i = $index) {
     <g
@@ -26,20 +26,22 @@
       [sm-parliament-seat]="seat"
       [isActive]="activeSeat === seat"
       [style.animation-delay.ms]="5 * i"
-      (seatFocused)="handleSeatFocus($event)" />
+      (mouseenter)="setActiveSeat(seat)" />
   }
   @if (activeSeat) {
-    <g>
-      <text x="50%" y="95%" text-anchor="middle" fill="white">
-        {{ activeSeat.seatNumber }}
-      </text>
-      <text x="50%" y="98%" text-anchor="middle" fill="white">
-        {{ activeSeat.member?.firstLastName }}
-      </text>
-    </g>
+    <g
+      [attr.transform]="
+        'translate(' +
+        svgCanvas.clientWidth / 2 +
+        ', ' +
+        (svgCanvasHeightPx - 90) +
+        ')'
+      "
+      [sm-parliament-member-info]="activeSeat.member"
+      [termNum]="selectedTermNum$ | async" />
   } @else {
     <g>
-      <text x="50%" y="98%" text-anchor="middle" fill="white">
+      <text x="50%" y="98%" text-anchor="middle" class="fill-current">
         Wybierz miejsce
       </text>
     </g>
