@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  HostBinding,
+  HostListener,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -24,13 +24,17 @@ import { ParliamentMember } from '../member/model/ParliamentMember';
   styleUrls: ['./parliament-hall.component.scss'],
 })
 export class ParliamentHallComponent implements OnInit, AfterViewInit {
-  @HostBinding('class') hostClasses = 'block';
-  @ViewChild('svgCanvas') canvasElRef!: ElementRef<SVGElement>;
+  @HostListener('window:resize')
+  onResize() {
+    this.generateHallSvg();
+  }
+  @ViewChild('svgCanvas')
+  canvasElRef!: ElementRef<SVGElement>;
   get svgCanvas() {
     return this.canvasElRef.nativeElement;
   }
   private readonly store = inject(Store);
-  readonly circleMargin = 5;
+  readonly circleMargin = 10;
   readonly parliamentSeatService = inject(ParliamentSeatService);
   readonly members$ = this.store.select(selectAllMembersArray);
   svgCanvasHeightPx = 400;
@@ -62,30 +66,32 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const width = this.svgCanvas.clientWidth;
-    const circleRadius = this.svgCanvas.clientWidth / 100;
-    this.svgCanvasHeightPx = circleRadius * 60;
-    const height = this.svgCanvasHeightPx;
-    const rowRadius = 20 * circleRadius; // Radius of the first half circle
-    const centerX = width / 2; // half of 600
-    const centerY = height - 8 * circleRadius;
-    this.generateLeftSideBench(
-      centerX,
-      height - 8 * circleRadius - this.circleMargin,
-      rowRadius,
-      circleRadius
-    );
-    this.generateCircles(
-      centerX,
-      height - 9 * circleRadius - this.circleMargin,
-      rowRadius,
-      circleRadius
-    );
-    this.generateRightSideBench(centerX, centerY, rowRadius, circleRadius);
+    this.generateHallSvg();
   }
 
   handleSeatFocus(seat: ParliamentSeat) {
     this.activeSeat = seat;
+  }
+
+  private generateHallSvg() {
+    this.leftSideSeats = [];
+    this.rightSideSeats = [];
+    this.semicircleSeats = [];
+    const width = this.svgCanvas.clientWidth;
+    const circleRadius = this.svgCanvas.clientWidth / 100;
+    this.svgCanvasHeightPx = circleRadius * 52;
+    const height = this.svgCanvasHeightPx;
+    const rowRadius = 10 * circleRadius; // Radius of the first half circle
+    const centerX = width / 2;
+    const centerY = height - 8 * circleRadius - 2 * this.circleMargin;
+    this.generateLeftSideBench(centerX, centerY, rowRadius, circleRadius);
+    this.generateSemicircles(
+      centerX,
+      height - 9 * circleRadius - 2 * this.circleMargin,
+      rowRadius,
+      circleRadius
+    );
+    this.generateRightSideBench(centerX, centerY, rowRadius, circleRadius);
   }
 
   /**
@@ -100,7 +106,7 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private generateCircles(
+  private generateSemicircles(
     centerX: number,
     centerY: number,
     rowRadius: number,
@@ -117,7 +123,7 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
         this.semicircleSeats.push({
           svgCircle: { cx, cy, radius: circleRadius },
           seatNumber,
-          member: null, //TODO: add member
+          member: null,
         });
       });
       rowRadius += circleRadius * 2 + this.circleMargin;
@@ -132,13 +138,14 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
   ) {
     centerY = centerY + circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.leftSideBenches) {
+      const cx = centerX - rowRadius;
       for (let i = 0; i < bench.length; i++) {
-        const cx = centerX - rowRadius;
-        const cy = centerY + (i % 3) * circleRadius * 2;
+        const cy = centerY + (i % 3) * (circleRadius * 2 + this.circleMargin);
+        console.log(cy);
         this.leftSideSeats.push({
           svgCircle: { cx, cy, radius: circleRadius },
           seatNumber: bench[i],
-          member: null, //TODO: add member
+          member: null,
         });
       }
       rowRadius += circleRadius * 2 + this.circleMargin;
@@ -152,15 +159,14 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
     circleRadius: number
   ) {
     centerY = centerY + circleRadius * 2;
-    rowRadius += circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.rightSideBenches) {
+      const cx = centerX + rowRadius;
       for (let i = 0; i < bench.length; i++) {
-        const cx = centerX + rowRadius;
-        const cy = centerY + (i % 3) * circleRadius * 2;
+        const cy = centerY + (i % 3) * (circleRadius * 2 + this.circleMargin);
         this.rightSideSeats.push({
           svgCircle: { cx, cy, radius: circleRadius },
           seatNumber: bench[i],
-          member: null, //TODO: add member
+          member: null,
         });
       }
       rowRadius += circleRadius * 2 + this.circleMargin;
