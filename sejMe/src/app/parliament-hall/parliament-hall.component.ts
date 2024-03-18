@@ -16,12 +16,10 @@ import { selectAllMembersArray } from '../member/state/member.selectors';
 import { withLatestFrom } from 'rxjs';
 import { ParliamentMember } from '../member/model/ParliamentMember';
 import { selectMembersSelectedTermNum } from '../member/state/filters/member-filters.selectors';
-import { ParliamentMemberInfoComponent } from './components/parliament-member-info/parliament-member-info.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [ParliamentSeatComponent, ParliamentMemberInfoComponent, AsyncPipe],
+  imports: [ParliamentSeatComponent],
   selector: 'sm-parliament-hall',
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],
