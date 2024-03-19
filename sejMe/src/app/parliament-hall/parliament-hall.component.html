@@ -4,28 +4,31 @@
   [attr.height]="svgCanvasHeightPx + 'px'"
   class="border-2">
   <!-- TODO FocusKeyManager https://material.angular.io/cdk/a11y/overview -->
-  @for (seat of leftSideSeats; track seat; let i = $index) {
+  @for (seat of allSeats(); track seat.seatNumber; let i = $index) {
     <g
       class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
-      [isActive]="activeSeat === seat"
-      [style.animation-delay.ms]="5 * i"
+      [member]="seat.member"
+      [termNum]="selectedTermNum$ | async"
+      [isActive]="activeSeat() === seat"
       (seatClicked)="setActiveSeat(seat)" />
   }
-  @for (seat of semicircleSeats; track seat; let i = $index) {
+  <!-- @for (seat of rightSideSeats(); track seat.seatNumber; let i = $index) {
     <g
       class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
-      [isActive]="activeSeat === seat"
-      [style.animation-delay.ms]="5 * i"
+      [member]="seat.member"
+      [termNum]="selectedTermNum$ | async"
+      [isActive]="activeSeat() === seat"
       (seatClicked)="setActiveSeat(seat)" />
   }
-  @for (seat of rightSideSeats; track seat; let i = $index) {
+  @for (seat of semicircleSeats(); track seat.seatNumber; let i = $index) {
     <g
       class="cursor-pointer fade-in"
       [sm-parliament-seat]="seat"
-      [isActive]="activeSeat === seat"
-      [style.animation-delay.ms]="5 * i"
+      [member]="seat.member"
+      [termNum]="selectedTermNum$ | async"
+      [isActive]="activeSeat() === seat"
       (seatClicked)="setActiveSeat(seat)" />
-  }
+  } -->
 </svg>

@@ -1,19 +1,29 @@
 @if (svgCircle) {
-  <svg:circle
-    [attr.cx]="svgCircle.cx"
-    [attr.cy]="svgCircle.cy"
-    [attr.r]="svgCircle.radius"
-    class="{{ isActive() ? 'stroke-primary' : 'stroke-current' }} {{
-      isActive() ? 'stroke-2' : 'stroke-[0.5px]'
-    }}"
-    fill="transparent" />
+  <svg:defs>
+    <svg:clipPath id="clip">
+      <svg:circle
+        [attr.cx]="svgCircle.cx"
+        [attr.cy]="svgCircle.cy"
+        [attr.r]="svgCircle.radius"
+        class="{{ isActive() ? 'stroke-primary' : 'stroke-current' }} {{
+          isActive() ? 'stroke-2' : 'stroke-[0.5px]'
+        }}" />
+    </svg:clipPath>
+  </svg:defs>
 
-  <svg:text
+  <!-- <svg:text
     [attr.x]="svgCircle.cx"
     [attr.y]="svgCircle.cy"
     class="text-xs font-bold {{ isActive() ? 'fill-primary' : 'fill-current' }}"
     text-anchor="middle"
     alignment-baseline="central">
     {{ seat().seatNumber }}
-  </svg:text>
+  </svg:text> -->
+
+  <svg:image
+    [attr.x]="svgCircle.cx"
+    [attr.y]="svgCircle.cy"
+    [attr.height]="62"
+    [attr.width]="50"
+    [attr.href]="miniPhotoUrl()" />
 }

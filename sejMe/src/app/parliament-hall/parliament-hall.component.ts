@@ -1,30 +1,34 @@
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   ElementRef,
   HostListener,
   ViewChild,
   inject,
+  signal,
 } from '@angular/core';
 import { PARLIAMENT_SEATS_LAYOUT } from './model/parliament-seats-layout';
 import { ParliamentSeat } from './model/parliament-seat';
 import { ParliamentSeatComponent } from './components/parliament-seat/parliament-seat.component';
 import { ParliamentSeatService } from './service/parliament-seatings.service';
-import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectAllMembersArray } from '../member/state/member.selectors';
-import { withLatestFrom } from 'rxjs';
+import { combineLatest, filter, take } from 'rxjs';
 import { ParliamentMember } from '../member/model/ParliamentMember';
 import { selectMembersSelectedTermNum } from '../member/state/filters/member-filters.selectors';
+import { AsyncPipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ParliamentSeatingData } from './model/parlament-seating-data';
 
 @Component({
   standalone: true,
-  imports: [ParliamentSeatComponent],
+  imports: [ParliamentSeatComponent, AsyncPipe],
   selector: 'sm-parliament-hall',
   templateUrl: 'parliament-hall.component.html',
   styleUrls: ['./parliament-hall.component.scss'],
 })
-export class ParliamentHallComponent implements OnInit, AfterViewInit {
+export class ParliamentHallComponent implements AfterViewInit {
   @HostListener('window:resize')
   onResize() {
     this.generateHallSvg();
@@ -35,70 +39,73 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
     return this.canvasElRef.nativeElement;
   }
   private readonly store = inject(Store);
+  private readonly destroyRef = inject(DestroyRef);
   readonly circleMargin = 10;
   readonly parliamentSeatService = inject(ParliamentSeatService);
   readonly members$ = this.store.select(selectAllMembersArray);
   readonly selectedTermNum$ = this.store.select(selectMembersSelectedTermNum);
-  svgCanvasHeightPx = 400;
-  semicircleSeats: ParliamentSeat[] = [];
-  leftSideSeats: ParliamentSeat[] = [];
-  rightSideSeats: ParliamentSeat[] = [];
-  activeSeat: ParliamentSeat | null = null;
+  readonly seatNumberToMemberMap = new Map<string, ParliamentMember | null>();
+  readonly allSeats = signal<ParliamentSeat[]>([]);
+  // readonly leftSideSeats = signal<ParliamentSeat[]>([]);
+  // readonly rightSideSeats = signal<ParliamentSeat[]>([]);
+  readonly activeSeat = signal<ParliamentSeat | null>(null);
+  svgCanvasHeightPx = 0;
+  circleRadius: number = 0;
 
-  get allSeats(): ParliamentSeat[] {
-    return [
-      ...this.leftSideSeats,
-      ...this.semicircleSeats,
-      ...this.rightSideSeats,
-    ];
-  }
-
-  ngOnInit() {
-    this.parliamentSeatService
-      .getLastSeatingData()
-      .pipe(withLatestFrom(this.members$))
+  ngAfterViewInit() {
+    combineLatest([
+      this.parliamentSeatService.getLastSeatingData(),
+      this.members$,
+    ])
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter(([seatingData, members]) => seatingData && members.length > 0),
+        take(1)
+      )
       .subscribe(([seatingsData, members]) => {
-        this.allSeats.forEach(seat => {
-          const memberName = seatingsData.seats[seat.seatNumber];
-          if (memberName) {
-            seat.member = this.getMemberByFirstLastName(members, memberName);
-          }
-        });
+        console.log('1', { seatingsData, members });
+        this.setMembersForSeats(seatingsData, members);
+        this.generateHallSvg();
       });
   }
 
-  ngAfterViewInit() {
-    this.generateHallSvg();
-  }
-
   setActiveSeat(seat: ParliamentSeat) {
-    console.log('setActiveSeat', seat);
-    this.activeSeat = seat;
+    this.activeSeat.set(seat);
   }
 
   clearActiveSeat() {
-    this.activeSeat = null;
+    this.activeSeat.set(null);
+  }
+
+  private setMembersForSeats(
+    seatingsData: ParliamentSeatingData,
+    members: ParliamentMember[]
+  ) {
+    Object.keys(seatingsData.seats).map(seatNumber => {
+      const memberName = seatingsData.seats[seatNumber];
+      if (memberName) {
+        const seatMember = this.getMemberByFirstLastName(members, memberName);
+        this.seatNumberToMemberMap.set(seatNumber, seatMember || null);
+      }
+    });
   }
 
   private generateHallSvg() {
-    this.leftSideSeats = [];
-    this.rightSideSeats = [];
-    this.semicircleSeats = [];
+    this.allSeats.set([]);
     const width = this.svgCanvas.clientWidth;
-    const circleRadius = this.svgCanvas.clientWidth / 100;
-    this.svgCanvasHeightPx = circleRadius * 52;
+    this.circleRadius = this.svgCanvas.clientWidth / 50;
+    this.svgCanvasHeightPx = this.circleRadius * 52;
     const height = this.svgCanvasHeightPx;
-    const rowRadius = 10 * circleRadius; // Radius of the first half circle
+    const rowRadius = 10 * this.circleRadius; // Radius of the first half circle
     const centerX = width / 2;
-    const centerY = height - 8 * circleRadius - 2 * this.circleMargin;
-    this.generateLeftSideBench(centerX, centerY, rowRadius, circleRadius);
+    const centerY = height - 8 * this.circleRadius - 2 * this.circleMargin;
+    this.generateLeftSideBench(centerX, centerY, rowRadius);
     this.generateSemicircles(
       centerX,
-      height - 9 * circleRadius - 2 * this.circleMargin,
-      rowRadius,
-      circleRadius
+      height - 9 * this.circleRadius - 2 * this.circleMargin,
+      rowRadius
     );
-    this.generateRightSideBench(centerX, centerY, rowRadius, circleRadius);
+    this.generateRightSideBench(centerX, centerY, rowRadius);
   }
 
   /**
@@ -116,9 +123,9 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
   private generateSemicircles(
     centerX: number,
     centerY: number,
-    rowRadius: number,
-    circleRadius: number
+    rowRadius: number
   ) {
+    const seats: ParliamentSeat[] = [];
     for (const semicircle of PARLIAMENT_SEATS_LAYOUT.semiCircles) {
       const angleStep = Math.PI / (semicircle.length - 1);
       semicircle.forEach((seatNumber: number, index: number) => {
@@ -127,55 +134,60 @@ export class ParliamentHallComponent implements OnInit, AfterViewInit {
         const cx = centerX + rowRadius * Math.cos(angle);
         const cy = centerY - rowRadius * Math.sin(angle);
 
-        this.semicircleSeats.push({
-          svgCircle: { cx, cy, radius: circleRadius },
+        seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
           seatNumber,
-          member: null,
+          member: this.seatNumberToMemberMap.get(`${seatNumber}`) || null,
         });
       });
-      rowRadius += circleRadius * 2 + this.circleMargin;
+      rowRadius += this.circleRadius * 2 + this.circleMargin;
     }
+    this.allSeats.update(all => [...all, ...seats]);
   }
 
   private generateLeftSideBench(
     centerX: number,
     centerY: number,
-    rowRadius: number,
-    circleRadius: number
+    rowRadius: number
   ) {
-    centerY = centerY + circleRadius * 2;
+    const seats: ParliamentSeat[] = [];
+    centerY = centerY + this.circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.leftSideBenches) {
       const cx = centerX - rowRadius;
       for (let i = 0; i < bench.length; i++) {
-        const cy = centerY + (i % 3) * (circleRadius * 2 + this.circleMargin);
-        this.leftSideSeats.push({
-          svgCircle: { cx, cy, radius: circleRadius },
+        const cy =
+          centerY + (i % 3) * (this.circleRadius * 2 + this.circleMargin);
+        seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
           seatNumber: bench[i],
-          member: null,
+          member: this.seatNumberToMemberMap.get(`${bench[i]}`) || null,
         });
       }
-      rowRadius += circleRadius * 2 + this.circleMargin;
+      rowRadius += this.circleRadius * 2 + this.circleMargin;
     }
+    this.allSeats.update(all => [...all, ...seats]);
   }
 
   private generateRightSideBench(
     centerX: number,
     centerY: number,
-    rowRadius: number,
-    circleRadius: number
+    rowRadius: number
   ) {
-    centerY = centerY + circleRadius * 2;
+    const seats: ParliamentSeat[] = [];
+    centerY = centerY + this.circleRadius * 2;
     for (const bench of PARLIAMENT_SEATS_LAYOUT.rightSideBenches) {
       const cx = centerX + rowRadius;
       for (let i = 0; i < bench.length; i++) {
-        const cy = centerY + (i % 3) * (circleRadius * 2 + this.circleMargin);
-        this.rightSideSeats.push({
-          svgCircle: { cx, cy, radius: circleRadius },
+        const cy =
+          centerY + (i % 3) * (this.circleRadius * 2 + this.circleMargin);
+        seats.push({
+          svgCircle: { cx, cy, radius: this.circleRadius },
           seatNumber: bench[i],
-          member: null,
+          member: this.seatNumberToMemberMap.get(`${bench[i]}`) || null,
         });
       }
-      rowRadius += circleRadius * 2 + this.circleMargin;
+      rowRadius += this.circleRadius * 2 + this.circleMargin;
     }
+    this.allSeats.update(all => [...all, ...seats]);
   }
 }
