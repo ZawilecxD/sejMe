@@ -38,6 +38,7 @@ export class ParliamentHallComponent implements AfterViewInit {
   get svgCanvas() {
     return this.canvasElRef.nativeElement;
   }
+  private readonly hostElement = inject(ElementRef);
   private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
   readonly circleMargin = 10;
@@ -51,6 +52,60 @@ export class ParliamentHallComponent implements AfterViewInit {
   readonly activeSeat = signal<ParliamentSeat | null>(null);
   svgCanvasHeightPx = 0;
   circleRadius: number = 0;
+  get hostWidth() {
+    return this.hostElement.nativeElement.clientWidth;
+  }
+  get hostHeight() {
+    return this.hostElement.nativeElement.clientHeight;
+  }
+  private isDragging = false;
+  private initialMouseX = 0;
+  private initialMouseY = 0;
+  private viewBoxLimits = {
+    minX: -900,
+    maxX: -540,
+    minY: 0,
+    maxY: 0,
+  };
+  viewBoxX = 0; // Initial viewBox X
+  viewBoxY = 0; // Initial viewBox Y
+
+  startDrag(event: MouseEvent) {
+    this.isDragging = true;
+    this.initialMouseX = event.clientX;
+    this.initialMouseY = event.clientY;
+  }
+
+  drag(event: MouseEvent) {
+    if (this.isDragging) {
+      const deltaX = event.clientX - this.initialMouseX;
+      const deltaY = event.clientY - this.initialMouseY;
+
+      // Calculate the new viewBox position
+      const newViewBoxX = this.viewBoxX - deltaX;
+      const newViewBoxY = this.viewBoxY - deltaY;
+
+      // Apply boundaries
+      this.viewBoxX = Math.max(
+        Math.min(newViewBoxX, this.viewBoxLimits.maxX),
+        this.viewBoxLimits.minX
+      );
+      this.viewBoxY = Math.max(
+        Math.min(newViewBoxY, this.viewBoxLimits.maxY),
+        this.viewBoxLimits.minY
+      );
+
+      console.log({ viewBoxX: this.viewBoxX, viewBoxY: this.viewBoxY });
+
+      // Update initial mouse position
+      this.initialMouseX = event.clientX;
+      this.initialMouseY = event.clientY;
+    }
+  }
+
+  endDrag() {
+    this.isDragging = false;
+  }
 
   ngAfterViewInit() {
     combineLatest([
@@ -63,7 +118,6 @@ export class ParliamentHallComponent implements AfterViewInit {
         take(1)
       )
       .subscribe(([seatingsData, members]) => {
-        console.log('1', { seatingsData, members });
         this.setMembersForSeats(seatingsData, members);
         this.generateHallSvg();
       });
@@ -92,10 +146,18 @@ export class ParliamentHallComponent implements AfterViewInit {
 
   private generateHallSvg() {
     this.allSeats.set([]);
-    const width = this.svgCanvas.clientWidth;
-    this.circleRadius = this.svgCanvas.clientWidth / 50;
-    this.svgCanvasHeightPx = this.circleRadius * 52;
+    this.circleRadius = 25; // this.svgCanvas.clientWidth / 50;
+    const width = this.circleRadius * 30 + 40 * this.circleMargin;
+    this.svgCanvasHeightPx = this.circleRadius * 26 + 50 * this.circleMargin;
     const height = this.svgCanvasHeightPx;
+
+    // viewBox settings
+    console.log({ width, height });
+    // this.viewBoxX = -this.hostWidth / 2;
+    this.viewBoxLimits.maxX = width / 2;
+    this.viewBoxLimits.minX =
+      -width / 2 + 5 * this.circleRadius + 10 * this.circleMargin;
+
     const rowRadius = 10 * this.circleRadius; // Radius of the first half circle
     const centerX = width / 2;
     const centerY = height - 8 * this.circleRadius - 2 * this.circleMargin;

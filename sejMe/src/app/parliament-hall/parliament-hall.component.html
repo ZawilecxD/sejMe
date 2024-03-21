@@ -1,8 +1,11 @@
 <svg
   #svgCanvas
-  width="100%"
   [attr.height]="svgCanvasHeightPx + 'px'"
-  class="border-2">
+  class="border-2"
+  attr.viewBox="{{ viewBoxX }} {{ viewBoxY }} {{ hostWidth }} {{ hostHeight }}"
+  (mousedown)="startDrag($event)"
+  (mousemove)="drag($event)"
+  (mouseup)="endDrag()">
   <!-- TODO FocusKeyManager https://material.angular.io/cdk/a11y/overview -->
   @for (seat of allSeats(); track seat.seatNumber; let i = $index) {
     <g
@@ -13,22 +16,4 @@
       [isActive]="activeSeat() === seat"
       (seatClicked)="setActiveSeat(seat)" />
   }
-  <!-- @for (seat of rightSideSeats(); track seat.seatNumber; let i = $index) {
-    <g
-      class="cursor-pointer fade-in"
-      [sm-parliament-seat]="seat"
-      [member]="seat.member"
-      [termNum]="selectedTermNum$ | async"
-      [isActive]="activeSeat() === seat"
-      (seatClicked)="setActiveSeat(seat)" />
-  }
-  @for (seat of semicircleSeats(); track seat.seatNumber; let i = $index) {
-    <g
-      class="cursor-pointer fade-in"
-      [sm-parliament-seat]="seat"
-      [member]="seat.member"
-      [termNum]="selectedTermNum$ | async"
-      [isActive]="activeSeat() === seat"
-      (seatClicked)="setActiveSeat(seat)" />
-  } -->
 </svg>
