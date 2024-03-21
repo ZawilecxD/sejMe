@@ -38,13 +38,16 @@ export class ParliamentSeatComponent {
   @Output() seatClicked = new EventEmitter<ParliamentSeat>();
 
   private readonly memberApi = inject(MemberApiService);
-  miniPhotoUrl: Signal<string | null> = computed(() => {
+  readonly miniPhotoUrl: Signal<string | null> = computed(() => {
     const member = this.member();
     const termNum = this.termNum();
     if (member && termNum) {
       return this.memberApi.buildMiniPhotoUrl(termNum, member.id);
     }
     return null;
+  });
+  readonly miniPhotoId = computed(() => {
+    return this.seat().seatNumber + '-mini-photo';
   });
 
   @HostListener('focus')
