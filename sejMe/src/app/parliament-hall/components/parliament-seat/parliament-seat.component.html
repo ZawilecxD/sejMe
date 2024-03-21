@@ -4,8 +4,8 @@
       [id]="miniPhotoId()"
       x="0"
       y="0"
-      [attr.height]="svgCircle.radius"
-      [attr.width]="svgCircle.radius">
+      [attr.width]="svgCircle.radius"
+      [attr.height]="svgCircle.radius">
       <image x="0" y="0" [attr.href]="miniPhotoUrl()"></image>
     </pattern>
   </svg:defs>
@@ -15,9 +15,5 @@
     [attr.cy]="svgCircle.cy"
     [attr.r]="svgCircle.radius"
     [attr.fill]="'url(#' + miniPhotoId() + ')'"
-    class="
-    {{ isActive() ? 'stroke-primary' : 'stroke-current' }} 
-    {{ isActive() ? 'stroke-2' : 'stroke-[0.5px]' }}
-    opacity-60 hover:opacity-100
-    " />
+    class="stroke-current [.active-seat_&]:stroke-primary stroke-[0.5px] [.active-seat_&]:stroke-2 opacity-60 hover:opacity-100 [.active-seat_&]:opacity-100" />
 }

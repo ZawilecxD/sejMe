@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostBinding,
   HostListener,
   NO_ERRORS_SCHEMA,
   Output,
@@ -36,6 +37,10 @@ export class ParliamentSeatComponent {
   }
   @Output() seatFocused = new EventEmitter<ParliamentSeat>();
   @Output() seatClicked = new EventEmitter<ParliamentSeat>();
+  @HostBinding('class.active-seat')
+  get activeSeat() {
+    return this.isActive();
+  }
 
   private readonly memberApi = inject(MemberApiService);
   readonly miniPhotoUrl: Signal<string | null> = computed(() => {
