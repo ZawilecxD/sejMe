@@ -9,6 +9,12 @@ export interface Term {
 
   // frontend generated
   label?: string;
+  sittings: Record<string, TermSitting>;
+}
+
+export interface TermSitting {
+  title: string;
+  dates: Date[];
 }
 
 export const setTermLabel = (t: Term) => {

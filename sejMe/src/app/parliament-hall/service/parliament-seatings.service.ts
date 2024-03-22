@@ -9,7 +9,7 @@ export class ParliamentSeatService {
 
   getSeatingData(seatingDate: (typeof AVAILABLE_SEATINGS)[number]) {
     return this.http.get<ParliamentSeatingData>(
-      `/assets/parliament-seatings/${seatingDate}.json`
+      `/assets/parliament-seats-layout/${seatingDate}.json`
     );
   }
 
