@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VoteMP, Voting, VotingDetails } from './voting.model';
 import { BASE_API_URL } from '../app.tokens';
+import { VoteMP, Voting, VotingDetails } from './model/voting.model';
 
 @Injectable({ providedIn: 'root' })
 export class VotingApiService {
   private http = inject(HttpClient);
   private baseUrl = inject(BASE_API_URL);
 
-  getVotingsForSeating(termNum: number, seating: number) {
+  getVotingsForSitting(termNum: number, seating: number) {
     return this.http.get<Voting[]>(
       `${this.baseUrl}/term${termNum}/votings/${seating}`
     );

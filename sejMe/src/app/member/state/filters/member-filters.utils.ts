@@ -36,33 +36,33 @@ export function filterMembers(
       );
     }
     if (filters.selectedBirthLocations) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedBirthLocations?.includes(mp.birthLocation)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedBirthLocations?.includes(mp.birthLocation)
       );
     }
     if (filters.selectedClubs) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedClubs?.includes(mp.club)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedClubs?.includes(mp.club)
       );
     }
     if (filters.selectedDistrictsNames) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedDistrictsNames?.includes(mp.districtName)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedDistrictsNames?.includes(mp.districtName)
       );
     }
     if (filters.selectedEducationLevels) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedEducationLevels?.includes(mp.educationLevel)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedEducationLevels?.includes(mp.educationLevel)
       );
     }
     if (filters.selectedProfessions) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedProfessions?.includes(mp.profession)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedProfessions?.includes(mp.profession)
       );
     }
     if (filters.selectedVoivodeships) {
-      filteredMembers = filteredMembers.filter(
-        mp => filters.selectedVoivodeships?.includes(mp.voivodeship)
+      filteredMembers = filteredMembers.filter(mp =>
+        filters.selectedVoivodeships?.includes(mp.voivodeship)
       );
     }
   }

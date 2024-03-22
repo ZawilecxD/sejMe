@@ -5,6 +5,7 @@ import { MemberState } from 'src/app/member/state/member.reducer';
 import { ProceedingsFiltersState } from 'src/app/proceeding/state/filters/proceedings-filters.reducer';
 import { ProceedingsState } from 'src/app/proceeding/state/proceedings.reducer';
 import { TermsState } from 'src/app/term/state/terms.reducer';
+import { VotingState } from 'src/app/voting/state/voting.reducer';
 
 export interface AppState {
   terms: TermsState;
@@ -14,4 +15,5 @@ export interface AppState {
   committeesFilters: CommitteesFiltersState;
   proceedings: ProceedingsState;
   proceedingsFilters: ProceedingsFiltersState;
+  votings: VotingState;
 }

@@ -52,6 +52,12 @@ export const APP_ROUTES: Routes = [
         },
         component: ParliamentHallComponent,
       },
+      {
+        path: 'voting',
+        title: 'Głosowania',
+        loadChildren: () =>
+          import('./voting/voting.routes').then(m => m.VOTING_ROUTES),
+      },
     ],
   },
 
