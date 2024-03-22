@@ -2,10 +2,10 @@ export interface Voting {
   abstain: number;
   date: Date; // eg: “2023-11-13T15:17:22”
   description: string;
-  votingOptions: VotingOption[];
   kind: VotingType;
   no: number;
   notParticipating: number;
+  pdfLink?: string;
   sitting: number;
   sittingDay: number;
   term: number;
@@ -13,7 +13,12 @@ export interface Voting {
   topic: string;
   totalVoted: number;
   votingNumber: number;
+  votingOptions: VotingOption[];
   yes: number;
+}
+
+export interface VotingDetails extends Voting {
+  votes: Vote[];
 }
 
 export interface VotingOption {
