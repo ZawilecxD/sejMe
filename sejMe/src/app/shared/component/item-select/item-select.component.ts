@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  Renderer2,
   ViewChild,
   forwardRef,
 } from '@angular/core';
@@ -53,7 +52,7 @@ export class ItemSelectComponent implements ControlValueAccessor {
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
-  constructor(private renderer: Renderer2) {
+  constructor() {
     this.selectId = ItemSelectComponent.uniqueId++;
   }
 

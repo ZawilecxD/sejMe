@@ -1,1 +1,17 @@
-<p>voting-filters works!</p>,
+<div class="flex gap-3">
+  <sm-item-select
+    label="Wybierz kadencje"
+    [items]="(terms$ | async) || []"
+    [ngModel]="selectedTerm()"
+    (ngModelChange)="onTermSelect($event)"
+    labelProperty="label"
+    [compareWithFn]="compareTerms" />
+
+  <sm-item-select
+    label="Wybierz posiedzenie"
+    [items]="(termSittings$ | async) || []"
+    [ngModel]="selectedSitting()"
+    (ngModelChange)="onSittingSelect($event)"
+    labelProperty="title"
+    [compareWithFn]="compareTerms" />
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Term, TermSitting, setTermLabel } from '../model/Term';
-import { catchError, combineLatest, of, tap } from 'rxjs';
+import { Observable, catchError, combineLatest, map, of, tap } from 'rxjs';
 import { BASE_API_URL } from 'src/app/app.tokens';
 
 @Injectable({
@@ -31,9 +31,17 @@ export class TermApiService {
     );
   }
 
-  fetchTermSittings(termNum: number) {
+  fetchTermSittings(termNum: number): Observable<TermSitting[]> {
     return this.http
       .get<Record<string, TermSitting>>(`/assets/term-sittings/${termNum}.json`)
-      .pipe(catchError(() => of({})));
+      .pipe(
+        map(sittings => {
+          return Object.keys(sittings).map(key => ({
+            ...sittings[key],
+            num: +key,
+          }));
+        }),
+        catchError(() => of([]))
+      );
   }
 }

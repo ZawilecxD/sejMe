@@ -9,10 +9,11 @@ export interface Term {
 
   // frontend generated
   label?: string;
-  sittings: Record<string, TermSitting>;
+  sittings: TermSitting[];
 }
 
 export interface TermSitting {
+  num: number;
   title: string;
   dates: Date[];
 }

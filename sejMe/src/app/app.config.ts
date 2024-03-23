@@ -28,6 +28,7 @@ export const APP_CONFIG: ApplicationConfig = {
       fromMembersFilters.reducer
     ),
     provideEffects([MembersEffects, MembersFiltersEffects]),
+
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production,
