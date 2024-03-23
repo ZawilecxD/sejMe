@@ -4,7 +4,7 @@ import { CollectionState } from 'src/app/shared/interface/CollectionState';
 import { CollectionStateStatus } from 'src/app/shared/type/CollectionStateStatus';
 import * as VotingActions from './voting.actions';
 
-export const VOTING_FEATURE_NAME = 'voting';
+export const VOTING_FEATURE_NAME = 'votings';
 
 export interface VotingState extends CollectionState {
   /**

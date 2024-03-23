@@ -25,6 +25,7 @@ export interface VotingOption {
   option: string;
   optionIndex: number;
   votes: number;
+  votesPercent?: number;
   description?: string;
 }
 

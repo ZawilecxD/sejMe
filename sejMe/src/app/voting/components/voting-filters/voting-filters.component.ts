@@ -3,7 +3,6 @@ import {
   Component,
   DestroyRef,
   OnInit,
-  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -21,16 +20,7 @@ import { selectAllTerms } from 'src/app/term/state/terms.selectors';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { TermApiService } from 'src/app/term/api/term-api.service';
-import {
-  combineLatest,
-  filter,
-  map,
-  shareReplay,
-  startWith,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { combineLatest, map, of, shareReplay, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'sm-voting-filters',
@@ -51,19 +41,12 @@ export class VotingFiltersComponent implements OnInit {
   readonly selectedSittingDay = signal<number | null>(null);
   readonly terms$ = this.store.select(selectAllTerms).pipe(shareReplay(1));
   readonly termSittings$ = toObservable(this.selectedTerm).pipe(
-    startWith([]),
-    filter((term): term is Term => !!term),
-    switchMap(term => this.termsApi.fetchTermSittings(term.num)),
+    switchMap(term => {
+      return term?.num ? this.termsApi.fetchTermSittings(term.num) : of([]);
+    }),
     shareReplay(1)
   );
   readonly compareTerms = compareTermsByNumber;
-
-  constructor() {
-    effect(() => {
-      console.log('selectedTerm', this.selectedTerm());
-      console.log('selectedSitting', this.selectedSitting());
-    });
-  }
 
   ngOnInit() {
     combineLatest([this.route.queryParamMap, this.terms$, this.termSittings$])
@@ -72,7 +55,6 @@ export class VotingFiltersComponent implements OnInit {
         map(([paramsMap, terms, termSittings]) => {
           const term = paramsMap.get('term');
           const sitting = paramsMap.get('sitting');
-          console.log({ paramsMap, term, sitting });
           return {
             termNum: term ? +term : null,
             sittingNum: sitting ? +sitting : null,
@@ -81,14 +63,14 @@ export class VotingFiltersComponent implements OnInit {
           };
         }),
         tap(({ termNum, sittingNum, terms, termSittings }) => {
-          console.log([{ termNum, sittingNum }, terms, termSittings]);
           this.selectedTerm.set(
-            terms.find((term: Term) => term.num === termNum) || null
+            terms.find((term: Term) => term.num === termNum) ||
+              terms[terms.length - 1]
           );
           this.selectedSitting.set(
             termSittings.find(
               (sitting: TermSitting) => sitting.num === sittingNum
-            ) || null
+            ) || termSittings[0]
           );
         })
       )
@@ -97,36 +79,6 @@ export class VotingFiltersComponent implements OnInit {
           this.store.dispatch(loadVotingsList({ termNum, sittingNum }));
         }
       });
-    // this.route.queryParamMap
-    //   .pipe(
-    //     takeUntilDestroyed(this.destroyRef),
-    //     map(paramsMap => {
-    //       const term = paramsMap.get('term');
-    //       const sitting = paramsMap.get('sitting');
-    //       console.log({ term, sitting });
-    //       return {
-    //         termNum: term ? +term : null,
-    //         sittingNum: sitting ? +sitting : null,
-    //       };
-    //     }),
-    //     withLatestFrom(this.terms$, this.termSittings$),
-    //     tap(([{ termNum, sittingNum }, terms, termSittings]) => {
-    //       console.log([{ termNum, sittingNum }, terms, termSittings]);
-    //       this.selectedTerm.set(
-    //         terms.find((term: Term) => term.num === termNum) || null
-    //       );
-    //       this.selectedSitting.set(
-    //         termSittings.find(
-    //           (sitting: TermSitting) => sitting.num === sittingNum
-    //         ) || null
-    //       );
-    //     })
-    //   )
-    //   .subscribe(([{ termNum, sittingNum }]) => {
-    //     if (termNum && sittingNum) {
-    //       this.store.dispatch(loadVotingsList({ termNum, sittingNum }));
-    //     }
-    //   });
   }
 
   onTermSelect(term: Term) {

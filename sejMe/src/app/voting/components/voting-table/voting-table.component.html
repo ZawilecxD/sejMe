@@ -1,1 +1,15 @@
-<p>voting-table works!</p>,
+<table class="table table-md table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th>Głosowanie</th>
+      <th class="min-w-32">Data</th>
+      <th>Głosów</th>
+      <th class="min-w-52">Wynik</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (voting of votings$ | async; track voting.votingNumber) {
+      <tr sm-voting-row [voting]="voting" class="even:bg-base-200"></tr>
+    }
+  </tbody>
+</table>
