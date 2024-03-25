@@ -12,7 +12,10 @@ export const resolveVotingDetails: ResolveFn<VotingDetails> = (
   const sittingNum = route.params['sittingNum'];
   const votingNum = route.params['votingNum'];
 
-  return votingApi
-    .getVotingDetails(termNum, sittingNum, votingNum)
-    .pipe(catchError(() => EMPTY));
+  return votingApi.getVotingDetails(termNum, sittingNum, votingNum).pipe(
+    catchError(() => {
+      // returning EMPTY will not trigger the navigation
+      return EMPTY;
+    })
+  );
 };
