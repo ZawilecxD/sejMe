@@ -1,8 +1,8 @@
 <td>
   <div class="flex flex-col">
     <span class="font-bold mb-1">{{ voting().title }}</span>
-    <a class="text-primary" [routerLink]="['/voting', voting().votingNumber]">{{
-      voting().topic
+    <a class="link" [routerLink]="['/voting', voting().votingNumber]">{{
+      voting().topic || '(szczegóły)'
     }}</a>
   </div>
 </td>
