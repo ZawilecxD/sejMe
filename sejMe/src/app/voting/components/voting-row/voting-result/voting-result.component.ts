@@ -14,6 +14,7 @@ import { Voting, VotingType } from '../../../model/voting.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VotingResultComponent {
+  readonly compactMode = input<boolean>(true);
   readonly voting = input.required<Voting>();
   readonly votingOptions = computed(() => {
     const voting = this.voting();
