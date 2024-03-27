@@ -7,6 +7,11 @@ export const selectAllTerms = createSelector(
   selectTerms,
   (state: TermsState) => state.terms
 );
+export const selectAllTermsWithSittings = createSelector(
+  selectTerms,
+  (state: TermsState) => state.terms.filter(term => term.sittings)
+);
+
 export const selectTermsStatus = createSelector(
   selectTerms,
   (state: TermsState) => state.status

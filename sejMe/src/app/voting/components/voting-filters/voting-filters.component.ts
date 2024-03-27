@@ -3,10 +3,13 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  computed,
+  effect,
   inject,
   signal,
+  untracked,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadVotingsList } from '../../state/voting.actions';
@@ -16,11 +19,10 @@ import {
   TermSitting,
   compareTermsByNumber,
 } from 'src/app/term/model/Term';
-import { selectAllTerms } from 'src/app/term/state/terms.selectors';
+import { selectAllTermsWithSittings } from 'src/app/term/state/terms.selectors';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { TermApiService } from 'src/app/term/api/term-api.service';
-import { combineLatest, map, of, shareReplay, switchMap, tap } from 'rxjs';
+import { combineLatest, map, shareReplay, take, tap } from 'rxjs';
 
 @Component({
   selector: 'sm-voting-filters',
@@ -34,51 +36,102 @@ export class VotingFiltersComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly termsApi = inject(TermApiService);
   private readonly destroyRef = inject(DestroyRef);
   readonly selectedTerm = signal<Term | null>(null);
+  readonly termSittings = computed(() => this.selectedTerm()?.sittings || []);
+
   readonly selectedSitting = signal<TermSitting | null>(null);
   readonly selectedSittingDay = signal<number | null>(null);
-  readonly terms$ = this.store.select(selectAllTerms).pipe(shareReplay(1));
-  readonly termSittings$ = toObservable(this.selectedTerm).pipe(
-    switchMap(term => {
-      return term?.num ? this.termsApi.fetchTermSittings(term.num) : of([]);
-    }),
-    shareReplay(1)
-  );
+  readonly terms$ = this.store
+    .select(selectAllTermsWithSittings)
+    .pipe(shareReplay(1));
+  //  toObservable(this.selectedTerm).pipe(
+  //   switchMap(term => {
+  //     return term?.num ? this.termsApi.fetchTermSittings(term.num) : of([]);
+  //   }),
+  //   shareReplay(1)
+  // );
   readonly compareTerms = compareTermsByNumber;
 
+  constructor() {
+    effect(() => {
+      const termNum = this.selectedTerm()?.num;
+      const sittingNum = this.selectedSitting()?.num;
+      if (termNum && sittingNum) {
+        untracked(() => {
+          this.store.dispatch(loadVotingsList({ termNum, sittingNum }));
+        });
+      }
+    });
+  }
+
   ngOnInit() {
-    combineLatest([this.route.queryParamMap, this.terms$, this.termSittings$])
+    this.initializeFiltersFromRoute();
+  }
+
+  private initializeFiltersFromRoute() {
+    combineLatest([this.route.queryParamMap, this.terms$])
       .pipe(
+        take(1),
         takeUntilDestroyed(this.destroyRef),
-        map(([paramsMap, terms, termSittings]) => {
+        map(([paramsMap, terms]) => {
           const term = paramsMap.get('term');
           const sitting = paramsMap.get('sitting');
           return {
-            termNum: term ? +term : null,
+            termNum: term ? +term : terms[terms.length - 1]?.num || null,
             sittingNum: sitting ? +sitting : null,
             terms,
-            termSittings,
           };
         }),
-        tap(({ termNum, sittingNum, terms, termSittings }) => {
-          this.selectedTerm.set(
+        // switchMap(({ termNum, sittingNum, terms }) => {
+        //   console.log({ termNum, sittingNum, terms });
+        //   return termNum
+        //     ? this.termsApi.fetchTermSittings(termNum).pipe(
+        //         map(termSittings => ({
+        //           termNum,
+        //           sittingNum,
+        //           terms,
+        //           termSittings,
+        //         }))
+        //       )
+        //     : of({ termNum, sittingNum, terms, termSittings: [] });
+        // }),
+        map(({ termNum, sittingNum, terms }) => {
+          const term =
             terms.find((term: Term) => term.num === termNum) ||
-              terms[terms.length - 1]
-          );
-          this.selectedSitting.set(
+            terms[terms.length - 1];
+          this.selectedTerm.set(term);
+
+          const termSittings = term.sittings || [];
+          const sitting =
             termSittings.find(
               (sitting: TermSitting) => sitting.num === sittingNum
-            ) || termSittings[0]
+            ) || termSittings[0];
+          this.selectedSitting.set(sitting);
+          console.log({
+            termNum,
+            sittingNum,
+            terms,
+            termSittings,
+            term,
+            sitting,
+          });
+          return { term, sitting };
+        }),
+        tap(({ term, sitting }) => {
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { term: term.num, sitting: sitting.num },
+            queryParamsHandling: 'merge',
+          });
+        }),
+        tap(({ term, sitting }) => {
+          this.store.dispatch(
+            loadVotingsList({ termNum: term.num, sittingNum: sitting.num })
           );
         })
       )
-      .subscribe(({ termNum, sittingNum }) => {
-        if (termNum && sittingNum) {
-          this.store.dispatch(loadVotingsList({ termNum, sittingNum }));
-        }
-      });
+      .subscribe();
   }
 
   onTermSelect(term: Term) {
@@ -87,6 +140,7 @@ export class VotingFiltersComponent implements OnInit {
       queryParams: { term: term.num },
       queryParamsHandling: 'merge',
     });
+    this.selectedTerm.set(term);
   }
 
   onSittingSelect(sitting: TermSitting) {
@@ -95,5 +149,6 @@ export class VotingFiltersComponent implements OnInit {
       queryParams: { sitting: sitting.num },
       queryParamsHandling: 'merge',
     });
+    this.selectedSitting.set(sitting);
   }
 }

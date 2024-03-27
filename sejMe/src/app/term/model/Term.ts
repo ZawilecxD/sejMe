@@ -18,8 +18,4 @@ export interface TermSitting {
   dates: Date[];
 }
 
-export const setTermLabel = (t: Term) => {
-  t.label = `${t.from} - ${t.to || 'Teraz'}`;
-};
-
 export const compareTermsByNumber = (a: Term, b: Term) => a?.num === b?.num;

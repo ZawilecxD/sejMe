@@ -9,7 +9,7 @@
 
   <sm-item-select
     label="Wybierz posiedzenie"
-    [items]="(termSittings$ | async) || []"
+    [items]="termSittings()"
     [ngModel]="selectedSitting()"
     (ngModelChange)="onSittingSelect($event)"
     labelProperty="title"
