@@ -45,12 +45,6 @@ export class VotingFiltersComponent implements OnInit {
   readonly terms$ = this.store
     .select(selectAllTermsWithSittings)
     .pipe(shareReplay(1));
-  //  toObservable(this.selectedTerm).pipe(
-  //   switchMap(term => {
-  //     return term?.num ? this.termsApi.fetchTermSittings(term.num) : of([]);
-  //   }),
-  //   shareReplay(1)
-  // );
   readonly compareTerms = compareTermsByNumber;
 
   constructor() {
@@ -83,19 +77,6 @@ export class VotingFiltersComponent implements OnInit {
             terms,
           };
         }),
-        // switchMap(({ termNum, sittingNum, terms }) => {
-        //   console.log({ termNum, sittingNum, terms });
-        //   return termNum
-        //     ? this.termsApi.fetchTermSittings(termNum).pipe(
-        //         map(termSittings => ({
-        //           termNum,
-        //           sittingNum,
-        //           terms,
-        //           termSittings,
-        //         }))
-        //       )
-        //     : of({ termNum, sittingNum, terms, termSittings: [] });
-        // }),
         map(({ termNum, sittingNum, terms }) => {
           const term =
             terms.find((term: Term) => term.num === termNum) ||
