@@ -89,14 +89,6 @@ export class VotingFiltersComponent implements OnInit {
               (sitting: TermSitting) => sitting.num === sittingNum
             ) || termSittings[0];
           this.selectedSitting.set(sitting);
-          console.log({
-            termNum,
-            sittingNum,
-            terms,
-            termSittings,
-            term,
-            sitting,
-          });
           return { term, sitting };
         }),
         tap(({ term, sitting }) => {

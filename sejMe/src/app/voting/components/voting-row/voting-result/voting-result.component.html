@@ -9,10 +9,10 @@
     @for (option of votingOptions(); track option.optionIndex) {
       <li>
         <span class="mb-1">{{ option.option }} ({{ option.votes }})</span>
-        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700">
           <!-- TODO: rozne kolory -->
           <div
-            class="bg-blue-600 h-2.5 rounded-full"
+            class="bg-blue-600 h-full rounded-full"
             [style.width.%]="option.votesPercent"></div>
         </div>
       </li>

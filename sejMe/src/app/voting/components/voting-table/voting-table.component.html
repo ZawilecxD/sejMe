@@ -10,6 +10,10 @@
   <tbody>
     @for (voting of votings$ | async; track voting.votingNumber) {
       <tr sm-voting-row [voting]="voting" class="even:bg-base-200"></tr>
+    } @empty {
+      <tr>
+        <td colspan="4" class="text-center">Brak głosowań</td>
+      </tr>
     }
   </tbody>
 </table>
