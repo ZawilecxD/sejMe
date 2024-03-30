@@ -1,0 +1,20 @@
+<table class="table table-md table-pin-rows relative max-h-full w-full">
+  <thead>
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Głosy</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (vote of votingDetails().votes; track vote.MP) {
+      <tr>
+        <td>{{ vote.firstName }}</td>
+        <td>{{ vote.lastName }}</td>
+        <td>
+          {{ vote.listVotes ? (vote.listVotes | json) : vote.vote }}
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,23 @@
+<div class="sm:hidden">
+  <label for="tabs" class="sr-only">{{ label() }}</label>
+  <sm-item-select
+    [label]="label()"
+    [items]="options()"
+    [ngModel]="value()"
+    (ngModelChange)="onSelectChange($event)"
+    labelProperty="label"
+    [compareWithFn]="compareOptions" />
+</div>
+<ul
+  class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow sm:flex dark:divide-gray-700 dark:text-gray-400">
+  @for (option of options(); track option.value) {
+    <li class="focus-within:z-10" [class.w-full]="fullWidth()">
+      <button
+        (click)="onSelectChange(option)"
+        [class.active]="value() === option.value"
+        class="inline-block w-full p-4 border-r focus:outline-none dark:bg-gray-700 dark:text-white">
+        {{ option.label }}
+      </button>
+    </li>
+  }
+</ul>

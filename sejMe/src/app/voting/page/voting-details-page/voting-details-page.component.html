@@ -18,7 +18,16 @@
     <sm-voting-result [voting]="votingDetails" [compactMode]="false" />
   </div>
 
-  <sm-parliament-hall />
+  <sm-tabs
+    [(ngModel)]="selectedViewMode"
+    [options]="tabsOptions"
+    label="Tryb widoku głosów" />
+
+  @if (selectedViewMode() === VotingDetailsViewMode.HALL) {
+    PArliament hall with votes
+  } @else {
+    <sm-voting-members-list [votingDetails]="votingDetails" />
+  }
 } @else {
   <p class="text-center">Brak danych</p>
 }

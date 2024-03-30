@@ -1,0 +1,15 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { VotingDetails } from '../../model/voting.model';
+import { JsonPipe } from '@angular/common';
+
+@Component({
+  selector: 'sm-voting-members-list',
+  standalone: true,
+  imports: [JsonPipe],
+  templateUrl: './voting-members-list.component.html',
+  styleUrl: './voting-members-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class VotingMembersListComponent {
+  readonly votingDetails = input.required<VotingDetails>();
+}
