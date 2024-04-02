@@ -13,6 +13,7 @@ import { MembersFiltersEffects } from './member/state/filters/member-filters.eff
 import { MembersEffects } from './member/state/member.effects';
 import * as fromMembers from './member/state/member.reducer';
 import * as fromMembersFilters from './member/state/filters/member-filters.reducer';
+import { provideAppSpinner } from './app-spinner.provider';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -41,6 +42,7 @@ export const APP_CONFIG: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideHttpClient(),
+    provideAppSpinner(),
     {
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
