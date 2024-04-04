@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ThemeService } from '../utils/theme.service';
+import { map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'sm-theme-toggle',
+  imports: [AsyncPipe],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <label class="swap swap-rotate">
-    <input type="checkbox" class="theme-controller" value="dark" />
+    <input
+      type="checkbox"
+      value="dark"
+      [checked]="isDark$ | async"
+      (change)="onChange()" />
 
     <svg
       class="swap-off fill-current w-10 h-10"
@@ -24,4 +32,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </svg>
   </label>`,
 })
-export class ThemeToggleComponent {}
+export class ThemeToggleComponent {
+  readonly themeService = inject(ThemeService);
+  readonly isDark$ = this.themeService.currentTheme$.pipe(
+    map(t => t === 'dark')
+  );
+
+  onChange() {
+    this.themeService.switchTheme();
+  }
+}

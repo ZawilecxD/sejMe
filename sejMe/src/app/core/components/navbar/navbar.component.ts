@@ -3,9 +3,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { ThemeService } from '../../utils/theme.service';
-import { ThemeSelectComponent } from '../../theme-select/theme-select.component';
 import { NavbarLinksComponent } from './navbar-links.component';
-import { ThemeToggleComponent } from '../../theme-select/theme-toggle.component';
+import { ThemeToggleComponent } from '../../theme/theme-toggle.component';
 import { AppHamburgerToggleComponent } from '../app-hamburger-toggle/app-hamburger-toggle.component';
 
 @Component({
@@ -15,7 +14,6 @@ import { AppHamburgerToggleComponent } from '../app-hamburger-toggle/app-hamburg
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ThemeSelectComponent,
     NavbarLinksComponent,
     ThemeToggleComponent,
     AppHamburgerToggleComponent,

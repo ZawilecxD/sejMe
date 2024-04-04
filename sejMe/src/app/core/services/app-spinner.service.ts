@@ -50,7 +50,6 @@ export class AppSpinnerService {
     this.spinOperationsInProgress++;
     this._spinSub.next(true);
     this.document.querySelector('#page-spinner')?.classList.remove('hidden');
-    console.log('start', this.spinOperationsInProgress);
   }
 
   stop() {
@@ -63,7 +62,5 @@ export class AppSpinnerService {
         this.document.querySelector('#page-spinner')?.classList.add('hidden');
       }
     }, this.hideTimeoutMs);
-
-    console.log('stop', this.spinOperationsInProgress);
   }
 }
