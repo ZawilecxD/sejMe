@@ -6,6 +6,7 @@ import { ThemeService } from '../../utils/theme.service';
 import { ThemeSelectComponent } from '../../theme-select/theme-select.component';
 import { NavbarLinksComponent } from './navbar-links.component';
 import { ThemeToggleComponent } from '../../theme-select/theme-toggle.component';
+import { AppHamburgerToggleComponent } from '../app-hamburger-toggle/app-hamburger-toggle.component';
 
 @Component({
   standalone: true,
@@ -13,7 +14,12 @@ import { ThemeToggleComponent } from '../../theme-select/theme-toggle.component'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ThemeSelectComponent, NavbarLinksComponent, ThemeToggleComponent],
+  imports: [
+    ThemeSelectComponent,
+    NavbarLinksComponent,
+    ThemeToggleComponent,
+    AppHamburgerToggleComponent,
+  ],
 })
 export class NavbarComponent {
   mobileDrawerOpen = false;

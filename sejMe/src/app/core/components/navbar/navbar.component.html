@@ -1,31 +1,21 @@
 <div class="drawer">
-  <input
-    id="my-drawer-3"
-    type="checkbox"
-    class="drawer-toggle"
-    [checked]="mobileDrawerOpen" />
+  <input type="checkbox" class="drawer-toggle" [checked]="mobileDrawerOpen" />
   <div class="drawer-content flex flex-col">
     <!-- Navbar -->
     <div class="navbar bg-base-300">
       <div
         class="lg:container lg:mx-auto w-full flex justify-between items-center gap-4">
         <div class="px-2 mx-2 text-3xl font-extrabold">SejMe</div>
-        <div class="flex-none lg:hidden">
-          <span
-            smIcon="bars-3"
-            aria-label="open sidebar"
-            class="btn btn-square btn-ghost"
-            tabindex="0"
-            (click)="mobileDrawerOpen = true"
-            (keydown.enter)="mobileDrawerOpen = true">
-          </span>
-        </div>
+
         <ul
           sm-navbar-links
           class="menu menu-horizontal hidden lg:flex text-sm flex-grow overflow-x-auto flex-nowrap"></ul>
-        <!-- <sm-theme-select
-          class="hidden lg:flex items-center select-xs w-[10rem]" /> -->
-        <sm-theme-toggle class="flex" />
+        <div class="flex items-center gap-4 mx-2">
+          <div class="flex-none lg:hidden">
+            <sm-hamburger-toggle [(open)]="mobileDrawerOpen" />
+          </div>
+          <sm-theme-toggle class="flex" />
+        </div>
       </div>
     </div>
   </div>
