@@ -11,17 +11,12 @@
       </div>
       <div>
         <p class="text-sm font-bold">Opis</p>
-        <p class="text-base">{{ votingDetails?.description }}</p>
+        <p class="text-base">{{ votingDetails?.topic }}</p>
       </div>
     </div>
 
     <sm-voting-result [voting]="votingDetails" [compactMode]="false" />
   </div>
-
-  <sm-tabs
-    [(ngModel)]="selectedViewMode"
-    [options]="tabsOptions"
-    label="Tryb widoku głosów" />
 
   @if (selectedViewMode() === VotingDetailsViewMode.HALL) {
     PArliament hall with votes

@@ -11,10 +11,6 @@ import { ParliamentHallComponent } from 'src/app/parliament-hall/parliament-hall
 import { VotingDetails } from '../../model/voting.model';
 import { DatePipe } from '@angular/common';
 import { VotingResultComponent } from '../../components/voting-row/voting-result/voting-result.component';
-import {
-  AppTabOption,
-  AppTabsComponent,
-} from 'src/app/shared/component/app-tabs/app-tabs.component';
 import { FormsModule } from '@angular/forms';
 import { VotingMembersListComponent } from '../../components/voting-members-list/voting-members-list.component';
 
@@ -25,7 +21,6 @@ import { VotingMembersListComponent } from '../../components/voting-members-list
     ParliamentHallComponent,
     DatePipe,
     VotingResultComponent,
-    AppTabsComponent,
     FormsModule,
     VotingMembersListComponent,
   ],
@@ -37,10 +32,6 @@ export class VotingDetailsPageComponent {
   readonly votingDetails = toSignal<VotingDetails>(
     inject(ActivatedRoute).data.pipe(map(data => data['votingDetails']))
   );
-  readonly tabsOptions: AppTabOption[] = [
-    { label: 'Lista', value: VotingDetailsViewMode.LIST },
-    { label: 'Sala', value: VotingDetailsViewMode.HALL },
-  ];
   readonly selectedViewMode = model(VotingDetailsViewMode.LIST);
   readonly VotingDetailsViewMode = VotingDetailsViewMode;
 }

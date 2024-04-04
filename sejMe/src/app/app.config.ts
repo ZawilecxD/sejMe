@@ -20,6 +20,7 @@ import * as fromMembersFilters from './member/state/filters/member-filters.reduc
 import { provideAppSpinner } from './app-spinner.provider';
 import { I18NextModule } from 'angular-i18next';
 import { I18N_PROVIDERS } from './app-i18n.provider';
+import '@angular/common/locales/global/pl';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [

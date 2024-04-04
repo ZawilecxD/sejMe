@@ -22,12 +22,7 @@
             option.votes
           }})</span
         >
-        <div class="w-full bg-gray-200 rounded-full h-1 dark:bg-gray-700">
-          <!-- TODO: rozne kolory -->
-          <div
-            class="bg-blue-600 h-full rounded-full"
-            [style.width.%]="option.votesPercent"></div>
-        </div>
+        <sm-progress-bar [percentValue]="option.votesPercent" />
       </li>
     }
   </ul>

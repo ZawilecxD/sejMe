@@ -5,6 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { Voting, VotingType } from '../../../model/voting.model';
+import { AppProgressBarComponent } from '../../../../shared/component/app-progress-bar/app-progress-bar.component';
 
 @Component({
   selector: 'sm-voting-result',
@@ -12,6 +13,7 @@ import { Voting, VotingType } from '../../../model/voting.model';
   templateUrl: './voting-result.component.html',
   styleUrl: './voting-result.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [AppProgressBarComponent],
 })
 export class VotingResultComponent {
   readonly compactMode = input<boolean>(true);
