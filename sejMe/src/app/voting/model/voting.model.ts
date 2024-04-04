@@ -53,6 +53,7 @@ export enum VoteValue {
   YES = 'YES',
   NO = 'NO',
   ABSTAIN = 'ABSTAIN',
+  ABSENT = 'ABSENT',
   VOTE_VALID = 'VOTE_VALID',
 }
 

@@ -14,7 +14,7 @@ import { DOCUMENT } from '@angular/common';
 export class AppSpinnerService {
   private router = inject(Router);
   private document = inject(DOCUMENT);
-  private readonly hideTimeoutMs = 200;
+  private readonly hideTimeoutMs = 0;
   private spinOperationsInProgress = 0;
   private _spinSub: Subject<boolean> = new Subject();
   get spinning$() {

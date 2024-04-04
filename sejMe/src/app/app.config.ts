@@ -1,4 +1,8 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  isDevMode,
+} from '@angular/core';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideEffects } from '@ngrx/effects';
@@ -14,6 +18,8 @@ import { MembersEffects } from './member/state/member.effects';
 import * as fromMembers from './member/state/member.reducer';
 import * as fromMembersFilters from './member/state/filters/member-filters.reducer';
 import { provideAppSpinner } from './app-spinner.provider';
+import { I18NextModule } from 'angular-i18next';
+import { I18N_PROVIDERS } from './app-i18n.provider';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -42,13 +48,13 @@ export const APP_CONFIG: ApplicationConfig = {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     provideHttpClient(),
-    provideAppSpinner(),
     {
       provide: BASE_API_URL,
       useValue: environment.baseApiUrl,
     },
-
-    // custom providers
+    provideAppSpinner(),
+    importProvidersFrom(I18NextModule.forRoot()),
+    ...I18N_PROVIDERS,
     ...TERM_PROVIDERS,
   ],
 };

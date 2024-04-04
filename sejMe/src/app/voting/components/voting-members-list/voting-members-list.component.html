@@ -12,7 +12,11 @@
         <td>{{ vote.firstName }}</td>
         <td>{{ vote.lastName }}</td>
         <td>
-          {{ vote.listVotes ? (vote.listVotes | json) : vote.vote }}
+          @if (vote.listVotes) {
+            {{ vote.listVotes | json }}
+          } @else {
+            {{ 'enum.VoteValue.' + vote.vote | i18next }}
+          }
         </td>
       </tr>
     }

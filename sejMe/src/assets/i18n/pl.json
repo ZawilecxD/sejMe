@@ -1,0 +1,11 @@
+{
+  "enum": {
+    "VoteValue": {
+      "YES": "Tak",
+      "NO": "Nie",
+      "ABSTAIN": "Wstrzymał się",
+      "ABSENT": "Nieobecny",
+      "VOTE_VALID": "Prawidłowy głos"
+    }
+  }
+}
