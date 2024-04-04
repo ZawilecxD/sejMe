@@ -5,14 +5,15 @@ import { filter } from 'rxjs';
 import { ThemeService } from '../../utils/theme.service';
 import { ThemeSelectComponent } from '../../theme-select/theme-select.component';
 import { NavbarLinksComponent } from './navbar-links.component';
+import { ThemeToggleComponent } from '../../theme-select/theme-toggle.component';
 
 @Component({
-  imports: [ThemeSelectComponent, NavbarLinksComponent],
   standalone: true,
   selector: 'sm-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ThemeSelectComponent, NavbarLinksComponent, ThemeToggleComponent],
 })
 export class NavbarComponent {
   mobileDrawerOpen = false;

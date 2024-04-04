@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 })
 export class AppProgressBarComponent {
   readonly percentValue = input<number>(0);
-  readonly bgColorClass = input<string>('bg-blue-600');
+  readonly bgColorClass = input<string>('bg-primary');
 }

@@ -23,8 +23,9 @@
         <ul
           sm-navbar-links
           class="menu menu-horizontal hidden lg:flex text-sm flex-grow overflow-x-auto flex-nowrap"></ul>
-        <sm-theme-select
-          class="hidden lg:flex items-center select-xs w-[10rem]" />
+        <!-- <sm-theme-select
+          class="hidden lg:flex items-center select-xs w-[10rem]" /> -->
+        <sm-theme-toggle class="flex" />
       </div>
     </div>
   </div>
@@ -37,7 +38,6 @@
       (keydown.enter)="mobileDrawerOpen = false"></span>
 
     <div class="menu p-4 w-80 min-h-full bg-base-200">
-      <sm-theme-select class="mb-4" />
       <ul sm-navbar-links class=""></ul>
     </div>
   </div>
