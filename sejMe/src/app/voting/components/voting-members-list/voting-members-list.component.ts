@@ -8,7 +8,6 @@ import { I18NextModule } from 'angular-i18next';
   standalone: true,
   imports: [JsonPipe, I18NextModule],
   templateUrl: './voting-members-list.component.html',
-  styleUrl: './voting-members-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VotingMembersListComponent {

@@ -32,11 +32,4 @@ export class VotingDetailsPageComponent {
   readonly votingDetails = toSignal<VotingDetails>(
     inject(ActivatedRoute).data.pipe(map(data => data['votingDetails']))
   );
-  readonly selectedViewMode = model(VotingDetailsViewMode.LIST);
-  readonly VotingDetailsViewMode = VotingDetailsViewMode;
-}
-
-enum VotingDetailsViewMode {
-  LIST = 'List',
-  HALL = 'Hall',
 }
