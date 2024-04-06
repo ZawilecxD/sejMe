@@ -29,6 +29,7 @@ export class MemberApiService {
   }
 
   buildMiniPhotoUrl(term: number, id: number) {
+    console.log('built for', term, id);
     return this.httpUtils.buildApiUrl(term, `${this.apiPath}/${id}/photo-mini`);
   }
 }

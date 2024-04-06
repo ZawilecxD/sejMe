@@ -1,25 +1,24 @@
-<table class="table table-xs table-pin-rows relative max-h-full w-full">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Imie</th>
-      <th>Nazwisko</th>
-      <th>Status</th>
-      <th>Email</th>
-      <th>Data imiejsce narodzin</th>
-      <th>Klub</th>
-      <th>Region</th>
-      <th>Otrzymanych głosów</th>
-      <th>Zawód</th>
-      <th>Wykształcenie</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (member of members$ | async; track member.id) {
-      <tr
-        sm-member-row
-        [member]="member"
-        [termNum]="selectedTermNum$ | async"></tr>
-    }
-  </tbody>
-</table>
+@if (selectedTermNum$ | async; as selectedTermNum) {
+  <table class="table table-xs table-pin-rows relative max-h-full w-full">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>Status</th>
+        <th>Email</th>
+        <th>Data imiejsce narodzin</th>
+        <th>Klub</th>
+        <th>Region</th>
+        <th>Otrzymanych głosów</th>
+        <th>Zawód</th>
+        <th>Wykształcenie</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (member of members$ | async; track member.id) {
+        <tr sm-member-row [member]="member" [termNum]="selectedTermNum"></tr>
+      }
+    </tbody>
+  </table>
+}

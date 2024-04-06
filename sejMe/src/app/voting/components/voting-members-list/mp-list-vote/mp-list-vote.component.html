@@ -1,0 +1,13 @@
+@for (parsedVote of parsedVotes(); track parsedVote.option) {
+  <div
+    class="flex gap-4"
+    [class.opacity-50]="
+      parsedVote.voteValue !== VoteValue.YES &&
+      parsedVote.voteValue !== VoteValue.VOTE_VALID
+    ">
+    <div class="badge {{ voteValuesStyles[parsedVote.voteValue] }} gap-2">
+      {{ 'enum.VoteValue.' + parsedVote.voteValue | i18next }}
+    </div>
+    <span class="font-bold">{{ parsedVote.option }}</span>
+  </div>
+}

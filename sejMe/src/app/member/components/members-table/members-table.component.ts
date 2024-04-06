@@ -15,6 +15,6 @@ import { AsyncPipe } from '@angular/common';
 })
 export class MembersTableComponent {
   private readonly store = inject(Store);
-  members$ = this.store.select(selectFilteredMembersArray);
-  selectedTermNum$ = this.store.select(selectMembersSelectedTermNum);
+  readonly members$ = this.store.select(selectFilteredMembersArray);
+  readonly selectedTermNum$ = this.store.select(selectMembersSelectedTermNum);
 }

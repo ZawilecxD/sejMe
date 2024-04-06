@@ -62,3 +62,11 @@ export enum VotingType {
   TRADITIONAL = 'TRADITIONAL',
   ON_LIST = 'ON_LIST',
 }
+
+export const voteValuesStyles = {
+  [VoteValue.YES]: 'badge-success',
+  [VoteValue.NO]: 'badge-error',
+  [VoteValue.ABSENT]: 'badge-info',
+  [VoteValue.ABSTAIN]: 'badge-warning',
+  [VoteValue.VOTE_VALID]: 'badge-success',
+};

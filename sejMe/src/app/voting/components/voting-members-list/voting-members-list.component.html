@@ -1,6 +1,7 @@
 <table class="table table-md table-pin-rows relative max-h-full w-full">
   <thead>
     <tr>
+      <th></th>
       <th>Imię</th>
       <th>Nazwisko</th>
       <th>Głosy</th>
@@ -8,14 +9,21 @@
   </thead>
   <tbody>
     @for (vote of votingDetails().votes; track vote.MP) {
-      <tr>
+      <tr class="even:bg-base-100">
+        <td>
+          <sm-member-photo
+            [memberId]="vote.MP"
+            [termNum]="votingDetails().term" />
+        </td>
         <td>{{ vote.firstName }}</td>
         <td>{{ vote.lastName }}</td>
         <td>
           @if (vote.listVotes) {
-            {{ vote.listVotes | json }}
+            <sm-mp-list-vote
+              [vote]="vote"
+              [votingOptions]="votingDetails().votingOptions" />
           } @else {
-            {{ 'enum.VoteValue.' + vote.vote | i18next }}
+            <sm-mp-vote [vote]="vote" />
           }
         </td>
       </tr>

@@ -1,0 +1,13 @@
+@if (!showFallbackIcon()) {
+  <div class="avatar">
+    <div class="mask mask-squircle w-12 h-12">
+      <img
+        [ngSrc]="miniPhotoUrl()"
+        fill
+        alt="Avatar posła"
+        (error)="onImageLoadError()" />
+    </div>
+  </div>
+} @else {
+  <span smIcon="user" class="w-12 h-12 flex items-center justify-center"></span>
+}

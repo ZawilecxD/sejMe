@@ -2,16 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnChanges,
-  SimpleChanges,
   inject,
+  input,
 } from '@angular/core';
 import { ParliamentMember } from '../../model/ParliamentMember';
 import { MemberApiService } from '../../api/member-api.service';
-import { NgOptimizedImage } from '@angular/common';
+import { MemberPhotoComponent } from 'src/app/shared/component/member-photo/member-photo.component';
 
 @Component({
-  imports: [NgOptimizedImage],
+  imports: [MemberPhotoComponent],
   standalone: true,
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'tr[sm-member-row]',
@@ -19,23 +18,8 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrls: ['./member-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MemberRowComponent implements OnChanges {
+export class MemberRowComponent {
   private readonly memberApi = inject(MemberApiService);
   @Input({ required: true }) member!: ParliamentMember;
-  @Input({ required: true }) termNum!: number | null;
-  miniPhotoUrl = '';
-  showFallbackIcon = false;
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['member']?.currentValue && this.termNum) {
-      this.miniPhotoUrl = this.memberApi.buildMiniPhotoUrl(
-        this.termNum,
-        this.member.id
-      );
-    }
-  }
-
-  onImageLoadError() {
-    this.showFallbackIcon = true;
-  }
+  readonly termNum = input.required<number>();
 }
