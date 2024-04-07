@@ -21,10 +21,8 @@
   <div class="p-4 my-4 rounded-xl bg-base-200 h-[30rem]">
     <sm-voting-members-list
       [votingDetails]="votingDetails"
-      class="overflow-y-auto max-h-full block" />
+      class="overflow-y-auto overflow-x-hidden max-h-full block" />
   </div>
 } @else {
   <p class="text-center">Brak danych</p>
 }
-
-<input type="checkbox" value="dark" class="toggle theme-controller" />

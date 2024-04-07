@@ -27,5 +27,4 @@ import { MemberPhotoComponent } from 'src/app/shared/component/member-photo/memb
 export class VotingMembersListComponent {
   readonly votingDetails = input.required<VotingDetails>();
   readonly votingOptions = computed(() => this.votingDetails().votingOptions);
-  /* TODO: add selected term */
 }

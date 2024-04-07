@@ -1,32 +1,30 @@
-<table class="table table-md table-pin-rows relative max-h-full w-full">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Imię</th>
-      <th>Nazwisko</th>
-      <th>Głosy</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (vote of votingDetails().votes; track vote.MP) {
-      <tr class="even:bg-base-100">
-        <td>
-          <sm-member-photo
-            [memberId]="vote.MP"
-            [termNum]="votingDetails().term" />
-        </td>
-        <td>{{ vote.firstName }}</td>
-        <td>{{ vote.lastName }}</td>
-        <td>
-          @if (vote.listVotes) {
-            <sm-mp-list-vote
-              [vote]="vote"
-              [votingOptions]="votingDetails().votingOptions" />
-          } @else {
-            <sm-mp-vote [vote]="vote" />
-          }
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-6">
+  @for (vote of votingDetails().votes; track vote.MP) {
+    <div class="flex flex-col gap-2 bg-base-100 rounded-lg p-2">
+      <div class="flex gap-2">
+        <sm-member-photo
+          class=""
+          [memberId]="vote.MP"
+          [termNum]="votingDetails().term" />
+        <div class="flex flex-col flex-1">
+          <div>{{ vote.firstName }}</div>
+          <div>{{ vote.lastName }}</div>
+        </div>
+        <div class="text-right text-xs">
+          {{ vote.club }}
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        @if (vote.listVotes) {
+          <sm-mp-list-vote
+            [vote]="vote"
+            [votingOptions]="votingDetails().votingOptions" />
+        } @else {
+          <sm-mp-vote [vote]="vote" />
+        }
+      </div>
+    </div>
+  }
+</div>
