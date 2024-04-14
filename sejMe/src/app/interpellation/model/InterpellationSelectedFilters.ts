@@ -1,4 +1,4 @@
-export type InterpallationSelectedFilters = {
+export type InterpellationSelectedFilters = {
   offset: number;
   limit: number;
   sort_by: InterpellationSortableFields;
