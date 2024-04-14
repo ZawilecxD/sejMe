@@ -1,1 +1,6 @@
-export type CollectionStateStatus = 'pending' | 'loading' | 'error' | 'success';
+export enum CollectionStateStatus {
+  Pending = 'pending',
+  Loading = 'loading',
+  Error = 'error',
+  Success = 'success',
+}

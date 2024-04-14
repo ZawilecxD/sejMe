@@ -23,7 +23,7 @@ const proceedingsReducer = createReducer(
   initialState,
   on(ProceedingActions.loadProceedingsList, state => ({
     ...state,
-    status: 'loading' as CollectionStateStatus,
+    status: CollectionStateStatus.Loading,
   })),
   on(ProceedingActions.loadProceedingsListSuccess, (state, { proceedings }) => {
     const proceedingMap = new Map();
@@ -33,13 +33,13 @@ const proceedingsReducer = createReducer(
       allProceedings: proceedingMap,
       filteredProceedings: proceedings,
       error: null,
-      status: 'success' as CollectionStateStatus,
+      status: CollectionStateStatus.Success,
     };
   }),
   on(ProceedingActions.loadProceedingsListError, (state, { error }) => ({
     ...state,
     error,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
   })),
   on(ProceedingActions.filterProceedingsList, (state, { filters }) => {
     const filteredProceedings = filterProceedings(

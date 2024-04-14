@@ -14,7 +14,7 @@ export interface ClubState extends CollectionState {
 
 export const initialState: ClubState = {
   allClubs: new Map(),
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
   selectedTerm: null,
 };
@@ -23,18 +23,18 @@ export const clubReducer = createReducer(
   initialState,
   on(ClubActions.loadClubs, state => ({
     ...state,
-    status: 'loading' as CollectionStateStatus,
+    status: CollectionStateStatus.Loading,
   })),
   on(ClubActions.loadClubsSuccess, (state, { clubs }) => {
     return {
       ...state,
-      status: 'success' as CollectionStateStatus,
+      status: CollectionStateStatus.Success,
       allClubs: new Map(clubs.map(club => [club.id, club])),
     };
   }),
   on(ClubActions.loadClubsFailure, (state, { error }) => ({
     ...state,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
     error,
   })),
   on(ClubActions.updateClubsSelectedTerm, (state, { term }) => ({

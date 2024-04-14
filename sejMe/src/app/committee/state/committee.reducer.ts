@@ -15,7 +15,7 @@ export interface CommitteeState extends CollectionState {
 const initialState: CommitteeState = {
   allCommittees: new Map(),
   filteredCommittees: [],
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
 };
 
@@ -23,7 +23,7 @@ const committeesReducer = createReducer(
   initialState,
   on(CommitteeActions.loadCommitteesList, state => ({
     ...state,
-    status: 'loading' as CollectionStateStatus,
+    status: CollectionStateStatus.Loading,
   })),
   on(CommitteeActions.loadCommitteesListSuccess, (state, { committees }) => {
     const committeeMap = new Map();
@@ -33,13 +33,13 @@ const committeesReducer = createReducer(
       allCommittees: committeeMap,
       filteredCommittees: committees,
       error: null,
-      status: 'success' as CollectionStateStatus,
+      status: CollectionStateStatus.Success,
     };
   }),
   on(CommitteeActions.loadCommitteesListError, (state, { error }) => ({
     ...state,
     error,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
   })),
   on(CommitteeActions.filterCommitteesList, (state, { filters }) => {
     const filteredCommittees = filterCommittees(

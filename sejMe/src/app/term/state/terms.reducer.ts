@@ -12,7 +12,7 @@ export interface TermsState extends CollectionState {
 
 export const initialState: TermsState = {
   terms: [],
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
 };
 
@@ -26,12 +26,12 @@ const termsReducer = createReducer(
     ...state,
     terms,
     error: null,
-    status: 'success' as CollectionStateStatus,
+    status: CollectionStateStatus.Success,
   })),
   on(TermsActions.loadTermsError, (state, { error }) => ({
     ...state,
     error,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
   }))
 );
 

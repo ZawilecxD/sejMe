@@ -15,7 +15,7 @@ export interface MemberState extends CollectionState {
 export const initialState: MemberState = {
   allMembers: new Map(),
   filteredMembers: [],
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
 };
 
@@ -23,7 +23,7 @@ const membersReducer = createReducer(
   initialState,
   on(MemberActions.loadMembersList, state => ({
     ...state,
-    status: 'loading' as CollectionStateStatus,
+    status: CollectionStateStatus.Loading,
   })),
   on(MemberActions.loadMembersListSuccess, (state, { members }) => {
     const membersMap = new Map();
@@ -33,13 +33,13 @@ const membersReducer = createReducer(
       allMembers: membersMap,
       filteredMembers: members,
       error: null,
-      status: 'success' as CollectionStateStatus,
+      status: CollectionStateStatus.Success,
     };
   }),
   on(MemberActions.loadMembersListError, (state, { error }) => ({
     ...state,
     error,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
   })),
   on(MemberActions.filterMembersList, (state, { filters }) => {
     const filteredMembers = filterMembers(

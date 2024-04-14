@@ -23,7 +23,7 @@ const votingReducer = createReducer(
   initialState,
   on(VotingActions.loadVotingsList, state => ({
     ...state,
-    status: 'loading' as CollectionStateStatus,
+    status: CollectionStateStatus.Loading,
   })),
   on(VotingActions.loadVotingsListSuccess, (state, { votings }) => {
     const votingsMap = new Map(votings.map(v => [v.votingNumber, v]));
@@ -31,13 +31,13 @@ const votingReducer = createReducer(
       ...state,
       allVotings: votingsMap,
       error: null,
-      status: 'success' as CollectionStateStatus,
+      status: CollectionStateStatus.Success,
     };
   }),
   on(VotingActions.loadVotingsListError, (state, { error }) => ({
     ...state,
     error,
-    status: 'error' as CollectionStateStatus,
+    status: CollectionStateStatus.Error,
   }))
 );
 
