@@ -25,6 +25,14 @@ export const APP_ROUTES: Routes = [
           import('./member/member.routes').then(m => m.MEMBER_ROUTES),
       },
       {
+        path: 'interpellations',
+        title: 'Interpelacje',
+        loadChildren: () =>
+          import('./interpellation/interpellations.routes').then(
+            m => m.INTERPELLATIONS_ROUTES
+          ),
+      },
+      {
         path: 'committee',
         title: 'Komisje',
         loadChildren: () =>
