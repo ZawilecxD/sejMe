@@ -6,8 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './interpellation-list-page.component.html',
   styleUrl: './interpellation-list-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InterpellationListPageComponent {
-
-}
+export class InterpellationListPageComponent {}
