@@ -115,7 +115,7 @@ export class MembersFiltersComponent {
     this.store.dispatch(updateSelectedProfessions({ professions }));
   }
 
-  updateselectedVoivodeships(voivodeships: string[] | null) {
+  updateSelectedVoivodeships(voivodeships: string[] | null) {
     this.store.dispatch(updateselectedVoivodeships({ voivodeships }));
   }
 

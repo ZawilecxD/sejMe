@@ -1,6 +1,4 @@
 export type InterpellationSelectedFilters = {
-  offset: number;
-  limit: number;
   sort_by: InterpellationSortableFields;
   title: string;
   /**
@@ -23,6 +21,11 @@ export type InterpellationSelectedFilters = {
    * Datetime, example value "2021-01-01T10:12"
    */
   modifiedSince: string;
+};
+
+export type InterpellationsPagination = {
+  offset: number;
+  limit: number;
 };
 
 export type InterpellationSortableFields =

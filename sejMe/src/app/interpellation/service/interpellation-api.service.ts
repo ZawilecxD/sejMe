@@ -2,7 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpUtilsService } from '../../shared/service/http-utils.service';
 import { Interpellation } from '../model/Interpellation';
-import { InterpellationSelectedFilters } from '../model/InterpellationSelectedFilters';
+import {
+  InterpellationSelectedFilters,
+  InterpellationsPagination,
+} from '../model/InterpellationSelectedFilters';
 
 @Injectable({ providedIn: 'root' })
 export class InterpellationApiService {
@@ -10,7 +13,11 @@ export class InterpellationApiService {
   private readonly http = inject(HttpClient);
   private readonly apiPath = 'interpellations';
 
-  fetchList(term: number, filters: Partial<InterpellationSelectedFilters>) {
+  fetchList(
+    term: number,
+    pagination: InterpellationsPagination,
+    filters: Partial<InterpellationSelectedFilters>
+  ) {
     const filtersKEys = Object.keys(
       filters
     ) as (keyof InterpellationSelectedFilters)[];
