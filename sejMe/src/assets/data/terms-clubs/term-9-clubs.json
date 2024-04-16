@@ -1,0 +1,52 @@
+[
+  {
+    "id": "KO",
+    "membersCount": 129,
+    "name": "Klub Parlamentarny Koalicja Obywatelska - Platforma Obywatelska, Nowoczesna, Inicjatywa Polska, Zieloni"
+  },
+  {
+    "id": "Konfederacja",
+    "membersCount": 11,
+    "name": "Koło Poselskie Konfederacja"
+  },
+  {
+    "id": "KP",
+    "membersCount": 26,
+    "name": "Klub Parlamentarny Koalicja Polska - PSL, UED, Konserwatyści"
+  },
+  {
+    "id": "Kukiz15",
+    "membersCount": 3,
+    "name": "Koło Poselskie Kukiz'15 - Demokracja Bezpośrednia"
+  },
+  {
+    "id": "LD",
+    "membersCount": 3,
+    "name": "Koło Parlamentarne Lewicy Demokratycznej"
+  },
+  {
+    "id": "Lewica",
+    "membersCount": 42,
+    "name": "Koalicyjny Klub Parlamentarny Lewicy (Nowa Lewica, PPS, Razem)"
+  },
+  {
+    "id": "niez.",
+    "membersCount": 9,
+    "name": "Posłowie niezrzeszeni"
+  },
+  {
+    "id": "PiS",
+    "membersCount": 227,
+    "name": "Klub Parlamentarny Prawo i Sprawiedliwość"
+  },
+  {
+    "id": "Polska2050",
+    "membersCount": 6,
+    "name": "Koło Parlamentarne Polska 2050"
+  },
+  {
+    "id": "PS",
+    "membersCount": 3,
+    "name": "Koło Poselskie Polskie Sprawy"
+  }
+]

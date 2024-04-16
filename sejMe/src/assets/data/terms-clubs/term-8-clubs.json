@@ -1,0 +1,47 @@
+[
+  {
+    "id": "Konfederacja",
+    "membersCount": 4,
+    "name": "Koło Poselskie Konfederacja"
+  },
+  {
+    "id": "Kukiz15",
+    "membersCount": 16,
+    "name": "Klub Poselski Kukiz'15"
+  },
+  {
+    "id": "niez.",
+    "membersCount": 12,
+    "name": "Posłowie niezrzeszeni"
+  },
+  {
+    "id": "PiS",
+    "membersCount": 239,
+    "name": "Klub Parlamentarny Prawo i Sprawiedliwość"
+  },
+  {
+    "id": "PO-KO",
+    "membersCount": 155,
+    "name": "Klub Parlamentarny Platforma Obywatelska - Koalicja Obywatelska"
+  },
+  {
+    "id": "PP",
+    "membersCount": 3,
+    "name": "Koło Poselskie Przywrócić Prawo"
+  },
+  {
+    "id": "PSL-KP",
+    "membersCount": 22,
+    "name": "Klub Parlamentarny Polskie Stronnictwo Ludowe - Koalicja Polska"
+  },
+  {
+    "id": "TERAZ!",
+    "membersCount": 3,
+    "name": "Koło Poselskie TERAZ!"
+  },
+  {
+    "id": "UPR",
+    "membersCount": 4,
+    "name": "Koło Poselskie Unia Polityki Realnej"
+  }
+]

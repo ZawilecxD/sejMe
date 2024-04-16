@@ -1,0 +1,42 @@
+[
+  {
+    "id": "BC",
+    "membersCount": 4,
+    "name": "Koło Poselskie Biało-Czerwoni"
+  },
+  {
+    "id": "niez.",
+    "membersCount": 25,
+    "name": "Posłowie niezrzeszeni"
+  },
+  {
+    "id": "PiS",
+    "membersCount": 134,
+    "name": "Klub Parlamentarny Prawo i Sprawiedliwość"
+  },
+  {
+    "id": "PO",
+    "membersCount": 196,
+    "name": "Klub Parlamentarny Platforma Obywatelska"
+  },
+  {
+    "id": "PSL",
+    "membersCount": 38,
+    "name": "Klub Parlamentarny Polskiego Stronnictwa Ludowego"
+  },
+  {
+    "id": "RP",
+    "membersCount": 11,
+    "name": "Koło Poselskie Ruch Palikota"
+  },
+  {
+    "id": "SLD",
+    "membersCount": 35,
+    "name": "Klub Poselski Sojusz  Lewicy Demokratycznej"
+  },
+  {
+    "id": "ZP",
+    "membersCount": 16,
+    "name": "Klub Parlamentarny Zjednoczona Prawica"
+  }
+]
