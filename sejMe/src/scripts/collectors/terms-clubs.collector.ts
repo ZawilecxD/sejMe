@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 import * as fs from 'fs';
-import { ParliamentMember } from '../../app/member/model/ParliamentMember';
 import { Club } from '../../app/club/model/Club';
 const DEFAULT_RESULT_DIRECTORY_PATH = '../../assets/data/terms-clubs';
 const program = new Command();
