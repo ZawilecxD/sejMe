@@ -1,10 +1,8 @@
 import * as fs from 'fs';
 import { createProgramWithTermOptions } from '../program-term-options';
 import { Interpellation } from '../../app/interpellation/model/Interpellation';
-import { Term } from '../../app/term/model/Term';
+
 const DEFAULT_RESULT_DIRECTORY_PATH = '../../assets/data/terms-votings';
-const TERMS_WITH_SITTINGS_FILE_PATH =
-  '../../assets/data/terms-with-sittings.json';
 const MAX_EMPTY_RESPONSES = 5;
 const PAGE_SIZE = 100;
 
@@ -19,22 +17,7 @@ const { startTerm, endTerm, resultDirectoryPath } =
     'interpellation.collector.ts'
   );
 
-const termsWithSittings = readTermsWithSittings();
-if (!termsWithSittings?.length) {
-  process.exit(-1);
-}
 void fetchAllInterpellations();
-
-function readTermsWithSittings(): Term[] {
-  try {
-    return JSON.parse(
-      fs.readFileSync(TERMS_WITH_SITTINGS_FILE_PATH, { encoding: 'utf-8' })
-    );
-  } catch (error) {
-    console.error('An error occurred while reading the file:', error);
-    return [];
-  }
-}
 
 async function fetchAllInterpellations() {
   for (let termNum = startTerm; termNum <= endTerm; termNum++) {
@@ -75,7 +58,10 @@ async function fetchInterpellationsPage(
   term: number,
   page: number
 ): Promise<Interpellation[] | null> {
-  const url = `https://api.sejm.gov.pl/sejm/term${term}/interpellations?offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}`;
+  const offsetValue = page * PAGE_SIZE;
+  const offsetParam = offsetValue ? `&offset=${offsetValue}` : '';
+  const url = `https://api.sejm.gov.pl/sejm/term${term}/interpellations?limit=${PAGE_SIZE}${offsetParam}`;
+  console.log(`Trying ${url}`);
   const response = await fetch(url);
   const jsonData = await response.json();
   console.log(
