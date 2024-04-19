@@ -1,7 +1,7 @@
 import { InterpellationLink } from './InterpellationLink';
 import { InterpellationReply } from './InterpellationReply';
 
-export interface Interpellation {
+export type Interpellation = {
   term: number;
   num: number;
   title: string;
@@ -25,4 +25,4 @@ export interface Interpellation {
   receiptDate: string;
   links: InterpellationLink[];
   replies: InterpellationReply[];
-}
+};

@@ -1,5 +1,5 @@
 /**
- * This collector is based on the data collected by terms-votings.collector.ts.
+ * This collector is based on the data collected by votings.collector.ts.
  * It is beacuse sittings are not available anywhere so we gather them from all collected votings.
  * This skips current term as it is not yet finished and does not have all votings and sittings data.
  */
@@ -9,7 +9,7 @@ import { Voting } from '../../app/voting/model/voting.model';
 const termsVotingsFilesDirectory = '../../assets/data/terms-votings';
 const resultFilePath = '../../assets/data/terms-with-sittings.json';
 
-fetchAllData();
+fetchAllData().then();
 
 async function fetchAllData() {
   const terms = await fetchTermsBasicData();
