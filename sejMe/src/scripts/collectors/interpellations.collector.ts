@@ -2,12 +2,12 @@ import * as fs from 'fs';
 import { createProgramWithTermOptions } from '../program-term-options';
 import { Interpellation } from '../../app/interpellation/model/Interpellation';
 
-const DEFAULT_RESULT_DIRECTORY_PATH = '../../assets/data/terms-votings';
+const DEFAULT_RESULT_DIRECTORY_PATH = '../../assets/data/terms-interpellations';
 const MAX_EMPTY_RESPONSES = 5;
 const PAGE_SIZE = 100;
 
 /**
- * Fetches interpellations and organizes them in a map where it stores all interpellations per sitting per term.
+ * Fetches interpellations and organizes them in a map where it stores all interpellations per term.
  * Sejm API provides data for interpellations since term=7.
  */
 

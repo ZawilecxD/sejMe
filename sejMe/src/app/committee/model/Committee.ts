@@ -1,7 +1,8 @@
 import { CommitteeType } from './CommitteeType';
 import { CommitteeMember } from './CommitteeMember';
+import { CommitteeSitting } from './CommitteeSitting';
 
-export interface Committee {
+export type Committee = {
   code: string;
   name: string;
   nameGenitive: string;
@@ -11,4 +12,8 @@ export interface Committee {
   compositionDate: Date;
   scope: string;
   members: CommitteeMember[];
-}
+};
+
+export type CommitteeWithSittings = Committee & {
+  sittings: CommitteeSitting[];
+};
