@@ -1,5 +1,8 @@
 import { Params, ResolveFn } from '@angular/router';
-import { InterpellationSelectedFilters } from '../model/InterpellationSelectedFilters';
+import {
+  InterpellationSelectedFilters,
+  InterpellationSelectedFiltersWithPagination,
+} from '../model/InterpellationSelectedFilters';
 
 export const resolveMembersFiltersFromRoute: ResolveFn<
   Partial<InterpellationSelectedFilters>
@@ -9,7 +12,7 @@ export const resolveMembersFiltersFromRoute: ResolveFn<
 
 function selectedInterpellationsFiltersFromRouteParams(
   params: Params
-): Partial<InterpellationSelectedFilters> {
+): Partial<InterpellationSelectedFiltersWithPagination> {
   return {
     from: params['search'],
     to: params['search'],

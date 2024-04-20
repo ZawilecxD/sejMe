@@ -28,6 +28,9 @@ export type InterpellationsPagination = {
   limit: number;
 };
 
+export type InterpellationSelectedFiltersWithPagination =
+  InterpellationSelectedFilters & InterpellationsPagination;
+
 export type InterpellationSortableFields =
   | 'lastModified'
   | 'num'

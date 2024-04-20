@@ -15,7 +15,7 @@ export interface VotingState extends CollectionState {
 
 export const initialState: VotingState = {
   allVotings: new Map(),
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
 };
 

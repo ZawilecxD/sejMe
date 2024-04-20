@@ -15,7 +15,7 @@ export interface ProceedingsState extends CollectionState {
 const initialState: ProceedingsState = {
   allProceedings: new Map(),
   filteredProceedings: [],
-  status: 'pending',
+  status: CollectionStateStatus.Pending,
   error: null,
 };
 
