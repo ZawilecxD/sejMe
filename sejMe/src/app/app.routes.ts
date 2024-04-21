@@ -45,14 +45,6 @@ export const APP_ROUTES: Routes = [
           import('./club/club.routes').then(m => m.CLUBS_ROUTES),
       },
       {
-        path: 'proceeding',
-        title: 'Posiedzenia',
-        loadChildren: () =>
-          import('./proceeding/proceeding.routes').then(
-            m => m.PROCEEDINGS_ROUTES
-          ),
-      },
-      {
         path: 'parliament-hall',
         title: 'Sala plenarna',
         resolve: {

@@ -26,7 +26,6 @@ export class NavbarLinksComponent {
     { label: 'Kluby', route: 'club' },
     { label: 'Głosowania', route: 'voting' },
     { label: 'Komisje', route: 'committee' },
-    { label: 'Posiedzenia', route: 'proceeding' },
     { label: 'Druki sejmowe', route: 'print' },
     { label: 'Interpelacje', route: 'interpelation' },
     { label: 'Procesy legislacyjne', route: 'legislation' },
