@@ -15,7 +15,7 @@ export const resolveTerms: ResolveFn<Term[]> = () => {
       if (terms?.length) {
         return of(terms);
       }
-      return termsApi.fetchList();
+      return termsApi.fetchList().pipe(tap(console.log));
     }),
     tap(terms => store.dispatch(setTerms({ terms })))
   );

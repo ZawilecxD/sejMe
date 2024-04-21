@@ -19,10 +19,10 @@ import {
   TermSitting,
   compareTermsByNumber,
 } from 'src/app/term/model/Term';
-import { selectAllTermsWithSittings } from 'src/app/term/state/terms.selectors';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { combineLatest, map, shareReplay, take, tap } from 'rxjs';
+import { selectAllTerms } from '../../../term/state/terms.selectors';
 
 @Component({
   selector: 'sm-voting-filters',
@@ -42,9 +42,7 @@ export class VotingFiltersComponent implements OnInit {
 
   readonly selectedSitting = signal<TermSitting | null>(null);
   readonly selectedSittingDay = signal<number | null>(null);
-  readonly terms$ = this.store
-    .select(selectAllTermsWithSittings)
-    .pipe(shareReplay(1));
+  readonly terms$ = this.store.select(selectAllTerms).pipe(shareReplay(1));
   readonly compareTerms = compareTermsByNumber;
 
   constructor() {
