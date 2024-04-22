@@ -2,6 +2,7 @@
   {
     "current": false,
     "from": "1993-10-14",
+    "label": "II kadencja (1993-10-14 - 1997-10-19)",
     "num": 2,
     "prints": {
       "count": 0,
@@ -13,6 +14,7 @@
   {
     "current": false,
     "from": "1997-10-20",
+    "label": "III kadencja (1997-10-20 - 2001-10-18)",
     "num": 3,
     "prints": {
       "count": 0,
@@ -993,6 +995,7 @@
   {
     "current": false,
     "from": "2001-10-19",
+    "label": "IV kadencja (2001-10-19 - 2005-10-18)",
     "num": 4,
     "to": "2005-10-18",
     "sittings": [
@@ -1920,6 +1923,7 @@
   {
     "current": false,
     "from": "2005-10-19",
+    "label": "V kadencja (2005-10-19 - 2007-11-04)",
     "num": 5,
     "to": "2007-11-04",
     "sittings": [
@@ -2322,6 +2326,7 @@
   {
     "current": false,
     "from": "2007-11-05",
+    "label": "VI kadencja (2007-11-05 - 2011-11-07)",
     "num": 6,
     "to": "2011-11-07",
     "sittings": [
@@ -3127,6 +3132,7 @@
   {
     "current": false,
     "from": "2011-11-08",
+    "label": "VII kadencja (2011-11-08 - 2015-11-11)",
     "num": 7,
     "to": "2015-11-11",
     "sittings": [
@@ -3879,6 +3885,7 @@
   {
     "current": false,
     "from": "2015-11-12",
+    "label": "VIII kadencja (2015-11-12 - 2019-11-11)",
     "num": 8,
     "to": "2019-11-11",
     "sittings": [
@@ -4579,6 +4586,7 @@
   {
     "current": false,
     "from": "2019-11-12",
+    "label": "IX kadencja (2019-11-12 - 2023-11-12)",
     "num": 9,
     "to": "2023-11-12",
     "sittings": [

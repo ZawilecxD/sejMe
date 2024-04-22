@@ -86,6 +86,7 @@ export class MembersFiltersComponent {
     selectSelectedVoivodeships
   );
   shoWAdditionalFilters = false;
+  showFilters = false;
 
   onTermSelect(term: Term) {
     this.store.dispatch(updateSelectedTerm({ term }));
@@ -125,5 +126,9 @@ export class MembersFiltersComponent {
 
   clearFilters() {
     this.store.dispatch(clearMembersFilters());
+  }
+
+  toggleFiltersSection() {
+    this.showFilters = !this.showFilters;
   }
 }
