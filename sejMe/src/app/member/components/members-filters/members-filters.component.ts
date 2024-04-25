@@ -34,6 +34,7 @@ import { ItemSelectComponent } from 'src/app/shared/component/item-select/item-s
 import { ItemMultiSelectComponent } from 'src/app/shared/component/item-multi-select/item-multi-select.component';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { AppCheckboxGroupComponent } from '../../../shared/component/app-checkbox-group/app-checkbox-group.component';
 
 @Component({
   standalone: true,
@@ -42,6 +43,7 @@ import { AsyncPipe } from '@angular/common';
     ItemMultiSelectComponent,
     FormsModule,
     AsyncPipe,
+    AppCheckboxGroupComponent,
   ],
   selector: 'sm-members-filters',
   templateUrl: './members-filters.component.html',
