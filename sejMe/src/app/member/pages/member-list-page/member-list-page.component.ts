@@ -9,4 +9,10 @@ import { MembersTableComponent } from '../../components/members-table/members-ta
   styleUrls: ['./member-list-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MemberListPageComponent {}
+export class MemberListPageComponent {
+  showFilters = false;
+
+  toggleFiltersSection() {
+    this.showFilters = !this.showFilters;
+  }
+}
