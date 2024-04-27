@@ -60,7 +60,8 @@ export class AppCheckboxGroupComponent implements ControlValueAccessor {
   label: string = '';
   @Input()
   set options(options: string[]) {
-    this._options = options.sort();
+    this._options = options;
+    this.sortOptions();
   }
   get options() {
     return this._options;
@@ -95,5 +96,18 @@ export class AppCheckboxGroupComponent implements ControlValueAccessor {
       this.value = this.value.filter(v => v !== checkbox.value);
     }
     this.onChange(this.value);
+  }
+
+  private sortOptions(): string[] {
+    return this.options.sort((a, b) => {
+      // sort alphabetically, but sort values present in this.value as first
+      if (this.value.includes(a) && !this.value.includes(b)) {
+        return -1;
+      }
+      if (!this.value.includes(a) && this.value.includes(b)) {
+        return 1;
+      }
+      return a.localeCompare(b);
+    });
   }
 }
