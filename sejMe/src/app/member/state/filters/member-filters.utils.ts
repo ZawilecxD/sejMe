@@ -35,32 +35,32 @@ export function filterMembers(
           mp.lastName.toLocaleLowerCase().includes(searchValue)
       );
     }
-    if (filters.selectedBirthLocations) {
+    if (filters.selectedBirthLocations?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedBirthLocations?.includes(mp.birthLocation)
       );
     }
-    if (filters.selectedClubs) {
+    if (filters.selectedClubs?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedClubs?.includes(mp.club)
       );
     }
-    if (filters.selectedDistrictsNames) {
+    if (filters.selectedDistrictsNames?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedDistrictsNames?.includes(mp.districtName)
       );
     }
-    if (filters.selectedEducationLevels) {
+    if (filters.selectedEducationLevels?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedEducationLevels?.includes(mp.educationLevel)
       );
     }
-    if (filters.selectedProfessions) {
+    if (filters.selectedProfessions?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedProfessions?.includes(mp.profession)
       );
     }
-    if (filters.selectedVoivodeships) {
+    if (filters.selectedVoivodeships?.length) {
       filteredMembers = filteredMembers.filter(mp =>
         filters.selectedVoivodeships?.includes(mp.voivodeship)
       );

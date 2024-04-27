@@ -10,7 +10,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
         <button
           class="text-lg flex justify-between items-center w-full"
           (click)="expanded = !expanded">
-          {{ label }}
+          {{ label }} {{ selectedCount }}
           <span class="ml-6 flex items-center">
             <!--TODO: export as icons-->
             <svg
@@ -65,6 +65,9 @@ export class AppCheckboxGroupComponent implements ControlValueAccessor {
   get options() {
     return this._options;
   }
+  get selectedCount(): string {
+    return this.value.length ? `(${this.value.length})` : '';
+  }
   value: string[] = [];
   expanded = false;
   private _options: string[] = [];
@@ -87,7 +90,7 @@ export class AppCheckboxGroupComponent implements ControlValueAccessor {
   onCheckboxChange(event: Event): void {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
-      this.value.push(checkbox.value);
+      this.value = [...this.value, checkbox.value];
     } else {
       this.value = this.value.filter(v => v !== checkbox.value);
     }

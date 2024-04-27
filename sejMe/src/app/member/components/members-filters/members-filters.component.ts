@@ -35,6 +35,8 @@ import { ItemMultiSelectComponent } from 'src/app/shared/component/item-multi-se
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { AppCheckboxGroupComponent } from '../../../shared/component/app-checkbox-group/app-checkbox-group.component';
+import { debounceTime, Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   standalone: true,
@@ -87,37 +89,54 @@ export class MembersFiltersComponent {
   readonly selectedVoivodeships$ = this.store.select(
     selectSelectedVoivodeships
   );
+  private filtersChange$ = new Subject<void>();
+
+  constructor() {
+    this.filtersChange$
+      .pipe(takeUntilDestroyed(), debounceTime(1000))
+      .subscribe(() => {
+        this.saveFilters();
+      });
+  }
 
   onTermSelect(term: Term) {
     this.store.dispatch(updateSelectedTerm({ term }));
+    this.filtersChange$.next();
   }
 
   updateMembersSearchValue(searchValue: string) {
     this.store.dispatch(updateMembersSearchValue({ searchValue }));
+    this.filtersChange$.next();
   }
 
   updateSelectedBirthLocations(birthLocations: string[] | null) {
     this.store.dispatch(updateSelectedBirthLocations({ birthLocations }));
+    this.filtersChange$.next();
   }
 
   updateSelectedClubs(clubs: string[] | null) {
     this.store.dispatch(updateSelectedClubs({ clubs }));
+    this.filtersChange$.next();
   }
 
   updateSelectedDistrictsNames(districts: string[] | null) {
     this.store.dispatch(updateSelectedDistrictsNames({ districts }));
+    this.filtersChange$.next();
   }
 
   updateSelectedEducationLevels(levels: string[] | null) {
     this.store.dispatch(updateSelectedEducationLevels({ levels }));
+    this.filtersChange$.next();
   }
 
   updateSelectedProfessions(professions: string[] | null) {
     this.store.dispatch(updateSelectedProfessions({ professions }));
+    this.filtersChange$.next();
   }
 
   updateSelectedVoivodeships(voivodeships: string[] | null) {
     this.store.dispatch(updateselectedVoivodeships({ voivodeships }));
+    this.filtersChange$.next();
   }
 
   saveFilters() {

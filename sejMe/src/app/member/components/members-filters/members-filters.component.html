@@ -22,12 +22,6 @@
   </div>
 
   @if (availableBirthLocations$ | async; as birthLocations) {
-    <!--            <sm-item-multi-select-->
-    <!--              label="Miejsce narodzin"-->
-    <!--              classes="w-full"-->
-    <!--              [items]="birthLocations"-->
-    <!--              [ngModel]="selectedBirthLocations$ | async"-->
-    <!--              (ngModelChange)="updateSelectedBirthLocations($event)" />-->
     <sm-checkbox-group
       label="Miejsce narodzin"
       [options]="birthLocations"
@@ -36,43 +30,38 @@
   }
 
   @if (availableClubs$ | async; as clubs) {
-    <sm-item-multi-select
+    <sm-checkbox-group
       label="Klub"
-      classes="w-full"
-      [items]="clubs"
+      [options]="clubs"
       [ngModel]="selectedClubs$ | async"
       (ngModelChange)="updateSelectedClubs($event)" />
   }
 
   @if (availableDistricts$ | async; as districts) {
-    <sm-item-multi-select
+    <sm-checkbox-group
       label="Region"
-      classes="w-full"
-      [items]="districts"
+      [options]="districts"
       [ngModel]="selectedDistrictsNames$ | async"
       (ngModelChange)="updateSelectedDistrictsNames($event)" />
   }
   @if (availableEductionLevels$ | async; as eduLevels) {
-    <sm-item-multi-select
+    <sm-checkbox-group
       label="Wykształcenie"
-      classes="w-full"
-      [items]="eduLevels"
+      [options]="eduLevels"
       [ngModel]="selectedEducationLevels$ | async"
       (ngModelChange)="updateSelectedEducationLevels($event)" />
   }
   @if (availableProfessions$ | async; as professions) {
-    <sm-item-multi-select
+    <sm-checkbox-group
       label="Zawód"
-      classes="w-full"
-      [items]="professions"
+      [options]="professions"
       [ngModel]="selectedProfessions$ | async"
       (ngModelChange)="updateSelectedProfessions($event)" />
   }
   @if (availableVoivodeships$ | async; as voivodeships) {
-    <sm-item-multi-select
+    <sm-checkbox-group
       label="Województwo"
-      classes="w-full"
-      [items]="voivodeships"
+      [options]="voivodeships"
       [ngModel]="selectedVoivodeships$ | async"
       (ngModelChange)="updateSelectedVoivodeships($event)" />
   }
